@@ -23,6 +23,10 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'phone',
+        'address',
+        'bio',
+        'avatar',
     ];
 
     /**
@@ -51,5 +55,26 @@ class User extends Authenticatable
     public function news(): HasMany
     {
         return $this->hasMany(News::class);
+    }
+
+    public function complaints(): HasMany
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
+    /**
+     * Get the news likes for the user.
+     */
+    public function newsLikes(): HasMany
+    {
+        return $this->hasMany(NewsLike::class);
+    }
+
+    /**
+     * Get the comments for the user.
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(NewComment::class);
     }
 }

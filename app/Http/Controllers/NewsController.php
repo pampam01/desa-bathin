@@ -185,11 +185,5 @@ class NewsController extends Controller
 
         return redirect()->route('news.index')->with('success', 'Berita berhasil dihapus.');
 
-        // Controller tetap mengembalikan JSON
-        // return response()->json([
-        //     'success' => true,
-        //     'message' => $deletedCount . ' berita berhasil dihapus.',
-        //     'deleted_ids' => $newsIds // Tetap kirim ID yang dihapus
-        // ]);
     }
 }

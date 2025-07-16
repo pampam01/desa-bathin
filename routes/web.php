@@ -5,6 +5,7 @@ use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ComplaintResponseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,6 +69,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('complaint-response', ComplaintResponseController::class);
     
     Route::resource('users', UserController::class);
+    Route::delete('/users/multiple-delete', [UserController::class, 'multipleDelete'])->name('users.multipleDelete');
+    
+    // Profile routes
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+    Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
 });
 
 

@@ -68,11 +68,11 @@
               </button>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt2">
                 <a class="dropdown-item" href="{{ route('complaints.index') }}">Lihat Semua</a>
-                <a class="dropdown-item" href="{{ route('complaints.pending') }}">Keluhan Pending</a>
+                <a class="dropdown-item" href="{{ route('complaints.pending') }}">Pengaduan Pending</a>
               </div>
             </div>
           </div>
-          <span class="fw-semibold d-block mb-1">Total Keluhan</span>
+          <span class="fw-semibold d-block mb-1">Total Pengaduan</span>
           <h3 class="card-title mb-2">{{ $totalComplaints ?? 0 }}</h3>
           <small class="text-warning fw-semibold">
             <i class="bx bx-time"></i> {{ $pendingComplaints ?? 0 }} menunggu
@@ -144,22 +144,60 @@
             </div>
           </div>
         </div>
-        <div class="card-body">
+        <div class="card-body my-3">
           @if(isset($recentNews) && $recentNews->count() > 0)
             @foreach($recentNews as $news)
-              <div class="d-flex justify-content-start align-items-center mb-3">
-                <div class="avatar flex-shrink-0 me-3">
-                  <span class="avatar-initial rounded bg-label-primary">
-                    <i class="bx bx-news"></i>
-                  </span>
-                </div>
-                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div class="me-2">
-                    <h6 class="mb-0">{{ $news->title }}</h6>
-                    <small class="text-muted">{{ $news->created_at->diffForHumans() }}</small>
+              <div class="card mb-3 border-0 shadow-sm">
+                <div class="row g-0">
+                  <div class="col-md-3">
+                    @if($news->image)
+                      <img src="{{ asset('storage/' . $news->image) }}" 
+                           class="img-fluid rounded-start h-100" 
+                           style="object-fit: cover; min-height: 80px;"
+                           alt="{{ $news->title }}">
+                    @else
+                      <div class="d-flex align-items-center justify-content-center h-100 bg-light rounded-start" 
+                           style="min-height: 80px;">
+                        <i class="bx bx-image text-muted" style="font-size: 2rem;"></i>
+                      </div>
+                    @endif
                   </div>
-                  <div class="user-progress">
-                    <small class="fw-semibold">{{ $news->likes_count ?? 0 }} likes</small>
+                  <div class="col-md-9">
+                    <div class="card-body py-2 px-3">
+                      <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                          <h6 class="card-title mb-1">{{ Str::limit($news->title, 50) }}</h6>
+                          <p class="card-text">
+                            <small class="text-muted">
+                              <i class="bx bx-time-five me-1"></i>
+                              {{ $news->created_at->diffForHumans() }}
+                            </small>
+                          </p>
+                          <p class="card-text">
+                            <small class="text-muted">
+                              {{ Str::limit(strip_tags($news->content), 80) }}
+                            </small>
+                          </p>
+                        </div>
+                        <div class="text-end">
+                          <div class="mb-2">
+                            <span class="badge bg-label-{{ $news->status == 'published' ? 'success' : 'warning' }}">
+                              {{ $news->status == 'published' ? 'Publish' : 'Draft' }}
+                            </span>
+                          </div>
+                          <div class="d-flex gap-2 text-muted">
+                            <small>
+                              <i class="bx bx-like me-1"></i>
+                              {{ $news->likes_count ?? 0 }}
+                            </small>
+                            <small>
+                              <i class="bx bx-show me-1"></i>
+                              {{ $news->views ?? 0 }}
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -179,14 +217,14 @@
     <div class="col-md-6 col-lg-4 order-1 mb-4">
       <div class="card h-100">
         <div class="card-header d-flex align-items-center justify-content-between">
-          <h5 class="card-title m-0 me-2">Keluhan Terbaru</h5>
+          <h5 class="card-title m-0 me-2">Pengaduan Terbaru</h5>
           <div class="dropdown">
             <button class="btn p-0" type="button" id="recentComplaints" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="bx bx-dots-vertical-rounded"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="recentComplaints">
               <a class="dropdown-item" href="{{ route('complaints.index') }}">Lihat Semua</a>
-              <a class="dropdown-item" href="{{ route('complaints.pending') }}">Keluhan Pending</a>
+              <a class="dropdown-item" href="{{ route('complaints.pending') }}">Pengaduan Pending</a>
             </div>
           </div>
         </div>
@@ -217,7 +255,7 @@
           @else
             <div class="text-center py-4">
               <i class="bx bx-message-dots bx-lg text-muted"></i>
-              <p class="text-muted mt-2">Belum ada keluhan</p>
+              <p class="text-muted mt-2">Belum ada Pengaduan</p>
             </div>
           @endif
         </div>

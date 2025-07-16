@@ -57,7 +57,7 @@
           </g>
         </svg>
       </span>
-      <span class="app-brand-text demo menu-text fw-bolder ms-2">Portal Parakan</span>
+      <span class="app-brand-text demo menu-text fw-bolder ms-2 text-capitalize fs-3">Portal Parakan</span>
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -96,21 +96,41 @@
       </ul>
     </li>
 
-    <!-- Keluhan -->
+    <!-- Pengaduan -->
     <li class="menu-item {{ request()->routeIs('complaints.*') ? 'active open' : '' }}">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-message-dots"></i>
-        <div data-i18n="Complaints">Keluhan</div>
+        <div data-i18n="Complaints">Pengaduan</div>
       </a>
       <ul class="menu-sub">
         <li class="menu-item {{ request()->routeIs('complaints.index') ? 'active' : '' }}">
           <a href="{{ route('complaints.index') }}" class="menu-link">
-            <div data-i18n="All Complaints">Semua Keluhan</div>
+            <div data-i18n="All Complaints">Semua Pengaduan</div>
           </a>
         </li>
-        <li class="menu-item {{ request()->routeIs('complaints.pending') ? 'active' : '' }}">
-          <a href="{{ route('complaints.pending') }}" class="menu-link">
-            <div data-i18n="Pending Complaints">Keluhan Pending</div>
+        <li class="menu-item {{ request()->routeIs('complaints.create') ? 'active' : '' }}">
+          <a href="{{ route('complaints.create') }}" class="menu-link">
+            <div data-i18n="Create Complaints">Tambah Pengaduan</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Tanggapan Pengaduan -->
+    <li class="menu-item {{ request()->routeIs('complaint-response.*') ? 'active open' : '' }}">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-message-square-detail"></i>
+        <div data-i18n="Complaint Responses">Tanggapan Pengaduan</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item {{ request()->routeIs('complaint-response.index') ? 'active' : '' }}">
+          <a href="{{ route('complaint-response.index') }}" class="menu-link">
+            <div data-i18n="All Responses">Semua Tanggapan</div>
+          </a>
+        </li>
+        <li class="menu-item {{ request()->routeIs('complaint-response.create') ? 'active' : '' }}">
+          <a href="{{ route('complaint-response.create') }}" class="menu-link">
+            <div data-i18n="Create Response">Tambah Tanggapan</div>
           </a>
         </li>
       </ul>
@@ -125,6 +145,14 @@
       <a href="{{ route('users.index') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-user"></i>
         <div data-i18n="Users">Pengguna</div>
+      </a>
+    </li>
+
+    <!-- Profile -->
+    <li class="menu-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">
+      <a href="{{ route('profile.index') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-user-circle"></i>
+        <div data-i18n="Profile">Profile</div>
       </a>
     </li>
 
