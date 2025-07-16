@@ -98,7 +98,7 @@ resources/views/backend/
 #### 3. **With Breadcrumb**
 ```blade
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
     <li class="breadcrumb-item active">Current Page</li>
 @endsection
 ```

@@ -111,13 +111,13 @@
             <div class="dropdown-divider"></div>
           </li>
           <li>
-            <form method="POST" action="route('logout') ">
+            <form method="POST" action="{{ route('logout')  }}">
               @csrf
-              <a class="dropdown-item" href="route('logout') "
+              <button type="submit" class="dropdown-item""
                  onclick="event.preventDefault(); this.closest('form').submit();">
                 <i class="bx bx-power-off me-2"></i>
                 <span class="align-middle">Keluar</span>
-              </a>
+              </button>
             </form>
           </li>
         </ul>

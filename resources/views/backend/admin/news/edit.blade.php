@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Tambah Berita - Portal Parakan')
+@section('title', 'Edit Berita - Portal Parakan')
 
 @section('page-header')
   <div class="d-flex justify-content-between align-items-center">
     <h4 class="fw-bold py-3 mb-4">
-      <span class="text-muted fw-light">Portal Parakan / Berita /</span> Tambah Berita
+      <span class="text-muted fw-light">Portal Parakan / Berita /</span> Edit Berita
     </h4>
     <a href="{{ route('news.index') }}" class="btn btn-outline-secondary">
       <i class="bx bx-arrow-back me-1"></i> Kembali
@@ -16,7 +16,7 @@
 @section('breadcrumb')
   <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
   <li class="breadcrumb-item"><a href="{{ route('news.index') }}">Berita</a></li>
-  <li class="breadcrumb-item active">Tambah Berita</li>
+  <li class="breadcrumb-item active">Edit Berita</li>
 @endsection
 
 @push('styles')
@@ -49,8 +49,9 @@
 @endpush
 
 @section('content')
-  <form action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data" id="newsForm">
+  <form action="{{ route('news.update', $news->id) }}" method="POST" enctype="multipart/form-data" id="newsForm">
     @csrf
+    @method('PUT')
     <div class="row">
       <!-- Main Content -->
       <div class="col-md-8">
@@ -63,7 +64,7 @@
             <div class="mb-3">
               <label for="title" class="form-label">Judul Berita <span class="text-danger">*</span></label>
               <input type="text" class="form-control @error('title') is-invalid @enderror" 
-                     id="title" name="title" value="{{ old('title') }}" 
+                     id="title" name="title" value="{{ old('title', $news->title) }}" 
                      placeholder="Masukkan judul berita..." required>
               @error('title')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -75,7 +76,7 @@
             <div class="mb-3">
               <label for="slug" class="form-label">Slug URL</label>
               <input type="text" class="form-control @error('slug') is-invalid @enderror" 
-                     id="slug" name="slug" value="{{ old('slug') }}" 
+                     id="slug" name="slug" value="{{ old('slug', $news->slug) }}" 
                      placeholder="otomatis-dari-judul">
               @error('slug')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -87,19 +88,19 @@
             <div class="mb-3">
               <label for="category" class="form-label">Kategori</label>
               <input type="text" class="form-control @error('category') is-invalid @enderror" 
-                     id="category" name="category" value="{{ old('category') }}" 
+                     id="category" name="category" value="{{ old('category', $news->category) }}" 
                      placeholder="Masukkan kategori berita...">
               @error('category')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
-              <div class="form-text">Ringkasan akan tampil di daftar berita (maksimal 300 karakter)</div>
+              <div class="form-text">Kategori berita untuk pengelompokan</div>
             </div>
 
             <!-- Content -->
             <div class="mb-3">
               <label for="content" class="form-label">Konten Berita <span class="text-danger">*</span></label>
-              <textarea class="form-control id="content" name="content" @error('content') is-invalid @enderror" 
-                         required>{{ old('content') }}</textarea>
+              <textarea class="form-control @error('content') is-invalid @enderror" 
+                        id="content" name="content" required>{{ old('content', $news->content) }}</textarea>
               @error('content')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
@@ -109,7 +110,7 @@
             <div class="mb-3">
               <label for="tags" class="form-label">Tags</label>
               <input type="text" class="form-control @error('tags') is-invalid @enderror" 
-                     id="tags" name="tags" value="{{ old('tags') }}" 
+                     id="tags" name="tags" value="{{ old('tags', $news->tags) }}" 
                      placeholder="Tag1, Tag2, Tag3">
               @error('tags')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -128,7 +129,25 @@
             <h5 class="mb-0"><i class="bx bx-image me-2"></i>Gambar Utama</h5>
           </div>
           <div class="card-body">
+            @if($news->image)
+              <!-- Current Image -->
+              <div class="mb-3">
+                <label class="form-label">Gambar Saat Ini</label>
+                <div class="current-image-preview">
+                  <img src="{{ asset('storage/' . $news->image) }}" alt="Current Image" 
+                       class="image-preview mb-2" style="max-height: 150px;">
+                  <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-sm btn-outline-danger" 
+                            onclick="removeCurrentImage()">
+                      <i class="bx bx-trash"></i> Hapus
+                    </button>
+                  </div>
+                </div>
+              </div>
+            @endif
+
             <div class="mb-3">
+              <label class="form-label">{{ $news->image ? 'Ganti Gambar' : 'Pilih Gambar' }}</label>
               <div class="drag-drop-area" id="dragDropArea">
                 <i class="bx bx-cloud-upload bx-lg text-primary mb-2"></i>
                 <p class="mb-2">Seret & lepas gambar di sini</p>
@@ -140,6 +159,9 @@
               
               <input type="file" class="form-control d-none @error('image') is-invalid @enderror" 
                      id="image" name="image" accept="image/*" onchange="previewImage(this)">
+              
+              <!-- Hidden field to track image removal -->
+              <input type="hidden" id="remove_image" name="remove_image" value="0">
               
               @error('image')
                 <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -173,8 +195,8 @@
             <div class="mb-3">
               <label for="status" class="form-label">Status</label>
               <select class="form-select @error('status') is-invalid @enderror" id="status" name="status">
-                <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft</option>
-                <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>Dipublikasikan</option>
+                <option value="draft" {{ old('status', $news->status) == 'draft' ? 'selected' : '' }}>Draft</option>
+                <option value="published" {{ old('status', $news->status) == 'published' ? 'selected' : '' }}>Dipublikasikan</option>
               </select>
               @error('status')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -182,15 +204,16 @@
             </div>
 
             <!-- Publish Date -->
-            <div class="mb-3">
+            {{-- <div class="mb-3">
               <label for="published_at" class="form-label">Tanggal Publikasi</label>
               <input type="datetime-local" class="form-control @error('published_at') is-invalid @enderror" 
-                     id="published_at" name="published_at" value="{{ old('published_at') }}">
+                     id="published_at" name="published_at" 
+                     value="{{ old('published_at', $news->published_at) }}">
               @error('published_at')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
               <div class="form-text">Kosongkan untuk publikasi sekarang</div>
-            </div>
+            </div> --}}
 
             {{-- <!-- Featured -->
             <div class="mb-3">
@@ -218,7 +241,7 @@
             <!-- Action Buttons -->
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-primary">
-                <i class="bx bx-save me-1"></i> Simpan Berita
+                <i class="bx bx-save me-1"></i> Update Berita
               </button>
               <a href="{{ route('news.index') }}" class="btn btn-outline-danger">
                 <i class="bx bx-x me-1"></i> Batal
@@ -341,6 +364,12 @@
     function removeImage() {
       document.getElementById('image').value = '';
       document.getElementById('imagePreview').classList.add('d-none');
+      document.getElementById('dragDropArea').style.display = 'block';
+    }
+
+    function removeCurrentImage() {
+      document.getElementById('remove_image').value = '1';
+      document.querySelector('.current-image-preview').style.display = 'none';
       document.getElementById('dragDropArea').style.display = 'block';
     }
 
