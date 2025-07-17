@@ -17,7 +17,7 @@ Website ini bertujuan untuk:
 
 ## 🛠️ Teknologi yang Digunakan
 
-- **Backend**: Laravel 11 (PHP Framework)
+- **Backend**: Laravel 12 (PHP Framework)
 - **Frontend**: Bootstrap 5.3 + Blade Templates
 - **Database**: MySQL 8.0+
 - **Authentication**: Laravel Sanctum
@@ -38,7 +38,7 @@ Website ini bertujuan untuk:
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/your-username/portal-parakan.git
+git clone https://github.com/rifkifiransah/portal-parakan.git
 cd portal-parakan
 ```
 
@@ -63,8 +63,8 @@ DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=portal_parakan
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
+DB_USERNAME=root
+DB_PASSWORD=
 ```
 
 ### 5. Database Migration & Seeding
