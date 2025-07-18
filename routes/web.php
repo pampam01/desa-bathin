@@ -17,7 +17,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Static pages
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.index');
 })->name('welcome');
 
 Route::get('/terms', function () {
@@ -77,28 +77,3 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
     Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
 });
-
-
-// Route::get('/news', function () {
-//     return view('backend.admin.news.index');
-// })->name('news.index');
-
-// Route::get('/news/create', function () {
-//     return view('backend.admin.news.create');
-// })->name('news.create');
-
-// Route::get('/complaints', function () {
-//     return view('backend.admin.news.create');
-// })->name('complaints.index');
-
-// Route::get('/complaints/create', function () {
-//     return view('backend.admin.news.create');
-// })->name('complaints.pending');
-
-// Route::get('/users', function () {
-//     return view('backend.admin.news.create');
-// })->name('users.index');
-
-// Route::get('/users/create', function () {
-//     return view('backend.admin.news.create');
-// })->name('users.create');
