@@ -49,7 +49,7 @@ class AuthController extends Controller
             if ($user->role === 'admin') {
                 return redirect()->intended('/dashboard');
             } else {
-                return redirect()->intended('/');
+                return redirect()->intended('/dashboard-masyarakat');
             }
         }
 
@@ -99,7 +99,7 @@ class AuthController extends Controller
         if ($user->role === 'admin') {
             return redirect('/dashboard')->with('success', 'Akun berhasil dibuat! Selamat datang di Portal Parakan.');
         } else {
-            return redirect('/')->with('success', 'Akun berhasil dibuat! Selamat datang di Portal Parakan.');
+            return redirect('/dashboard-masyarakat')->with('success', 'Akun berhasil dibuat! Selamat datang di Portal Parakan.');
         }
     }
 
