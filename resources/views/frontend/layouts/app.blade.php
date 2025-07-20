@@ -70,7 +70,7 @@
                         <h2>Mari Bersama Membangun Desa</h2>
                         <p>Bergabunglah dengan kami dalam memajukan Desa Parakan. Suara dan partisipasi Anda sangat berarti bagi masa depan desa.</p>
                         <div class="footer-cta-buttons">
-                            <a href="{{ route('welcome') }}#tentang" class="footer-cta-btn">
+                            <a href="#tentang" class="footer-cta-btn">
                                 <i class='bx bx-phone'></i>
                                 Hubungi Kami
                             </a>
@@ -92,15 +92,15 @@
                             <h5>Kontak</h5>
                             <div class="contact-item">
                                 <i class='bx bx-map'></i>
-                                <p>Jl. Desa Parakan No. 123, Kecamatan Maleber, Kabupaten Kuningan, Jawa Barat 45564</p>
+                                <p>{{ $location }}</p>
                             </div>
                             <div class="contact-item">
                                 <i class='bx bx-envelope'></i>
-                                <p>info@desaparakan.desa.id</p>
+                                <p>{{ $email }}</p>
                             </div>
                             <div class="contact-item">
                                 <i class='bx bx-phone'></i>
-                                <p>(0232) 4567890</p>
+                                <p>{{ $telp }}</p>
                             </div>
                             <div class="contact-item">
                                 <i class='bx bx-time'></i>
@@ -113,12 +113,12 @@
                         <div class="footer-column">
                             <h5>Link Terkait</h5>
                             <ul>
-                                <li><a href="{{ route('welcome') }}">Beranda</a></li>
-                                <li><a href="{{ route('welcome') }}#tentang">Tentang Desa</a></li>
-                                <li><a href="{{ route('frontend.news.index') }}">Berita</a></li>
-                                <li><a href="{{ route('welcome') }}#layanan">Layanan</a></li>
+                                <li><a href="#home">Beranda</a></li>
+                                <li><a href="#tentang">Tentang Desa</a></li>
+                                <li><a href="#berita">Berita</a></li>
+                                <li><a href="#layanan">Layanan</a></li>
+                                <li><a href="#pengaduan">Pengaduan</a></li>
                                 <li><a href="{{ route('login') }}">Portal Administrasi</a></li>
-                                <li><a href="{{ route('welcome') }}#pengaduan">Pengaduan Masyarakat</a></li>
                             </ul>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
 
         <div class="footer-bottom">
             <div class="container">
-                <p class="footer-copyright">&copy; 2025 Portal Parakan. Hak Cipta Dilindungi Undang-Undang.</p>
+                <p class="footer-copyright">&copy; 2025 Portal Parakan - KKN Kelompok 7 UNIKU 2025. <br> Hak Cipta Dilindungi Undang-Undang.</p>
             </div>
         </div>
     </footer>

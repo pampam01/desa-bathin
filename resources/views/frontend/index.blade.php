@@ -104,7 +104,7 @@
                         <div class="stat-icon">
                             <i class='bx bx-group'></i>
                         </div>
-                        <div class="stat-number">2,500</div>
+                        <div class="stat-number">{{ $totalPeople }}</div>
                         <div class="stat-label">Jiwa Penduduk</div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                         <div class="stat-icon">
                             <i class='bx bx-home'></i>
                         </div>
-                        <div class="stat-number">650</div>
+                        <div class="stat-number">{{ $totalFamilies }}</div>
                         <div class="stat-label">Rumah Tangga</div>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                         <div class="stat-icon">
                             <i class='bx bx-map-pin'></i>
                         </div>
-                        <div class="stat-number">5</div>
+                        <div class="stat-number">{{ $totalBloks }}</div>
                         <div class="stat-label">Dusun</div>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
                         <div class="stat-icon">
                             <i class='bx bx-trophy'></i>
                         </div>
-                        <div class="stat-number">10+</div>
+                        <div class="stat-number">{{ $totalPrograms }}-+</div>
                         <div class="stat-label">Program Unggulan</div>
                     </div>
                 </div>
@@ -164,15 +164,7 @@
                 <div class="about-text">
                     <h3>Sejarah & Warisan Budaya</h3>
                     <div class="about-divider"></div>
-
-                    <p>Desa Parakan memiliki sejarah panjang yang dimulai sejak abad ke-18. Nama "Parakan" berasal dari
-                        kata "Blerang" yang berarti tempat yang subur dan makmur dalam bahasa Jawa kuno.</p>
-
-                    <p>Dilatarbelakangi oleh sekelompok petani pionir, desa ini berkembang menjadi komunitas yang kuat
-                        dengan nilai-nilai gotong royong dan kekeluargaan yang masih terjaga hingga saat ini.</p>
-
-                    <p>Kini Desa Parakan terus berinovasi dengan berbagai program pembangunan berkelanjutan yang
-                        berfokus pada kesejahteraan masyarakat dan pelestarian lingkungan.</p>
+                    <p>{!! nl2br(e($description)) !!}</p>
                 </div>
             </div>
         </div>
@@ -199,7 +191,7 @@
                             </div>
                             <h4>Visi Desa</h4>
                             <div class="about-divider mx-auto"></div>
-                            <p>Menjadi desa yang mandiri, berdaya saing, dan berkelanjutan</p>
+                            <p>{!! nl2br(e($visi)) !!}</p>
                         </div>
                     </div>
 
@@ -210,8 +202,7 @@
                             </div>
                             <h4>Misi Desa</h4>
                             <div class="about-divider mx-auto"></div>
-                            <p>Meningkatkan kualitas hidup masyarakat melalui pendidikan, kesehatan, dan ekonomi</p>
-                            <p>Sampaikan aspirasi dan keluhan Anda secara online dengan mudah dan cepat</p>
+                            <p>{!! nl2br(e($misi)) !!}</p>
                         </div>
                     </div>
 
@@ -383,15 +374,15 @@
                             <h5>Kontak</h5>
                             <div class="contact-item">
                                 <i class='bx bx-map'></i>
-                                <p>Jl. Desa Parakan No. 123, Kecamatan Maleber, Kabupaten Kuningan, Jawa Barat 45564</p>
+                                <p>{{ $location }}</p>
                             </div>
                             <div class="contact-item">
                                 <i class='bx bx-envelope'></i>
-                                <p>info@desaparakan.desa.id</p>
+                                <p>{{ $email }}</p>
                             </div>
                             <div class="contact-item">
                                 <i class='bx bx-phone'></i>
-                                <p>(0232) 4567890</p>
+                                <p>{{ $telp }}</p>
                             </div>
                             <div class="contact-item">
                                 <i class='bx bx-time'></i>
@@ -427,7 +418,7 @@
 
         <div class="footer-bottom">
             <div class="container">
-                <p class="footer-copyright">&copy; 2025 Portal Parakan. Hak Cipta Dilindungi Undang-Undang.</p>
+                <p class="footer-copyright">&copy; 2025 Portal Parakan - KKN Kelompok 7 UNIKU 2025. <br> Hak Cipta Dilindungi Undang-Undang.</p>
             </div>
         </div>
     </footer>

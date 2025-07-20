@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AboutVillage;
 use App\Models\News;
 use Illuminate\Http\Request;
 
@@ -26,8 +27,19 @@ class NewsController extends Controller
         }
         
         $news = $query->paginate(9);
-        
-        return view('frontend.news.index', compact('news'));
+        $aboutVillage = AboutVillage::first();
+        $totalPeople = $aboutVillage->people_total ?? 0;
+        $totalFamilies = $aboutVillage->family_total ?? 0;
+        $totalBloks = $aboutVillage->blok_total ?? 0;
+        $totalPrograms = $aboutVillage->program_total ?? 0;
+        $description = $aboutVillage->description ?? '';
+        $visi = $aboutVillage->visi ?? '';
+        $misi = $aboutVillage->misi ?? '';
+        $location = $aboutVillage->location ?? '';
+        $telp = $aboutVillage->no_telp ?? '';
+        $email = $aboutVillage->email ?? '';
+
+        return view('frontend.news.index', compact('news', 'totalPeople', 'totalFamilies', 'totalBloks', 'totalPrograms', 'description', 'visi', 'misi', 'location', 'telp', 'email'));
     }
     
     public function show($id)
@@ -40,7 +52,19 @@ class NewsController extends Controller
             ->latest()
             ->take(3)
             ->get();
-        
-        return view('frontend.news.show', compact('news', 'relatedNews'));
+
+        $aboutVillage = AboutVillage::first();
+        $totalPeople = $aboutVillage->people_total ?? 0;
+        $totalFamilies = $aboutVillage->family_total ?? 0;
+        $totalBloks = $aboutVillage->blok_total ?? 0;
+        $totalPrograms = $aboutVillage->program_total ?? 0;
+        $description = $aboutVillage->description ?? '';
+        $visi = $aboutVillage->visi ?? '';
+        $misi = $aboutVillage->misi ?? '';
+        $location = $aboutVillage->location ?? '';
+        $telp = $aboutVillage->no_telp ?? '';
+        $email = $aboutVillage->email ?? '';
+
+        return view('frontend.news.show', compact('news', 'relatedNews', 'totalPeople', 'totalFamilies', 'totalBloks', 'totalPrograms', 'description', 'visi', 'misi', 'location', 'telp', 'email'));
     }
 }

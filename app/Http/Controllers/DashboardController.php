@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AboutVillage;
 use App\Models\Complaint;
 use App\Models\MailSubmission;
 use App\Models\News;
@@ -52,7 +53,7 @@ class DashboardController extends Controller
             'totalLikes'
         ));
     }
-    
+
     public function masyarakat()
     {
         $news = News::all();
@@ -74,7 +75,7 @@ class DashboardController extends Controller
         $newUsersThisMonth = $users->filter(function ($item) {
             return $item->created_at->isCurrentMonth();
         })->count();
-        
+
         $mails = MailSubmission::all();
         $totalMailSubmissions = $mails->count();
         $newMailSubmissionsThisMonth = $mails->filter(function ($item) {
@@ -103,8 +104,18 @@ class DashboardController extends Controller
     {
         $news = News::latest()->take(6)->get();
         $complaints = Complaint::latest()->take(6)->get();
+        $aboutVillage = AboutVillage::first();
+        $totalPeople = $aboutVillage->people_total ?? 0;
+        $totalFamilies = $aboutVillage->family_total ?? 0;
+        $totalBloks = $aboutVillage->blok_total ?? 0;
+        $totalPrograms = $aboutVillage->program_total ?? 0;
+        $description = $aboutVillage->description ?? '';
+        $visi = $aboutVillage->visi ?? '';
+        $misi = $aboutVillage->misi ?? '';
+        $location = $aboutVillage->location ?? '';
+        $telp = $aboutVillage->no_telp ?? '';
+        $email = $aboutVillage->email ?? '';
 
-        return view('frontend.index', compact('news', 'complaints'));
+        return view('frontend.index', compact('news', 'complaints', 'totalPeople', 'totalFamilies', 'totalBloks', 'totalPrograms', 'description', 'visi', 'misi', 'location', 'telp', 'email'));
     }
-
 }

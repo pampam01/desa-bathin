@@ -51,6 +51,7 @@ class MailSubmissionController extends Controller
             'description' => 'required|string',
         ]);
 
+        $data['user_id'] = Auth::user()->id;
         $createMail = MailSubmission::create($data);
 
         if(!$createMail) {
@@ -89,6 +90,7 @@ class MailSubmissionController extends Controller
             'description' => 'required|string',
         ]);
 
+        $data['user_id'] = Auth::user()->id;
         $updateMail = $mailSubmission->update ($data);
 
         if(!$updateMail) {
@@ -196,8 +198,8 @@ class MailSubmissionController extends Controller
         $header = '
         <div style="text-align: center; margin-bottom: 30px;">
             <h2 style="margin: 0; font-size: 16px; font-weight: bold;">PEMERINTAH DESA PARAKAN</h2>
-            <h3 style="margin: 5px 0; font-size: 14px;">KECAMATAN [NAMA_KECAMATAN]</h3>
-            <h3 style="margin: 5px 0; font-size: 14px;">KABUPATEN [NAMA_KABUPATEN]</h3>
+            <h3 style="margin: 5px 0; font-size: 14px;">KECAMATAN MALEBER</h3>
+            <h3 style="margin: 5px 0; font-size: 14px;">KABUPATEN KUNINGAN</h3>
             <hr style="border: 1px solid black; margin: 20px 0;">
         </div>';
 
@@ -286,7 +288,7 @@ class MailSubmissionController extends Controller
                 <p>Parakan, ' . $date . '</p>
                 <p class="bold">Kepala Desa Parakan</p>
                 <br><br><br>
-                <p class="bold underline">[NAMA_KEPALA_DESA]</p>
+                <p class="bold underline">Muhammad Tohir</p>
             </div>
         </body>
         </html>';
@@ -353,7 +355,7 @@ class MailSubmissionController extends Controller
                 <p>Parakan, ' . $date . '</p>
                 <p class="bold">Kepala Desa Parakan</p>
                 <br><br><br>
-                <p class="bold underline">[NAMA_KEPALA_DESA]</p>
+                <p class="bold underline">Muhammad Tohir</p>
             </div>
         </body>
         </html>';
@@ -420,7 +422,7 @@ class MailSubmissionController extends Controller
                 <p>Parakan, ' . $date . '</p>
                 <p class="bold">Kepala Desa Parakan</p>
                 <br><br><br>
-                <p class="bold underline">[NAMA_KEPALA_DESA]</p>
+                <p class="bold underline">Muhammad Tohir</p>
             </div>
         </body>
         </html>';
@@ -490,7 +492,7 @@ class MailSubmissionController extends Controller
                 <p>Parakan, ' . $date . '</p>
                 <p class="bold">Kepala Desa Parakan</p>
                 <br><br><br>
-                <p class="bold underline">[NAMA_KEPALA_DESA]</p>
+                <p class="bold underline">MUHAMMAD_TOHIR</p>
             </div>
         </body>
         </html>';
@@ -557,7 +559,7 @@ class MailSubmissionController extends Controller
                 <p>Parakan, ' . $date . '</p>
                 <p class="bold">Kepala Desa Parakan</p>
                 <br><br><br>
-                <p class="bold underline">[NAMA_KEPALA_DESA]</p>
+                <p class="bold underline">Muhammad Tohir</p>
             </div>
         </body>
         </html>';

@@ -164,8 +164,14 @@
       <span class="menu-header-text">Manajemen</span>
     </li>
 
-    <!-- Users -->
+    <!-- Admin -->
     @if (Auth::user()->role === 'admin')
+      <li class="menu-item {{ request()->routeIs('aboutvillage.*') ? 'active' : '' }}">
+        <a href="{{ route('aboutvillage.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-building-house"></i>
+          <div data-i18n="AboutVillage">Tentang Desa</div>
+        </a>
+      </li>
       <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
         <a href="{{ route('users.index') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-user"></i>

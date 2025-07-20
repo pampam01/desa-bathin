@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutVillageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ComplaintResponseController;
@@ -61,6 +62,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/news/multiple-delete', [NewsController::class, 'multipleDelete'])
         ->name('news.multipleDelete');
     Route::resource('news', NewsController::class);
+
+    Route::resource('aboutvillage', AboutVillageController::class);
     
     Route::get('complaints/pending', [ComplaintController::class, 'pending'])
         ->name('complaints.pending');

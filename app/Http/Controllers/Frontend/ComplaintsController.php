@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AboutVillage;
 use App\Models\Complaint;
 use Illuminate\Http\Request;
 
@@ -26,8 +27,19 @@ class ComplaintsController extends Controller
         }
         
         $complaints = $query->paginate(9);
-        
-        return view('frontend.complaints.index', compact('complaints'));
+        $aboutVillage = AboutVillage::first();
+        $totalPeople = $aboutVillage->people_total ?? 0;
+        $totalFamilies = $aboutVillage->family_total ?? 0;
+        $totalBloks = $aboutVillage->blok_total ?? 0;
+        $totalPrograms = $aboutVillage->program_total ?? 0;
+        $description = $aboutVillage->description ?? '';
+        $visi = $aboutVillage->visi ?? '';
+        $misi = $aboutVillage->misi ?? '';
+        $location = $aboutVillage->location ?? '';
+        $telp = $aboutVillage->no_telp ?? '';
+        $email = $aboutVillage->email ?? '';
+
+        return view('frontend.complaints.index', compact('complaints', 'totalPeople', 'totalFamilies', 'totalBloks', 'totalPrograms', 'description', 'visi', 'misi', 'location', 'telp', 'email'));
     }
     
     public function show($id)
@@ -39,7 +51,19 @@ class ComplaintsController extends Controller
             ->latest()
             ->take(3)
             ->get();
+        
+        $aboutVillage = AboutVillage::first();
+        $totalPeople = $aboutVillage->people_total ?? 0;
+        $totalFamilies = $aboutVillage->family_total ?? 0;
+        $totalBloks = $aboutVillage->blok_total ?? 0;
+        $totalPrograms = $aboutVillage->program_total ?? 0;
+        $description = $aboutVillage->description ?? '';
+        $visi = $aboutVillage->visi ?? '';
+        $misi = $aboutVillage->misi ?? '';
+        $location = $aboutVillage->location ?? '';
+        $telp = $aboutVillage->no_telp ?? '';
+        $email = $aboutVillage->email ?? '';
 
-        return view('frontend.complaints.show', compact('complaints', 'relatedComplaints'));
+        return view('frontend.complaints.show', compact('complaints', 'relatedComplaints', 'totalPeople', 'totalFamilies', 'totalBloks', 'totalPrograms', 'description', 'visi', 'misi', 'location', 'telp', 'email'));
     }
 }
