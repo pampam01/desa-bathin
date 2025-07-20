@@ -6,7 +6,7 @@
       <script>
         document.write(new Date().getFullYear());
       </script>
-      , Portal Parakan - Desa Parakan with ❤️
+      , Portal Desa Parakan - KKN Kelompok 7 UNIKU 2025 with ❤️
     </div>
     <div>
       <a href="route('privacy')" class="footer-link me-4">Kebijakan Privasi</a>

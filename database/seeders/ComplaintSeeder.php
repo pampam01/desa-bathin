@@ -58,7 +58,7 @@ class ComplaintSeeder extends Seeder
         }
 
         // Ambil user masyarakat pertama untuk assign ke complaint
-        $admin = User::where('role', 'admin')->first();
+        $admin = User::where('id', 2)->first();
 
         $complaints = [
             [

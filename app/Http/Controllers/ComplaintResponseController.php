@@ -65,18 +65,18 @@ class ComplaintResponseController extends Controller
      */
     public function create(Request $request)
     {
-        $complaints = Complaint::all();
-        $users = User::all();
-
+        $complaints = Complaint::with('user')->get();
+        $users = User::where('role', 'admin')->get();
+        
         // Get complaint_id from URL parameter if provided
         $selectedComplaintId = $request->get('complaint_id');
         $selectedComplaint = null;
 
         if ($selectedComplaintId) {
-            $selectedComplaint = Complaint::find($selectedComplaintId);
+            $selectedComplaint = Complaint::with('user')->find($selectedComplaintId);
         }
 
-        return view('backend.admin.responses.create', compact('complaints', 'users', 'selectedComplaintId', 'selectedComplaint'));
+        return view('backend.admin.responses.create', compact('complaints', 'selectedComplaintId', 'selectedComplaint', 'users'));
     }
 
     /**
@@ -88,15 +88,12 @@ class ComplaintResponseController extends Controller
             'complaint_id' => 'required|exists:complaints,id',
             'response' => 'required|string|max:5000',
             'status' => 'required|in:pending,process,resolved',
-            'user_id' => 'nullable|exists:users,id',
         ]);
 
         $data = $request->all();
-
-        // If user_id is not provided, use current authenticated user
-        if (!$data['user_id']) {
-            $data['user_id'] = Auth::id();
-        }
+        
+        // Always use the authenticated user as the responder
+        $data['user_id'] = Auth::id();
 
         $response = ComplaintResponse::create($data);
 
@@ -171,5 +168,23 @@ class ComplaintResponseController extends Controller
         // Redirect to complaint responses index or back to complaint detail
         return redirect()->route('complaint-response.index')
             ->with('success', 'Tanggapan berhasil dihapus.');
+    }
+
+    /**
+     * Get complaint details via AJAX
+     */
+    public function getComplaintDetails($id)
+    {
+        try {
+            $complaint = Complaint::with('user')->find($id);
+            
+            if (!$complaint) {
+                return response()->json(['error' => 'Complaint not found'], 404);
+            }
+            
+            return response()->json($complaint);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Server error: ' . $e->getMessage()], 500);
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AboutVillage;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -25,5 +26,17 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ComplaintSeeder::class);
         $this->call(NewsSeeder::class);
+        AboutVillage::create([
+            'people_total' => 1000,
+            'family_total' => 250,
+            'blok_total' => 5,
+            'program_total' => 3,
+            'description' => 'Desa Parakan adalah desa yang terletak di kaki gunung dengan pemandangan alam yang indah.',
+            'visi' => 'Mewujudkan desa yang mandiri dan sejahtera.',
+            'misi' => 'Meningkatkan kualitas hidup masyarakat melalui program-program pembangunan.',
+            'location' => 'Jl. Raya Parakan No.1, Desa Parakan',
+            'no_telp' => '081234567890',
+            'email' => 'info@parakan.id'
+        ]);
     }
 }

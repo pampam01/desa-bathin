@@ -640,7 +640,7 @@
         // Create form and submit
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = `/admin/complaint-response/${id}`;
+        form.action = `/complaint-response/${id}`;
         
         const csrfToken = document.createElement('input');
         csrfToken.type = 'hidden';

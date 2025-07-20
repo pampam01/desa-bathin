@@ -14,7 +14,13 @@ class ComplaintController extends Controller
      */
     public function index()
     {
-        $complaints = Complaint::query();
+        if(Auth::user()->role === 'masyarakat') {
+            // Jika user adalah masyarakat, maka tampilkan hanya berita yang dibuat oleh mereka
+            $complaints = Complaint::where('user_id', Auth::user()->id);
+        } else {
+            // Jika user adalah admin, maka tampilkan semua berita
+            $complaints = Complaint::query();
+        }
 
         // Filter berdasarkan 'search' (judul berita)
         if (request()->has('search') && request()->input('search') != '') {

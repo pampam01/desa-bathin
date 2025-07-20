@@ -88,11 +88,13 @@
             <div data-i18n="All News">Semua Berita</div>
           </a>
         </li>
-        <li class="menu-item {{ request()->routeIs('news.create') ? 'active' : '' }}">
-          <a href="{{ route('news.create') }}" class="menu-link">
-            <div data-i18n="Add News">Tambah Berita</div>
-          </a>
-        </li>
+        @if (Auth::user()->role == 'admin')
+          <li class="menu-item {{ request()->routeIs('news.create') ? 'active' : '' }}">
+            <a href="{{ route('news.create') }}" class="menu-link">
+              <div data-i18n="Add News">Tambah Berita</div>
+            </a>
+          </li>
+        @endif
       </ul>
     </li>
 
@@ -116,37 +118,67 @@
       </ul>
     </li>
 
-    <!-- Tanggapan Pengaduan -->
-    <li class="menu-item {{ request()->routeIs('complaint-response.*') ? 'active open' : '' }}">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-message-square-detail"></i>
-        <div data-i18n="Complaint Responses">Tanggapan Pengaduan</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item {{ request()->routeIs('complaint-response.index') ? 'active' : '' }}">
-          <a href="{{ route('complaint-response.index') }}" class="menu-link">
-            <div data-i18n="All Responses">Semua Tanggapan</div>
-          </a>
-        </li>
-        <li class="menu-item {{ request()->routeIs('complaint-response.create') ? 'active' : '' }}">
-          <a href="{{ route('complaint-response.create') }}" class="menu-link">
-            <div data-i18n="Create Response">Tambah Tanggapan</div>
-          </a>
-        </li>
-      </ul>
-    </li>
+    @if (Auth::user()->role == 'admin')
+      <!-- Tanggapan Pengaduan -->
+      <li class="menu-item {{ request()->routeIs('complaint-response.*') ? 'active open' : '' }}">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-file"></i>
+          <div data-i18n="Complaint Reports">Tanggapan Pengaduan</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item {{ request()->routeIs('complaint-response.index') ? 'active' : '' }}">
+            <a href="{{ route('complaint-response.index') }}" class="menu-link">
+              <div data-i18n="All Reports">Semua Tanggapan</div>
+            </a>
+          </li>
+          <li class="menu-item {{ request()->routeIs('complaint-response.create') ? 'active' : '' }}">
+            <a href="{{ route('complaint-response.create') }}" class="menu-link">
+              <div data-i18n="Create Report">Tambah Tanggapan</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      @endif
+      
+      <!-- Pengajuan Surat -->
+      <li class="menu-item {{ request()->routeIs('mail-submissions.*') ? 'active open' : '' }}">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-envelope"></i>
+          <div data-i18n="Complaint Reports">Pengajuan Surat</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item {{ request()->routeIs('mail-submissions.index') ? 'active' : '' }}">
+            <a href="{{ route('mail-submissions.index') }}" class="menu-link">
+              <div data-i18n="All Reports">Semua Pengajuan Surat</div>
+            </a>
+          </li>
+          <li class="menu-item {{ request()->routeIs('mail-submissions.create') ? 'active' : '' }}">
+            <a href="{{ route('mail-submissions.create') }}" class="menu-link">
+              <div data-i18n="Create Report">Tambah Pengajuan Surat</div>
+            </a>
+          </li>
+        </ul>
+      </li>
 
     <li class="menu-header small text-uppercase">
       <span class="menu-header-text">Manajemen</span>
     </li>
 
-    <!-- Users -->
-    <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
-      <a href="{{ route('users.index') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-user"></i>
-        <div data-i18n="Users">Pengguna</div>
-      </a>
-    </li>
+    <!-- Admin -->
+    @if (Auth::user()->role === 'admin')
+      <li class="menu-item {{ request()->routeIs('aboutvillage.*') ? 'active' : '' }}">
+        <a href="{{ route('aboutvillage.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-building-house"></i>
+          <div data-i18n="AboutVillage">Tentang Desa</div>
+        </a>
+      </li>
+      <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+        <a href="{{ route('users.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-user"></i>
+          <div data-i18n="Users">Pengguna</div>
+        </a>
+      </li>
+    @endif
 
     <!-- Profile -->
     <li class="menu-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">

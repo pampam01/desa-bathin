@@ -7,9 +7,11 @@
         <h4 class="fw-bold py-3 mb-4">
             <span class="text-muted fw-light">Portal Parakan / Berita /</span> Semua Berita
         </h4>
-        <a href="{{ route('news.create') }}" class="btn btn-primary">
-            <i class="bx bx-plus me-1"></i> Tambah Berita
-        </a>
+        @if (Auth::user()->role == 'admin')
+            <a href="{{ route('news.create') }}" class="btn btn-primary">
+                <i class="bx bx-plus me-1"></i> Tambah Berita
+            </a>
+        @endif
     </div>
 @endsection
 
@@ -153,14 +155,16 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Daftar Berita</h5>
-            <div class="d-flex gap-2">
-                <button class="btn btn-outline-secondary btn-sm" onclick="selectAll()">
-                    <i class="bx bx-check-square me-1"></i> Pilih Semua
-                </button>
-                <button class="btn btn-outline-danger btn-sm" onclick="deleteSelected()" disabled id="deleteSelectedBtn">
-                    <i class="bx bx-trash me-1"></i> Hapus Terpilih
-                </button>
-            </div>
+            @if (Auth::user()->role == 'admin')
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-secondary btn-sm" onclick="selectAll()">
+                        <i class="bx bx-check-square me-1"></i> Pilih Semua
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm" onclick="deleteSelected()" disabled id="deleteSelectedBtn">
+                        <i class="bx bx-trash me-1"></i> Hapus Terpilih
+                    </button>
+                </div>
+            @endif
         </div>
         <div class="card-body">
             @if (isset($news) && $news->count() > 0)
@@ -168,10 +172,12 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
+                                @if (Auth::user()->role == 'admin')
                                 <th width="50">
-                                    <input type="checkbox" class="form-check-input" id="selectAllCheckbox"
+                                        <input type="checkbox" class="form-check-input" id="selectAllCheckbox"
                                         onchange="toggleSelectAll()">
                                 </th>
+                                @endif
                                 <th>Gambar</th>
                                 <th>Judul</th>
                                 <th>Penulis</th>
@@ -184,10 +190,11 @@
                         <tbody>
                             @foreach ($news as $item)
                                 <tr>
+                                    @if (Auth::user()->role == 'admin')
                                     <td>
-                                        <input type="checkbox" class="form-check-input news-checkbox"
-                                            value="{{ $item->id }}" onchange="updateDeleteButton()">
+                                        <input type="checkbox" class="form-check-input news-checkbox" value="{{ $item->id }}" onchange="updateDeleteButton()">
                                     </td>
+                                    @endif
                                     <td>
                                         @if ($item->image)
                                             <img src="{{ asset('storage/' . $item->image) }}" alt="News Image"
@@ -239,16 +246,18 @@
                                                 data-bs-placement="top" title="Lihat Detail">
                                                 <i class="bx bx-show"></i>
                                             </a>
-                                            <a href="{{ route('news.edit', $item->id) }}"
-                                                class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Edit Berita">
-                                                <i class="bx bx-edit"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-sm btn-outline-danger"
-                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Berita"
-                                                onclick="confirmDelete({{ $item->id }}, '{{ $item->title }}')">
-                                                <i class="bx bx-trash"></i>
-                                            </button>
+                                            @if (Auth::user()->role == 'admin')
+                                                <a href="{{ route('news.edit', $item->id) }}"
+                                                    class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Edit Berita">
+                                                    <i class="bx bx-edit"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Berita"
+                                                    onclick="confirmDelete({{ $item->id }}, '{{ $item->title }}')">
+                                                    <i class="bx bx-trash"></i>
+                                                </button>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

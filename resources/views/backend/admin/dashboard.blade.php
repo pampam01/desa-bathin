@@ -98,11 +98,19 @@
               </div>
             </div>
           </div>
-          <span class="fw-semibold d-block mb-1">Total Pengguna</span>
-          <h3 class="card-title mb-2">{{ $totalUsers ?? 0 }}</h3>
-          <small class="text-success fw-semibold">
-            <i class="bx bx-up-arrow-alt"></i> +{{ $newUsersThisMonth ?? 0 }} bulan ini
-          </small>
+          @if (Auth::user()->role === 'admin')
+            <span class="fw-semibold d-block mb-1">Total Pengguna</span>
+            <h3 class="card-title mb-2">{{ $totalUsers ?? 0 }}</h3>
+            <small class="text-success fw-semibold">
+              <i class="bx bx-up-arrow-alt"></i> +{{ $newUsersThisMonth ?? 0 }} bulan ini
+            </small>
+          @else
+            <span class="fw-semibold d-block mb-1">Total Pengajuan Surat</span>
+            <h3 class="card-title mb-2">{{ $totalMailSubmissions ?? 0 }}</h3>
+            <small class="text-success fw-semibold">
+              <i class="bx bx-up-arrow-alt"></i> +{{ $newMailSubmissionsThisMonth ?? 0 }} bulan ini
+            </small>
+          @endif
         </div>
       </div>
     </div>
