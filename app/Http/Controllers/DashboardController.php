@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Complaint;
+use App\Models\MailSubmission;
 use App\Models\News;
 use App\Models\NewsLike;
 use App\Models\User;
@@ -73,6 +74,12 @@ class DashboardController extends Controller
         $newUsersThisMonth = $users->filter(function ($item) {
             return $item->created_at->isCurrentMonth();
         })->count();
+        
+        $mails = MailSubmission::all();
+        $totalMailSubmissions = $mails->count();
+        $newMailSubmissionsThisMonth = $mails->filter(function ($item) {
+            return $item->created_at->isCurrentMonth();
+        })->count();
 
         $likes = NewsLike::where('user_id', Auth::user()->id)->get();
         $totalLikes = $likes->count();
@@ -86,6 +93,8 @@ class DashboardController extends Controller
             'recentComplaints',
             'totalUsers',
             'newUsersThisMonth',
+            'totalMailSubmissions',
+            'newMailSubmissionsThisMonth',
             'totalLikes'
         ));
     }

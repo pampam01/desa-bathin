@@ -154,16 +154,11 @@
                                     <td>
                                         <div>
                                             <small class="mb-0">{{ $mail->nik }}</small>
-                                            {{-- <h6 class="mb-0">{{ Str::limit($mail->title, 50) }}</h6>
-                                            <small class="text-muted">{{ Str::limit($mail->content, 80) }}</small>
-                                            <small class="text-muted">ID:
-                                                #{{ $mail->complaint->id ?? 'N/A' }}</small>
-                                            <strong>{{ Str::limit($mail->complaint->title ?? 'N/A', 50) }}</strong><br> --}}
                                         </div>
                                     </td>
                                     <td>
                                         <div class="">
-                                            <small class="mb-0">{{ $mail->kk }}</small>
+                                            <small class="mb-0">{{ $mail->no_kk }}</small>
                                         </div>
                                     </td>
                                     <td>
@@ -213,14 +208,16 @@
                                                 class="btn btn-sm btn-outline-primary" title="Lihat Detail">
                                                 <i class="bx bx-show"></i>
                                             </a>
-                                            <a href="{{ route('mail-submissions.edit', $mail->id) }}"
-                                                class="btn btn-sm btn-outline-secondary" title="Edit">
-                                                <i class="bx bx-edit"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-sm btn-outline-danger"
-                                                onclick="confirmDelete({{ $mail->id }})" title="Hapus">
-                                                <i class="bx bx-trash"></i>
-                                            </button>
+                                            @if (Auth::user()->role == 'admin')
+                                                <a href="{{ route('mail-submissions.edit', $mail->id) }}"
+                                                    class="btn btn-sm btn-outline-secondary" title="Edit">
+                                                    <i class="bx bx-edit"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                                    onclick="confirmDelete({{ $mail->id }})" title="Hapus">
+                                                    <i class="bx bx-trash"></i>
+                                                </button>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

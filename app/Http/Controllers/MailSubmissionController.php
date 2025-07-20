@@ -8,6 +8,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class MailSubmissionController extends Controller
 {
@@ -16,7 +17,11 @@ class MailSubmissionController extends Controller
      */
     public function index()
     {
-        $mails = MailSubmission::latest()->paginate(10);
+        if(Auth::user()->role !== 'admin') {
+            $mails = MailSubmission::latest()->paginate(10);
+        } else {
+            $mails = MailSubmission::where('user_id', Auth::id())->latest()->paginate(10);
+        }
         $totalmails = $mails->count();
         $pendingmails = $mails->where('status', 'pending')->count();
         $resolvedmails = $mails->where('status', 'completed')->count();
