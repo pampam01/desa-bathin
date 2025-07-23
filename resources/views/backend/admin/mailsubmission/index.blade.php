@@ -173,7 +173,7 @@
                                     </td>
                                     <td>
                                         <div class="">
-                                            <small class="text-muted">{{ Str::limit($mail->description, 50) }}</small>
+                                            <small class="text-muted">{!! Str::limit($mail->description, 50)  !!}</small>
                                         </div>
                                     </td>
                                     <td>

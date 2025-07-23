@@ -9,6 +9,7 @@ use App\Http\Controllers\MailSubmissionController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VillageStructureController;
 use App\Http\Controllers\Frontend\NewsController as FrontendNewsController;
 use App\Http\Controllers\Frontend\ComplaintsController as FrontendComplaintsController;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +65,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('news', NewsController::class);
 
     Route::resource('aboutvillage', AboutVillageController::class);
+    Route::resource('villagestructure', VillageStructureController::class)
+        ->only(['index', 'edit', 'update']);
     
     Route::get('complaints/pending', [ComplaintController::class, 'pending'])
         ->name('complaints.pending');

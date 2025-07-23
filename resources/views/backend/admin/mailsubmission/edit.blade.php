@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Edit Tanggapan Pengaduan | Portal Parakan')
+@section('title', 'Edit Pengajuan Surat | Portal Parakan')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Pengaduan /</span> Edit Tanggapan
+            <span class="text-muted fw-light">Portal Parakan / Pengajuan Surat /</span> Edit Pengajuan
         </h4>
     </div>
 @endsection
@@ -16,102 +16,153 @@
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">
-                    <i class="bx bx-edit me-2"></i>Edit Tanggapan #{{ $response->id }}
+                    <i class="bx bx-edit me-2"></i>Edit Pengajuan Surat #{{ $mailSubmission->id }}
                 </h5>
-                <a href="{{ route('complaint-response.show', $response->id) }}" class="btn btn-outline-secondary">
+                <a href="{{ route('mail-submissions.index') }}" class="btn btn-outline-secondary">
                     <i class="bx bx-arrow-back me-2"></i>Kembali
                 </a>
             </div>
         </div>
         <div class="card-body">
-            <!-- Complaint Info -->
+            <!-- Submission Info -->
             <div class="alert alert-info" role="alert">
                 <div class="d-flex align-items-center">
                     <i class="bx bx-info-circle me-2"></i>
                     <div>
-                        <strong>Pengaduan:</strong> {{ $response->complaint->title ?? 'N/A' }}<br>
-                        <small class="text-muted">ID: #{{ $response->complaint->id ?? 'N/A' }}</small>
+                        <strong>Jenis Surat:</strong> {{ $mailSubmission->jenis_surat }}<br>
+                        <small class="text-muted">Pemohon: {{ $mailSubmission->name }} (NIK: {{ $mailSubmission->nik }})</small>
                     </div>
                 </div>
             </div>
 
             <!-- Edit Form -->
-            <form action="{{ route('complaint-response.update', $response->id) }}" method="POST" id="editResponseForm">
+            <form action="{{ route('mail-submissions.update', $mailSubmission->id) }}" method="POST" enctype="multipart/form-data" id="editSubmissionForm">
                 @csrf
                 @method('PUT')
 
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="complaint_id" class="form-label">Pengaduan <span
-                                    class="text-danger">*</span></label>
-                            <select class="form-select @error('complaint_id') is-invalid @enderror" id="complaint_id"
-                                name="complaint_id" required>
-                                <option value="">Pilih Pengaduan</option>
-                                @foreach ($complaints as $complaint)
-                                    <option value="{{ $complaint->id }}"
-                                        {{ old('complaint_id', $response->complaint_id) == $complaint->id ? 'selected' : '' }}>
-                                        #{{ $complaint->id }} - {{ $complaint->title }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('complaint_id')
+                            <label for="nik" class="form-label">NIK <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik"
+                                name="nik" value="{{ old('nik', $mailSubmission->nik) }}" required>
+                            @error('nik')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="user_id" class="form-label">Penanggap</label>
-                            <select class="form-select @error('user_id') is-invalid @enderror" id="user_id"
-                                name="user_id">
-                                <option value="">Pilih Penanggap (Opsional)</option>
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->id }}"
-                                        {{ old('user_id', $response->user_id) == $user->id ? 'selected' : '' }}>
-                                        {{ $user->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('user_id')
+                            <label for="no_kk" class="form-label">No. KK <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control @error('no_kk') is-invalid @enderror" id="no_kk"
+                                name="no_kk" value="{{ old('no_kk', $mailSubmission->no_kk) }}" required>
+                            @error('no_kk')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <small class="form-text text-muted">Kosongkan jika ingin menggunakan user saat ini</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                                name="name" value="{{ old('name', $mailSubmission->name) }}" required>
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="no_hp" class="form-label">No. HP</label>
+                            <input type="text" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp"
+                                name="no_hp" value="{{ old('no_hp', $mailSubmission->no_hp) }}">
+                            @error('no_hp')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="response" class="form-label">Tanggapan <span class="text-danger">*</span></label>
-                    <textarea class="form-control @error('response') is-invalid @enderror" id="response" name="response" rows="6"
-                        placeholder="Tulis tanggapan Anda terhadap pengaduan ini..." required>{{ old('response', $response->response) }}</textarea>
-                    @error('response')
+                    <label for="jenis_surat" class="form-label">Jenis Surat <span class="text-danger">*</span></label>
+                    <select class="form-select @error('jenis_surat') is-invalid @enderror" id="jenis_surat"
+                        name="jenis_surat" required>
+                        <option value="">Pilih Jenis Surat</option>
+                        <option value="Surat Keterangan Domisili" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Domisili' ? 'selected' : '' }}>
+                            Surat Keterangan Domisili</option>
+                        <option value="Surat Keterangan Usaha" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Usaha' ? 'selected' : '' }}>
+                            Surat Keterangan Usaha</option>
+                        <option value="Surat Keterangan Tidak Mampu" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Tidak Mampu' ? 'selected' : '' }}>
+                            Surat Keterangan Tidak Mampu</option>
+                        <option value="Surat Keterangan Kematian" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Kematian' ? 'selected' : '' }}>
+                            Surat Keterangan Kematian</option>
+                        <option value="Surat Keterangan Lahir" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Lahir' ? 'selected' : '' }}>
+                            Surat Keterangan Lahir</option>
+                        <option value="Surat Keterangan Pindah" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Pindah' ? 'selected' : '' }}>
+                            Surat Keterangan Pindah</option>
+                        <option value="Surat Keterangan Belum Menikah" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Belum Menikah' ? 'selected' : '' }}>
+                            Surat Keterangan Belum Menikah</option>
+                        <option value="Surat Keterangan Cerai" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Cerai' ? 'selected' : '' }}>
+                            Surat Keterangan Cerai</option>
+                    </select>
+                    @error('jenis_surat')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="mb-3">
-                    <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
-                    <select class="form-select @error('status') is-invalid @enderror" id="status" name="status"
-                        required>
-                        <option value="">Pilih Status</option>
-                        <option value="pending" {{ old('status', $response->status) == 'pending' ? 'selected' : '' }}>
-                            Pending</option>
-                        <option value="process" {{ old('status', $response->status) == 'process' ? 'selected' : '' }}>
-                            Diproses</option>
-                        <option value="resolved" {{ old('status', $response->status) == 'resolved' ? 'selected' : '' }}>
-                            Selesai</option>
-                    </select>
-                    @error('status')
+                    <label for="description" class="form-label">Keterangan Tambahan</label>
+                    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="4"
+                        placeholder="Masukkan keterangan tambahan jika diperlukan...">{{ old('description', $mailSubmission->description) }}</textarea>
+                    @error('description')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status"
+                                required>
+                                <option value="">Pilih Status</option>
+                                <option value="pending" {{ old('status', $mailSubmission->status) == 'pending' ? 'selected' : '' }}>
+                                    Pending</option>
+                                <option value="process" {{ old('status', $mailSubmission->status) == 'process' ? 'selected' : '' }}>
+                                    Diproses</option>
+                                <option value="completed" {{ old('status', $mailSubmission->status) == 'completed' ? 'selected' : '' }}>
+                                    Selesai</option>
+                            </select>
+                            @error('status')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="file" class="form-label">File Pendukung</label>
+                            <input type="file" class="form-control @error('file') is-invalid @enderror" id="file"
+                                name="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                            @error('file')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            @if($mailSubmission->file)
+                                <small class="form-text text-muted">
+                                    File saat ini: <a href="{{ asset('storage/' . $mailSubmission->file) }}" target="_blank">{{ basename($mailSubmission->file) }}</a>
+                                </small>
+                            @endif
+                        </div>
+                    </div>
                 </div>
 
                 <div class="d-flex gap-2">
                     <button type="submit" class="btn btn-primary">
                         <i class="bx bx-save me-2"></i>Simpan Perubahan
                     </button>
-                    <a href="{{ route('complaint-response.show', $response->id) }}" class="btn btn-outline-secondary">
+                    <a href="{{ route('mail-submissions.index') }}" class="btn btn-outline-secondary">
                         <i class="bx bx-x me-2"></i>Batal
                     </a>
                 </div>
@@ -123,26 +174,40 @@
 @section('scripts')
     <script>
         // Form validation
-        document.getElementById('editResponseForm').addEventListener('submit', function(e) {
-            const response = document.getElementById('response').value.trim();
+        document.getElementById('editSubmissionForm').addEventListener('submit', function(e) {
+            const nik = document.getElementById('nik').value.trim();
+            const noKk = document.getElementById('no_kk').value.trim();
+            const name = document.getElementById('name').value.trim();
+            const jenisSurat = document.getElementById('jenis_surat').value;
             const status = document.getElementById('status').value;
-            const complaintId = document.getElementById('complaint_id').value;
 
-            if (!response) {
+            if (!nik) {
                 e.preventDefault();
-                alert('Tanggapan tidak boleh kosong');
+                alert('NIK tidak boleh kosong');
+                return;
+            }
+
+            if (!noKk) {
+                e.preventDefault();
+                alert('No. KK tidak boleh kosong');
+                return;
+            }
+
+            if (!name) {
+                e.preventDefault();
+                alert('Nama lengkap tidak boleh kosong');
+                return;
+            }
+
+            if (!jenisSurat) {
+                e.preventDefault();
+                alert('Jenis surat harus dipilih');
                 return;
             }
 
             if (!status) {
                 e.preventDefault();
                 alert('Status harus dipilih');
-                return;
-            }
-
-            if (!complaintId) {
-                e.preventDefault();
-                alert('Pengaduan harus dipilih');
                 return;
             }
 
@@ -153,9 +218,32 @@
         });
 
         // Auto-resize textarea
-        document.getElementById('response').addEventListener('input', function() {
+        document.getElementById('description').addEventListener('input', function() {
             this.style.height = 'auto';
             this.style.height = this.scrollHeight + 'px';
+        });
+
+        // NIK and No KK validation
+        document.getElementById('nik').addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+            if (this.value.length > 16) {
+                this.value = this.value.slice(0, 16);
+            }
+        });
+
+        document.getElementById('no_kk').addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+            if (this.value.length > 16) {
+                this.value = this.value.slice(0, 16);
+            }
+        });
+
+        // Phone number validation
+        document.getElementById('no_hp').addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+            if (this.value.length > 15) {
+                this.value = this.value.slice(0, 15);
+            }
         });
     </script>
 @endsection
