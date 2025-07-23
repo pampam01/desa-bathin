@@ -73,16 +73,19 @@ class AboutVillageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AboutVillage $aboutVillage)
+    public function edit(AboutVillage $aboutVillage, $id)
     {
+        $aboutVillage = AboutVillage::findOrFail($id);
         return view('backend.admin.aboutvillage.edit', compact('aboutVillage'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AboutVillage $aboutVillage)
+    public function update(Request $request, AboutVillage $aboutVillage, $id)
     {
+        $aboutVillage = AboutVillage::findOrFail($id);
+        
         $validatedData = $request->validate([
             'people_total' => 'nullable|integer|min:0',
             'family_total' => 'nullable|integer|min:0',

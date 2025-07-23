@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('mail_submissions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->integer('nik');
-            $table->integer('no_kk');
+            $table->bigInteger('nik');
+            $table->bigInteger('no_kk');
             $table->string('name');
             $table->enum('jenis_surat', [
                 'Surat Keterangan Domisili',

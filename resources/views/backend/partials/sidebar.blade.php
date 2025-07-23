@@ -172,6 +172,12 @@
           <div data-i18n="AboutVillage">Tentang Desa</div>
         </a>
       </li>
+      <li class="menu-item {{ request()->routeIs('villagestructure.*') ? 'active' : '' }}">
+        <a href="{{ route('villagestructure.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-building"></i>
+          <div data-i18n="VillageStruktur">Struktur BPD Desa</div>
+        </a>
+      </li>
       <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
         <a href="{{ route('users.index') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-user"></i>

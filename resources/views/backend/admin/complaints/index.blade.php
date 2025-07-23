@@ -168,8 +168,8 @@
                                 </th>
                                 <th>Nama Pengadu</th>
                                 <th>Judul</th>
-                                <th>Status</th>
                                 <th>Gambar</th>
+                                <th>status</th>
                                 <th>Kategori</th>
                                 <th>Tanggal</th>
                                 <th width="140">Aksi</th>

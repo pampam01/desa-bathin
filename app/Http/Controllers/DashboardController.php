@@ -8,6 +8,7 @@ use App\Models\MailSubmission;
 use App\Models\News;
 use App\Models\NewsLike;
 use App\Models\User;
+use App\Models\VillageStructure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -116,6 +117,16 @@ class DashboardController extends Controller
         $telp = $aboutVillage->no_telp ?? '';
         $email = $aboutVillage->email ?? '';
 
-        return view('frontend.index', compact('news', 'complaints', 'totalPeople', 'totalFamilies', 'totalBloks', 'totalPrograms', 'description', 'visi', 'misi', 'location', 'telp', 'email'));
+        // Get village structure data
+        $villageStructures = [
+            'kepala' => \App\Models\VillageStructure::kepala()->get(),
+            'sekretaris' => \App\Models\VillageStructure::sekretaris()->get(),
+            'kaur' => \App\Models\VillageStructure::kaur()->get(),
+            'kasi' => \App\Models\VillageStructure::kasi()->get(),
+            'kadus' => \App\Models\VillageStructure::kadus()->get(),
+            'bpd' => \App\Models\VillageStructure::bpd()->get(),
+        ];
+
+        return view('frontend.index', compact('news', 'complaints', 'totalPeople', 'totalFamilies', 'totalBloks', 'totalPrograms', 'description', 'visi', 'misi', 'location', 'telp', 'email', 'villageStructures'));
     }
 }

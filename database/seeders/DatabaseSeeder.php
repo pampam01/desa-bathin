@@ -26,10 +26,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ComplaintSeeder::class);
         $this->call(NewsSeeder::class);
+        $this->call(VillageStructureSeeder::class);
         AboutVillage::create([
             'people_total' => 1000,
             'family_total' => 250,
-            'blok_total' => 5,
+            'blok_total' => 4,
             'program_total' => 3,
             'description' => 'Desa Parakan adalah desa yang terletak di kaki gunung dengan pemandangan alam yang indah.',
             'visi' => 'Mewujudkan desa yang mandiri dan sejahtera.',
