@@ -167,7 +167,7 @@
                         </div>
                         <div>
                             <span class="fw-semibold d-block mb-1">Visi Desa</span>
-                            <p class="card-title mb-0">{!! nl2br(e($visi ?? '')) !!}</p>
+                            <p class="card-title mb-0">{!! $visi ?? '' !!}</p>
                         </div>
                     </div>
                 </div>
@@ -182,7 +182,7 @@
                         </div>
                         <div>
                             <span class="fw-semibold d-block mb-1">Misi Desa</span>
-                            <p class="card-title mb-0">{!! nl2br(e($misi ?? '')) !!}</p>
+                            <p class="card-title mb-0">{!! $misi ?? '' !!}</p>
                         </div>
                     </div>
                 </div>
@@ -200,7 +200,7 @@
                         </div>
                         <div>
                             <span class="fw-semibold d-block mb-1">Deskripsi Desa</span>
-                            <p class="card-title mb-0">{!! nl2br(e($description ?? '')) !!}</p>
+                            <p class="card-title mb-0">{!! $description ?? '' !!}</p>
                         </div>
                     </div>
                 </div>

@@ -216,7 +216,7 @@
                         @endif
 
                         <div class="news-body">
-                            {!! nl2br(e($news->content)) !!}
+                            {!! $news->content !!} 
                         </div>
 
                         <!-- Social Share -->

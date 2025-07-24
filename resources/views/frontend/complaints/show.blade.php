@@ -215,7 +215,7 @@
                     @endif
                     
                     <div class="news-body">
-                        {!! nl2br(e($complaints->description)) !!}
+                        {!! $complaints->description !!}
                     </div>
                     
                     <!-- Social Share -->

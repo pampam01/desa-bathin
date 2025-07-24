@@ -195,7 +195,7 @@
                                     <td>
                                         <div>
                                             <h6 class="mb-0">{{ Str::limit($item->title, 50) }}</h6>
-                                            <small class="text-muted">{{ Str::limit($item->description, 80) }}</small>
+                                            <small class="text-muted">{!! Str::limit($item->description, 80) !!}</small>
                                         </div>
                                     </td>
                                     <td>

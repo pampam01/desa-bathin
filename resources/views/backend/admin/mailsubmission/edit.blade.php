@@ -2,6 +2,11 @@
 
 @section('title', 'Edit Pengajuan Surat | Portal Parakan')
 
+@section('styles')
+    <!-- Summernote CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+@endsection
+
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
@@ -115,8 +120,8 @@
 
                 <div class="mb-3">
                     <label for="description" class="form-label">Keterangan Tambahan</label>
-                    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="4"
-                        placeholder="Masukkan keterangan tambahan jika diperlukan...">{{ old('description', $mailSubmission->description) }}</textarea>
+                    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                        placeholder="Masukkan keterangan tambahan jika diperlukan...">{!! old('description', $mailSubmission->description) !!}</textarea>
                     @error('description')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -172,7 +177,37 @@
 @endsection
 
 @section('scripts')
+    <!-- Summernote JS -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    
     <script>
+        // Initialize Summernote
+        $(document).ready(function() {
+            $('#description').summernote({
+                height: 200,
+                minHeight: null,
+                maxHeight: null,
+                focus: false,
+                placeholder: 'Masukkan keterangan tambahan jika diperlukan...',
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ],
+                callbacks: {
+                    onImageUpload: function(files) {
+                        // Handle image upload if needed
+                        console.log('Image upload not implemented');
+                    }
+                }
+            });
+        });
+
         // Form validation
         document.getElementById('editSubmissionForm').addEventListener('submit', function(e) {
             const nik = document.getElementById('nik').value.trim();
@@ -180,6 +215,9 @@
             const name = document.getElementById('name').value.trim();
             const jenisSurat = document.getElementById('jenis_surat').value;
             const status = document.getElementById('status').value;
+
+            // Update description from Summernote
+            $('#description').summernote('triggerEvent', 'summernote.change');
 
             if (!nik) {
                 e.preventDefault();
@@ -215,12 +253,6 @@
             const submitBtn = this.querySelector('button[type="submit"]');
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin me-2"></i>Menyimpan...';
-        });
-
-        // Auto-resize textarea
-        document.getElementById('description').addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = this.scrollHeight + 'px';
         });
 
         // NIK and No KK validation

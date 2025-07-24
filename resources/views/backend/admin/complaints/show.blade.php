@@ -113,7 +113,7 @@
 
           <!-- Description -->
           <div class="news-content">
-            {!! nl2br(e($complaint->description)) !!}
+            {!! $complaint->description !!}
           </div>
 
         </div>
@@ -174,7 +174,7 @@
               <i class="bx bx-edit me-2"></i>Edit Pengaduan
             </a>
             
-            @if($complaint->status == 'draft')
+            {{-- @if($complaint->status == 'draft')
               <form action="{{ route('complaints.update', $complaint->id) }}" method="POST" class="d-inline">
                 @csrf
                 @method('PUT')
@@ -192,7 +192,7 @@
                   <i class="bx bx-archive me-2"></i>Jadikan Draft
                 </button>
               </form>
-            @endif
+            @endif --}}
             
             <hr>
             
@@ -237,7 +237,7 @@
                     <i class="bx bx-show"></i>
                   </a>
                 </div>
-                <p class="mb-0 small">{{ Str::limit($response->response, 150) }}</p>
+                <p class="mb-0 small">{!! Str::limit($response->response, 150) !!}</p>
               </div>
             @endforeach
             

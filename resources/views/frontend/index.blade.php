@@ -675,7 +675,7 @@
                 <div class="about-text" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="600">
                     <h3>Sejarah & Warisan Budaya</h3>
                     <div class="about-divider"></div>
-                    <p>{!! nl2br(e($description)) !!}</p>
+                    <p>{!! $description !!}</p>
                 </div>
             </div>
         </div>
@@ -702,7 +702,7 @@
                             </div>
                             <h4>Visi Desa</h4>
                             <div class="about-divider mx-auto"></div>
-                            <p>{!! nl2br(e($visi)) !!}</p>
+                            <p>{!! $visi !!}</p>
                         </div>
                     </div>
 
@@ -713,7 +713,7 @@
                             </div>
                             <h4>Misi Desa</h4>
                             <div class="about-divider mx-auto"></div>
-                            <p>{!! nl2br(e($misi)) !!}</p>
+                            <p>{!! $misi !!}</p>
                         </div>
                     </div>
 
@@ -1085,7 +1085,7 @@
                                         {{ $complaint->created_at->diffForHumans() }}</span>
                                 </div>
                                 <h5>{{ $complaint->title }}</h5>
-                                <p>{{ Str::limit($complaint->description, 100) }}</p>
+                                <p>{!! Str::limit($complaint->description, 100) !!}</p>
                                 <a href="{{ route('frontend.complaints.show', $complaint->id) }}"
                                     class="btn btn-outline-danger btn-sm rounded-3">Baca Selengkapnya</a>
                             </div>

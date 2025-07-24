@@ -8,9 +8,9 @@
       <span class="text-muted fw-light">Portal Parakan / Berita /</span> Detail Berita
     </h4>
     <div class="d-flex gap-2">
-      <a href="{{ route('news.edit', $news->id) }}" class="btn btn-warning">
+      {{-- <a href="{{ route('news.edit', $news->id) }}" class="btn btn-warning">
         <i class="bx bx-edit me-1"></i> Edit
-      </a>
+      </a> --}}
       <a href="{{ route('news.index') }}" class="btn btn-outline-secondary">
         <i class="bx bx-arrow-back me-1"></i> Kembali
       </a>
@@ -239,7 +239,7 @@
               <i class="bx bx-edit me-2"></i>Edit Berita
             </a>
             
-            @if($news->status == 'draft')
+            {{-- @if($news->status == 'draft')
               <form action="{{ route('news.update', $news->id) }}" method="POST" class="d-inline">
                 @csrf
                 @method('PUT')
@@ -257,7 +257,7 @@
                   <i class="bx bx-edit me-2"></i>Jadikan Draft
                 </button>
               </form>
-            @endif
+            @endif --}}
             
             <hr>
             
