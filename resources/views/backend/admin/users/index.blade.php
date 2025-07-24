@@ -161,14 +161,6 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Daftar Pengguna</h5>
-            <div class="d-flex gap-2">
-                <button class="btn btn-outline-secondary btn-sm" onclick="selectAll()">
-                    <i class="bx bx-check-square me-1"></i> Pilih Semua
-                </button>
-                <button class="btn btn-outline-danger btn-sm" onclick="deleteSelected()" disabled id="deleteSelectedBtn">
-                    <i class="bx bx-trash me-1"></i> Hapus Terpilih
-                </button>
-            </div>
         </div>
         <div class="card-body">
             @if (isset($users) && $users->count() > 0)
@@ -176,10 +168,6 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th width="50">
-                                    <input type="checkbox" class="form-check-input" id="selectAllCheckbox"
-                                        onchange="toggleSelectAll()">
-                                </th>
                                 <th>Pengguna</th>
                                 <th>Email</th>
                                 <th>Role</th>
@@ -191,10 +179,6 @@
                         <tbody>
                             @foreach ($users as $user)
                                 <tr>
-                                    <td>
-                                        <input type="checkbox" class="form-check-input user-checkbox"
-                                            value="{{ $user->id }}" onchange="updateDeleteButton()">
-                                    </td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-sm me-3">
@@ -218,11 +202,11 @@
                                     </td>
                                     <td>
                                         <span class="fw-semibold">{{ $user->email }}</span>
-                                        @if ($user->email_verified_at)
+                                        {{-- @if ($user->email_verified_at)
                                             <i class="bx bx-check-circle text-success ms-1" title="Email Terverifikasi"></i>
                                         @else
                                             <i class="bx bx-x-circle text-danger ms-1" title="Email Belum Terverifikasi"></i>
-                                        @endif
+                                        @endif --}}
                                     </td>
                                     <td>
                                         @if ($user->role == 'admin')

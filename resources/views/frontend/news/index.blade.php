@@ -195,7 +195,7 @@
                                     {{ $item->user->name ?? 'Admin' }}
                                 </div>
                                 <h5>{{ $item->title }}</h5>
-                                <p>{{ Str::limit(strip_tags($item->content), 120) }}</p>
+                                <p>{!! Str::limit(strip_tags($item->content), 120) !!}</p>
                                 <a href="{{ route('frontend.news.show', $item->id) }}" 
                                    class="btn btn-outline-danger btn-sm rounded-pill">
                                     <i class='bx bx-right-arrow-alt me-1'></i>

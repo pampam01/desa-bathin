@@ -18,6 +18,7 @@ class NewsController extends Controller
     {
         $news = News::query();
 
+
         // Filter berdasarkan 'search' (judul berita)
         if (request()->has('search') && request()->input('search') != '') {
             $news->where('title', 'like', '%' . request()->input('search') . '%');

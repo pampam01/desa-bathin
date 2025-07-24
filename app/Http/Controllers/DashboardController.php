@@ -103,7 +103,7 @@ class DashboardController extends Controller
 
     public function welcome()
     {
-        $news = News::latest()->take(6)->get();
+        $news = News::where('status', 'published')->latest()->take(6)->get();
         $complaints = Complaint::latest()->take(6)->get();
         $aboutVillage = AboutVillage::first();
         $totalPeople = $aboutVillage->people_total ?? 0;

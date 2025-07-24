@@ -128,7 +128,7 @@
                     <div class="mb-4">
                         <h6 class="text-muted">Deskripsi/Keperluan</h6>
                         <div class="p-3 bg-light rounded">
-                            {{ $mailSubmission->description }}
+                            {!! $mailSubmission->description !!}
                         </div>
                     </div>
 

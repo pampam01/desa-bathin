@@ -312,7 +312,7 @@
                 <strong>Deskripsi:</strong>
               </div>
               <div class="col-md-9">
-                <p class="mb-0">{{ Str::limit($response->complaint->description ?? 'Tidak ada deskripsi', 200) }}</p>
+                <p class="mb-0">{!! Str::limit($response->complaint->description ?? 'Tidak ada deskripsi', 200) !!}</p>
               </div>
             </div>
           </div>
@@ -598,7 +598,7 @@
               <i class="bx bx-edit me-2"></i>Edit Tanggapan
             </a>
             
-            @if($response->status == 'pending')
+            {{-- @if($response->status == 'pending')
               <form action="{{ route('complaint-response.update', $response->id) }}" method="POST" class="d-inline">
                 @csrf
                 @method('PUT')
@@ -618,7 +618,7 @@
                   <i class="bx bx-check me-2"></i>Selesaikan
                 </button>
               </form>
-            @endif
+            @endif --}}
             
             <hr>
             
