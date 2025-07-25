@@ -4,7 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Parakan - Website Resmi Desa Parakan</title>
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="{{ $seoData['author'] ?? 'KKN UNIKU Kelompok 7 Desa Parakan' }}">
+    <meta name="theme-color" content="{{ $seoData['theme_color'] ?? '#dc3545' }}">
+    
+    <!-- SEO Meta Tags -->
+    <title>{{ $seoData['title'] ?? 'Portal Parakan - Website Resmi Desa Parakan' }}</title>
+    <meta name="description" content="{{ $seoData['description'] ?? 'Website resmi Desa Parakan, Kecamatan Maleber, Kabupaten Kuningan' }}">
+    <meta name="keywords" content="{{ $seoData['keywords'] ?? 'desa parakan, kecamatan maleber, portal desa' }}">
+    <link rel="canonical" href="{{ $seoData['canonical_url'] ?? url('/') }}">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{{ $seoData['og_title'] ?? $seoData['title'] ?? 'Portal Parakan' }}">
+    <meta property="og:description" content="{{ $seoData['og_description'] ?? $seoData['description'] ?? 'Website resmi Desa Parakan' }}">
+    <meta property="og:type" content="{{ $seoData['og_type'] ?? 'website' }}">
+    <meta property="og:url" content="{{ $seoData['og_url'] ?? url('/') }}">
+    <meta property="og:image" content="{{ $seoData['og_image'] ?? asset('assets/img/logo-desa.png') }}">
+    <meta property="og:site_name" content="Portal Parakan">
+    <meta property="og:locale" content="id_ID">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="{{ $seoData['twitter_card'] ?? 'summary_large_image' }}">
+    <meta name="twitter:title" content="{{ $seoData['twitter_title'] ?? $seoData['title'] ?? 'Portal Parakan' }}">
+    <meta name="twitter:description" content="{{ $seoData['twitter_description'] ?? $seoData['description'] ?? 'Website resmi Desa Parakan' }}">
+    <meta name="twitter:image" content="{{ $seoData['twitter_image'] ?? asset('assets/img/logo-desa.png') }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/img/logo-desa.png') }}">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
