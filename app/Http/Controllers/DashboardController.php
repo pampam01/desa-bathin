@@ -127,6 +127,25 @@ class DashboardController extends Controller
             'bpd' => \App\Models\VillageStructure::bpd()->get(),
         ];
 
-        return view('frontend.index', compact('news', 'complaints', 'totalPeople', 'totalFamilies', 'totalBloks', 'totalPrograms', 'description', 'visi', 'misi', 'location', 'telp', 'email', 'villageStructures'));
+        // SEO Configuration for Frontend
+        $seoData = [
+            'title' => 'Portal Parakan - Website Resmi Desa Parakan',
+            'description' => 'Website resmi Desa Parakan, Kecamatan Maleber, Kabupaten Kuningan. Portal informasi terkini, berita desa, layanan administrasi, dan pengaduan masyarakat.',
+            'keywords' => 'desa parakan, kecamatan maleber, kabupaten kuningan, portal desa, berita desa, pengaduan masyarakat, layanan administrasi desa, struktur pemerintahan desa, informasi desa parakan, kuningan jawa barat',
+            'canonical_url' => url('/'),
+            'author' => 'KKN UNIKU Kelompok 7 Desa Parakan',
+            'og_title' => 'Portal Parakan - Website Resmi Desa Parakan',
+            'og_description' => 'Portal informasi dan layanan digital Desa Parakan, Kecamatan Maleber, Kabupaten Kuningan, Jawa Barat.',
+            'og_type' => 'website',
+            'og_url' => url('/'),
+            'og_image' => asset('assets/img/logo-desa.png'),
+            'twitter_card' => 'summary_large_image',
+            'twitter_title' => 'Portal Parakan - Website Resmi Desa Parakan',
+            'twitter_description' => 'Portal informasi dan layanan digital Desa Parakan, Kecamatan Maleber, Kabupaten Kuningan.',
+            'twitter_image' => asset('assets/img/logo-desa.png'),
+            'theme_color' => '#dc3545'
+        ];
+
+        return view('frontend.index', compact('news', 'complaints', 'totalPeople', 'totalFamilies', 'totalBloks', 'totalPrograms', 'description', 'visi', 'misi', 'location', 'telp', 'email', 'villageStructures', 'seoData'));
     }
 }
