@@ -119,12 +119,12 @@ class DashboardController extends Controller
 
         // Get village structure data
         $villageStructures = [
-            'kepala' => \App\Models\VillageStructure::kepala()->get(),
-            'sekretaris' => \App\Models\VillageStructure::sekretaris()->get(),
-            'kaur' => \App\Models\VillageStructure::kaur()->get(),
-            'kasi' => \App\Models\VillageStructure::kasi()->get(),
-            'kadus' => \App\Models\VillageStructure::kadus()->get(),
-            'bpd' => \App\Models\VillageStructure::bpd()->get(),
+            'kepala' => VillageStructure::kepala()->get(),
+            'sekretaris' => VillageStructure::sekretaris()->get(),
+            'kaur' =>VillageStructure::kaur()->get(),
+            'kasi' => VillageStructure::kasi()->get(),
+            'kadus' => VillageStructure::kadus()->get(),
+            'bpd' =>VillageStructure::bpd()->get(),
         ];
 
         // SEO Configuration for Frontend
