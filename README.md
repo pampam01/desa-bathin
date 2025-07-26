@@ -1,11 +1,11 @@
-# Portal Parakan
+# Portal bathin
 
 ![Portal Parakan](https://img.shields.io/badge/Laravel-11-red?logo=laravel&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-8.2+-blue?logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0+-orange?logo=mysql&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple?logo=bootstrap&logoColor=white)
 
-**Portal Parakan** adalah website resmi Desa Parakan, Kecamatan Maleber, Kabupaten Kuningan. Aplikasi ini dikembangkan sebagai bagian dari program KKN oleh mahasiswa Fakultas Ilmu Komputer untuk mendukung digitalisasi pelayanan desa.
+**Portal bathin** adalah website resmi Desa Parakan, Kecamatan Maleber, Kabupaten Kuningan. Aplikasi ini dikembangkan sebagai bagian dari program KKN oleh mahasiswa Fakultas Ilmu Komputer untuk mendukung digitalisasi pelayanan desa.
 
 ## 🎯 Tujuan Proyek
 
@@ -70,7 +70,7 @@ DB_PASSWORD=
 ### 5. Database Migration & Seeding
 ```bash
 # Create database
-mysql -u root -p -e "CREATE DATABASE portal_parakan"
+mysql -u root -p -e "CREATE DATABASE bathin"
 
 # Run migrations
 php artisan migrate
@@ -116,12 +116,12 @@ MAIL_ENCRYPTION=tls
 Setelah instalasi, Anda dapat menggunakan akun default:
 
 **Admin Account:**
-- Email: `admin@parakan.desa.id`
-- Password: `admin123`
+- Email: `admin@gmail.com`
+- Password: `admin1234`
 
 **User Account:**
-- Email: `user@parakan.desa.id`
-- Password: `user123`
+- Email: `user@gmail.com`
+- Password: `user1234`
 
 > ⚠️ **Penting**: Ganti password default setelah instalasi!
 

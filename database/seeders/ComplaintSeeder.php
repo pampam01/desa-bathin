@@ -17,7 +17,7 @@ class ComplaintSeeder extends Seeder
         $users = [
             [
                 'name' => 'Admin Desa',
-                'email' => 'admin@parakan.id',
+                'email' => 'admin@gmail.com',
                 'password' => bcrypt('admin1234'),
                 'role' => 'admin',
                 'phone' => '081234567890',
