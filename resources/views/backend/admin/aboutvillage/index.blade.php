@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Kelola Tentang Desa - Portal Parakan')
+@section('title', 'Manajemen Kelola')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Tentang Desa
+            <span class="text-muted fw-light">Manajemen Kelola
         </h4>
         @if (Auth::user()->role == 'admin')
             <a href="{{ route('aboutvillage.edit', $aboutVillage->id) }}" class="btn btn-warning">

@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Edit Tanggapan Pengaduan | Portal Parakan')
+@section('title', 'Edit Tanggapan Pengaduan')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Pengaduan /</span> Edit Tanggapan
+            <span class="text-muted fw-light">Manajemen Pengaduan /</span> Edit Tanggapan
         </h4>
     </div>
 @endsection

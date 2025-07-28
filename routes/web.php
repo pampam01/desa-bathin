@@ -70,7 +70,7 @@ Route::get('/sitemap.xml', function () {
 })->name('sitemap.xml');
 
 Route::get('/robots.txt', function () {
-    $content = "# Robots.txt for Portal Parakan - Desa Parakan\n";
+    $content = "# Robots.txt \n";
     $content .= "# Website: " . url('/') . "\n\n";
     
     $content .= "User-agent: *\n";

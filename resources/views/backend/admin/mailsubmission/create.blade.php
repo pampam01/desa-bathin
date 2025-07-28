@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Tambah Pengajuan Surat - Portal Parakan')
+@section('title', 'Tambah Pengajuan Surat')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Pengajuan Surat /</span> Tambah Pengajuan Surat
+            <span class="text-muted fw-light">Manajemen Pengajuan Surat /</span> Tambah Pengajuan Surat
         </h4>
         <a href="{{ route('mail-submissions.index') }}" class="btn btn-outline-secondary">
             <i class="bx bx-arrow-back me-1"></i> Kembali
@@ -61,20 +61,18 @@
                             <label for="nik" class="form-label">Nomor Induk Kependudukan (NIK) <span
                                     class="text-danger">*</span></label>
                             <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik"
-                                name="nik" value="{{ old('nik') }}" placeholder="Masukkan NIK..."
-                                required>
+                                name="nik" value="{{ old('nik') }}" placeholder="Masukkan NIK..." required>
                             @error('nik')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                       
+
                         <!-- KK -->
                         <div class="mb-3">
                             <label for="no_kk" class="form-label">Nomor Kartu Keluarga (KK) <span
                                     class="text-danger">*</span></label>
                             <input type="number" class="form-control @error('no_kk') is-invalid @enderror" id="no_kk"
-                                name="no_kk" value="{{ old('no_kk') }}" placeholder="Masukkan KK..."
-                                required>
+                                name="no_kk" value="{{ old('no_kk') }}" placeholder="Masukkan KK..." required>
                             @error('no_kk')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -82,16 +80,14 @@
 
                         <!-- Name -->
                         <div class="mb-3">
-                            <label for="name" class="form-label">Nama Lengkap <span
-                                    class="text-danger">*</span></label>
+                            <label for="name" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                name="name" value="{{ old('name') }}" placeholder="Masukkan nama lengkap..."
-                                required>
+                                name="name" value="{{ old('name') }}" placeholder="Masukkan nama lengkap..." required>
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        
+
                         <!-- NO HP -->
                         <div class="mb-3">
                             <label for="no_hp" class="form-label">Nomor Handphone <span
@@ -108,15 +104,30 @@
                         <div class="mb-3">
                             <label for="jenis_surat" class="form-label">Jenis Keperluan Surat<span
                                     class="text-danger">*</span></label>
-                            <select name="jenis_surat" id="jenis_surat" class="form-select @error('jenis_surat') is-invalid @enderror">
+                            <select name="jenis_surat" id="jenis_surat"
+                                class="form-select @error('jenis_surat') is-invalid @enderror">
                                 <option disabled selected>Pilih jenis surat...</option>
-                                <option value="surat keterangan domisili" {{ old('jenis_surat') == 'surat keterangan domisili' ? 'selected' : '' }}>Surat Ketarangan Domisili</option>
-                                <option value="surat keterangan usaha" {{ old('jenis_surat') == 'surat keterangan usaha' ? 'selected' : '' }}>Surat Keterangan Usaha</option>
-                                <option value="surat keterangan tidak mampu" {{ old('jenis_surat') == 'surat keterangan tidak mampu' ? 'selected' : '' }}>Surat Keterangan Tidak Mampu</option>
-                                <option value="surat keterangan kematian" {{ old('jenis_surat') == 'surat keterangan kematian' ? 'selected' : '' }}>Surat Keterangan Kematian</option>
-                                <option value="surat keterangan lahir" {{ old('jenis_surat') == 'surat keterangan lahir' ? 'selected' : '' }}>Surat Keterangan Lahir</option>
-                                <option value="surat keterangan pindah" {{ old('jenis_surat') == 'surat keterangan pindah' ? 'selected' : '' }}>Surat Keterangan Pindah</option>
-                                <option value="surat keterangan belum menikah" {{ old('jenis_surat') == 'surat keterangan belum menikah' ? 'selected' : '' }}>Surat Keterangan Belum Menikah</option>
+                                <option value="surat keterangan domisili"
+                                    {{ old('jenis_surat') == 'surat keterangan domisili' ? 'selected' : '' }}>Surat
+                                    Ketarangan Domisili</option>
+                                <option value="surat keterangan usaha"
+                                    {{ old('jenis_surat') == 'surat keterangan usaha' ? 'selected' : '' }}>Surat Keterangan
+                                    Usaha</option>
+                                <option value="surat keterangan tidak mampu"
+                                    {{ old('jenis_surat') == 'surat keterangan tidak mampu' ? 'selected' : '' }}>Surat
+                                    Keterangan Tidak Mampu</option>
+                                <option value="surat keterangan kematian"
+                                    {{ old('jenis_surat') == 'surat keterangan kematian' ? 'selected' : '' }}>Surat
+                                    Keterangan Kematian</option>
+                                <option value="surat keterangan lahir"
+                                    {{ old('jenis_surat') == 'surat keterangan lahir' ? 'selected' : '' }}>Surat Keterangan
+                                    Lahir</option>
+                                <option value="surat keterangan pindah"
+                                    {{ old('jenis_surat') == 'surat keterangan pindah' ? 'selected' : '' }}>Surat
+                                    Keterangan Pindah</option>
+                                <option value="surat keterangan belum menikah"
+                                    {{ old('jenis_surat') == 'surat keterangan belum menikah' ? 'selected' : '' }}>Surat
+                                    Keterangan Belum Menikah</option>
                             </select>
                             @error('jenis_surat')
                                 <div class="invalid-feedback">{{ $message }}</div>

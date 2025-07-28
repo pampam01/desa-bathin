@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Kelola Berita - Portal Parakan')
+@section('title', 'Kelola Berita')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Berita /</span> Semua Berita
+            <span class="text-muted fw-light">Manajemen Berita /</span> Semua Berita
         </h4>
         @if (Auth::user()->role == 'admin')
             <a href="{{ route('news.create') }}" class="btn btn-primary">
@@ -160,7 +160,8 @@
                     <button class="btn btn-outline-secondary btn-sm" onclick="selectAll()">
                         <i class="bx bx-check-square me-1"></i> Pilih Semua
                     </button>
-                    <button class="btn btn-outline-danger btn-sm" onclick="deleteSelected()" disabled id="deleteSelectedBtn">
+                    <button class="btn btn-outline-danger btn-sm" onclick="deleteSelected()" disabled
+                        id="deleteSelectedBtn">
                         <i class="bx bx-trash me-1"></i> Hapus Terpilih
                     </button>
                 </div>
@@ -173,10 +174,10 @@
                         <thead>
                             <tr>
                                 @if (Auth::user()->role == 'admin')
-                                <th width="50">
+                                    <th width="50">
                                         <input type="checkbox" class="form-check-input" id="selectAllCheckbox"
-                                        onchange="toggleSelectAll()">
-                                </th>
+                                            onchange="toggleSelectAll()">
+                                    </th>
                                 @endif
                                 <th>Gambar</th>
                                 <th>Judul</th>
@@ -191,9 +192,10 @@
                             @foreach ($news as $item)
                                 <tr>
                                     @if (Auth::user()->role == 'admin')
-                                    <td>
-                                        <input type="checkbox" class="form-check-input news-checkbox" value="{{ $item->id }}" onchange="updateDeleteButton()">
-                                    </td>
+                                        <td>
+                                            <input type="checkbox" class="form-check-input news-checkbox"
+                                                value="{{ $item->id }}" onchange="updateDeleteButton()">
+                                        </td>
                                     @endif
                                     <td>
                                         @if ($item->image)

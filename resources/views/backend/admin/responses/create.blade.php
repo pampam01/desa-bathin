@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Tambah Tanggapan Pengaduan | Portal Parakan')
+@section('title', 'Tambah Tanggapan Pengaduan')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Pengaduan /</span> Tambah Tanggapan
+            <span class="text-muted fw-light">Manajemen Pengaduan /</span> Tambah Tanggapan
         </h4>
         <a href="{{ route('complaint-response.index') }}" class="btn btn-outline-secondary">
             <i class="bx bx-arrow-back me-1"></i> Kembali
@@ -24,14 +24,15 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    @if(isset($selectedComplaint))
+                    @if (isset($selectedComplaint))
                         <!-- Selected Complaint Info -->
                         <div class="alert alert-info" role="alert">
                             <div class="d-flex align-items-center">
                                 <i class="bx bx-info-circle me-2"></i>
                                 <div>
                                     <strong>Pengaduan Terpilih:</strong> {{ $selectedComplaint->title }}<br>
-                                    <small class="text-muted">ID: #{{ $selectedComplaint->id }} | Dibuat: {{ $selectedComplaint->created_at->format('d M Y') }}</small>
+                                    <small class="text-muted">ID: #{{ $selectedComplaint->id }} | Dibuat:
+                                        {{ $selectedComplaint->created_at->format('d M Y') }}</small>
                                 </div>
                             </div>
                         </div>
@@ -42,13 +43,14 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label for="complaint_id" class="form-label">Pengaduan <span class="text-danger">*</span></label>
+                            <label for="complaint_id" class="form-label">Pengaduan <span
+                                    class="text-danger">*</span></label>
                             <select class="form-select @error('complaint_id') is-invalid @enderror" id="complaint_id"
                                 name="complaint_id" required>
                                 <option value="">Pilih Pengaduan</option>
                                 @foreach ($complaints as $complaint)
                                     <option value="{{ $complaint->id }}"
-                                        {{ (old('complaint_id') == $complaint->id || (isset($selectedComplaintId) && $selectedComplaintId == $complaint->id)) ? 'selected' : '' }}>
+                                        {{ old('complaint_id') == $complaint->id || (isset($selectedComplaintId) && $selectedComplaintId == $complaint->id) ? 'selected' : '' }}>
                                         #{{ $complaint->id }} - {{ $complaint->title }}
                                     </option>
                                 @endforeach
@@ -69,11 +71,14 @@
 
                         <div class="mb-3">
                             <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
-                            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" required>
+                            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status"
+                                required>
                                 <option value="">Pilih Status</option>
                                 <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="process" {{ old('status') == 'process' ? 'selected' : '' }}>Diproses</option>
-                                <option value="resolved" {{ old('status') == 'resolved' ? 'selected' : '' }}>Selesai</option>
+                                <option value="process" {{ old('status') == 'process' ? 'selected' : '' }}>Diproses
+                                </option>
+                                <option value="resolved" {{ old('status') == 'resolved' ? 'selected' : '' }}>Selesai
+                                </option>
                             </select>
                             @error('status')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -127,7 +132,7 @@
             const complaintId = this.value;
             const complaintDetails = document.getElementById('complaintDetails');
             const noComplaintSelected = document.getElementById('noComplaintSelected');
-            
+
             if (complaintId) {
                 // Show loading state
                 complaintDetails.innerHTML = `
@@ -140,23 +145,23 @@
                 `;
                 complaintDetails.classList.remove('d-none');
                 noComplaintSelected.classList.add('d-none');
-                
+
                 // Fetch complaint details via AJAX
                 fetch(`/complaint-response/complaint/${complaintId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
                     .then(response => {
                         console.log('Response status:', response.status);
                         console.log('Response headers:', response.headers);
-                        
+
                         if (!response.ok) {
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
-                        
+
                         return response.text().then(text => {
                             console.log('Response text:', text);
                             try {
@@ -164,7 +169,8 @@
                             } catch (e) {
                                 console.error('JSON parse error:', e);
                                 console.error('Response text:', text);
-                                throw new Error('Invalid JSON response: ' + text.substring(0, 100) + '...');
+                                throw new Error('Invalid JSON response: ' + text.substring(0, 100) +
+                                    '...');
                             }
                         });
                     })
@@ -172,7 +178,7 @@
                         if (complaint.error) {
                             throw new Error(complaint.error);
                         }
-                        
+
                         // Show complaint details
                         complaintDetails.innerHTML = `
                             <div class="complaint-info">
@@ -211,17 +217,17 @@
                                 </div>
                                 
                                 ${complaint.image ? `
-                                    <div class="mb-3">
-                                        <strong>Gambar:</strong>
-                                        <div class="mt-2">
-                                            <img src="${complaint.image}" 
-                                                 alt="Bukti pengaduan" 
-                                                 class="img-fluid rounded shadow-sm" 
-                                                 style="max-height: 300px; cursor: pointer;"
-                                                 onclick="openImageModal(this.src)">
+                                        <div class="mb-3">
+                                            <strong>Gambar:</strong>
+                                            <div class="mt-2">
+                                                <img src="${complaint.image}" 
+                                                     alt="Bukti pengaduan" 
+                                                     class="img-fluid rounded shadow-sm" 
+                                                     style="max-height: 300px; cursor: pointer;"
+                                                     onclick="openImageModal(this.src)">
+                                            </div>
                                         </div>
-                                    </div>
-                                ` : ''}
+                                    ` : ''}
                             </div>
                         `;
                     })
@@ -229,7 +235,7 @@
                         console.error('Error:', error);
                         console.error('Complaint ID:', complaintId);
                         console.error('Fetch URL:', `/complaint-response/complaint/${complaintId}`);
-                        
+
                         complaintDetails.innerHTML = `
                             <div class="alert alert-danger">
                                 <i class="bx bx-error me-2"></i>
@@ -243,13 +249,13 @@
                 hideComplaintDetails();
             }
         });
-        
+
         // Helper function to hide complaint details
         function hideComplaintDetails() {
             document.getElementById('complaintDetails').classList.add('d-none');
             document.getElementById('noComplaintSelected').classList.remove('d-none');
         }
-        
+
         // Helper function to get status class
         function getStatusClass(status) {
             const statusClasses = {
@@ -260,7 +266,7 @@
             };
             return statusClasses[status] || 'bg-secondary';
         }
-        
+
         // Helper function to get status text
         function getStatusText(status) {
             const statusTexts = {
@@ -271,7 +277,7 @@
             };
             return statusTexts[status] || 'Tidak diketahui';
         }
-        
+
         // Helper function to format date
         function formatDate(dateString) {
             const date = new Date(dateString);
@@ -283,7 +289,7 @@
                 minute: '2-digit'
             });
         }
-        
+
         // Function to open image modal
         function openImageModal(imageSrc) {
             // Create modal if it doesn't exist
@@ -307,13 +313,13 @@
                 `;
                 document.body.appendChild(modal);
             }
-            
+
             // Set image source and show modal
             document.getElementById('modalImage').src = imageSrc;
             const modal = new bootstrap.Modal(document.getElementById('imageModal'));
             modal.show();
         }
-        
+
         // Form validation
         document.getElementById('createResponseForm').addEventListener('submit', function(e) {
             const response = document.getElementById('response').value.trim();
@@ -349,9 +355,9 @@
             this.style.height = 'auto';
             this.style.height = this.scrollHeight + 'px';
         });
-        
+
         // Initialize if there's a selected complaint
-        @if(isset($selectedComplaintId))
+        @if (isset($selectedComplaintId))
             // Trigger change event to load complaint details
             document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('complaint_id').dispatchEvent(new Event('change'));

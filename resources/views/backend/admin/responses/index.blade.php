@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Kelola Tanggapans Pengaduan - Portal Parakan')
+@section('title', 'Kelola Tanggapans Pengaduan')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Tanggapan /</span> Semua Tanggapan Pengaduan
+            <span class="text-muted fw-light">Manajemen Pengaduan /</span> Semua Tanggapan Pengaduan
         </h4>
     </div>
 @endsection
@@ -122,7 +122,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">
                     <i class="bx bx-list-ul me-2"></i>Daftar Tanggapan Tanggapan
-                    @if(isset($response->complaint))
+                    @if (isset($response->complaint))
                         <span class="badge bg-primary ms-2">{{ $response->complaint->title }}</span>
                     @endif
                 </h5>
@@ -212,11 +212,10 @@
                 </div>
                 <!-- Pagination -->
                 @if (method_exists($responses, 'links'))
-                  <!-- Pagination -->
-                  <div class="d-flex justify-content-center mt-3">
-                      {{ $responses->links() }}
-                  </div>
-                  
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $responses->links() }}
+                    </div>
                 @endif
             @else
                 <div class="text-center py-5">

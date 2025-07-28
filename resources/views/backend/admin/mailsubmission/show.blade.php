@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Detail Pengajuan Surat - Portal Parakan')
+@section('title', 'Detail Pengajuan Surat')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Pengajuan Surat /</span> Detail Pengajuan Surat
+            <span class="text-muted fw-light">Manajemen Pengajuan Surat /</span> Detail Pengajuan Surat
         </h4>
         <div class="d-flex gap-2">
             {{-- <a href="{{ route('mail-submissions.edit', $mailSubmission->id) }}" class="btn btn-warning">
@@ -133,42 +133,42 @@
                     </div>
 
                     @if (Auth::user()->role == 'admin')
-                      <!-- Status Update Section -->
-                      <div class="card border-primary">
-                          <div class="card-header bg-primary text-white">
-                              <h6 class="mb-0 text-white">
-                                  <i class="bx bx-cog me-2 text-white"></i>Ubah Status
-                              </h6>
-                          </div>
-                          <div class="card-body">
-                              <form action="{{ route('mail-submissions.update-status', $mailSubmission->id) }}"
-                                  method="POST">
-                                  @csrf
-                                  @method('PATCH')
-                                  <div class="row align-items-end">
-                                      <div class="col-md-6 mt-4">
-                                          <label for="status" class="form-label">Status Surat</label>
-                                          <select class="form-select" id="status" name="status" required>
-                                              <option value="pending"
-                                                  {{ $mailSubmission->status == 'pending' ? 'selected' : '' }}>Pending
-                                              </option>
-                                              <option value="process"
-                                                  {{ $mailSubmission->status == 'process' ? 'selected' : '' }}>Diproses
-                                              </option>
-                                              <option value="completed"
-                                                  {{ $mailSubmission->status == 'completed' ? 'selected' : '' }}>Selesai
-                                              </option>
-                                          </select>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <button type="submit" class="btn btn-primary">
-                                              <i class="bx bx-save me-2"></i>Update Status
-                                          </button>
-                                      </div>
-                                  </div>
-                              </form>
-                          </div>
-                      </div>
+                        <!-- Status Update Section -->
+                        <div class="card border-primary">
+                            <div class="card-header bg-primary text-white">
+                                <h6 class="mb-0 text-white">
+                                    <i class="bx bx-cog me-2 text-white"></i>Ubah Status
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <form action="{{ route('mail-submissions.update-status', $mailSubmission->id) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <div class="row align-items-end">
+                                        <div class="col-md-6 mt-4">
+                                            <label for="status" class="form-label">Status Surat</label>
+                                            <select class="form-select" id="status" name="status" required>
+                                                <option value="pending"
+                                                    {{ $mailSubmission->status == 'pending' ? 'selected' : '' }}>Pending
+                                                </option>
+                                                <option value="process"
+                                                    {{ $mailSubmission->status == 'process' ? 'selected' : '' }}>Diproses
+                                                </option>
+                                                <option value="completed"
+                                                    {{ $mailSubmission->status == 'completed' ? 'selected' : '' }}>Selesai
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="bx bx-save me-2"></i>Update Status
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -297,7 +297,7 @@
                             </button>
                         </div>
                     @else
-                    <div class="d-grid gap-2">
+                        <div class="d-grid gap-2">
                             <!-- Generate PDF Button -->
                             @if ($mailSubmission->file)
                                 <!-- Download PDF Button -->
@@ -305,10 +305,9 @@
                                     class="btn btn-primary">
                                     <i class="bx bx-download me-2"></i>Download File PDF
                                 </a>
-
                             @else
                                 <div class="">
-                                  File Surat Belum Dibuatkan oleh Desa
+                                    File Surat Belum Dibuatkan oleh Desa
                                 </div>
                             @endif
                         </div>

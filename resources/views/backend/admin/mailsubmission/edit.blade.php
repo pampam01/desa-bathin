@@ -1,6 +1,6 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Edit Pengajuan Surat | Portal Parakan')
+@section('title', 'Edit Pengajuan Surat')
 
 @section('styles')
     <!-- Summernote CSS -->
@@ -10,7 +10,7 @@
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Pengajuan Surat /</span> Edit Pengajuan
+            <span class="text-muted fw-light">Manajemen Pengajuan Surat /</span> Edit Pengajuan
         </h4>
     </div>
 @endsection
@@ -35,13 +35,15 @@
                     <i class="bx bx-info-circle me-2"></i>
                     <div>
                         <strong>Jenis Surat:</strong> {{ $mailSubmission->jenis_surat }}<br>
-                        <small class="text-muted">Pemohon: {{ $mailSubmission->name }} (NIK: {{ $mailSubmission->nik }})</small>
+                        <small class="text-muted">Pemohon: {{ $mailSubmission->name }} (NIK:
+                            {{ $mailSubmission->nik }})</small>
                     </div>
                 </div>
             </div>
 
             <!-- Edit Form -->
-            <form action="{{ route('mail-submissions.update', $mailSubmission->id) }}" method="POST" enctype="multipart/form-data" id="editSubmissionForm">
+            <form action="{{ route('mail-submissions.update', $mailSubmission->id) }}" method="POST"
+                enctype="multipart/form-data" id="editSubmissionForm">
                 @csrf
                 @method('PUT')
 
@@ -96,21 +98,29 @@
                     <select class="form-select @error('jenis_surat') is-invalid @enderror" id="jenis_surat"
                         name="jenis_surat" required>
                         <option value="">Pilih Jenis Surat</option>
-                        <option value="Surat Keterangan Domisili" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Domisili' ? 'selected' : '' }}>
+                        <option value="Surat Keterangan Domisili"
+                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Domisili' ? 'selected' : '' }}>
                             Surat Keterangan Domisili</option>
-                        <option value="Surat Keterangan Usaha" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Usaha' ? 'selected' : '' }}>
+                        <option value="Surat Keterangan Usaha"
+                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Usaha' ? 'selected' : '' }}>
                             Surat Keterangan Usaha</option>
-                        <option value="Surat Keterangan Tidak Mampu" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Tidak Mampu' ? 'selected' : '' }}>
+                        <option value="Surat Keterangan Tidak Mampu"
+                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Tidak Mampu' ? 'selected' : '' }}>
                             Surat Keterangan Tidak Mampu</option>
-                        <option value="Surat Keterangan Kematian" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Kematian' ? 'selected' : '' }}>
+                        <option value="Surat Keterangan Kematian"
+                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Kematian' ? 'selected' : '' }}>
                             Surat Keterangan Kematian</option>
-                        <option value="Surat Keterangan Lahir" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Lahir' ? 'selected' : '' }}>
+                        <option value="Surat Keterangan Lahir"
+                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Lahir' ? 'selected' : '' }}>
                             Surat Keterangan Lahir</option>
-                        <option value="Surat Keterangan Pindah" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Pindah' ? 'selected' : '' }}>
+                        <option value="Surat Keterangan Pindah"
+                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Pindah' ? 'selected' : '' }}>
                             Surat Keterangan Pindah</option>
-                        <option value="Surat Keterangan Belum Menikah" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Belum Menikah' ? 'selected' : '' }}>
+                        <option value="Surat Keterangan Belum Menikah"
+                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Belum Menikah' ? 'selected' : '' }}>
                             Surat Keterangan Belum Menikah</option>
-                        <option value="Surat Keterangan Cerai" {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Cerai' ? 'selected' : '' }}>
+                        <option value="Surat Keterangan Cerai"
+                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Cerai' ? 'selected' : '' }}>
                             Surat Keterangan Cerai</option>
                     </select>
                     @error('jenis_surat')
@@ -131,14 +141,17 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
-                            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status"
-                                required>
+                            <select class="form-select @error('status') is-invalid @enderror" id="status"
+                                name="status" required>
                                 <option value="">Pilih Status</option>
-                                <option value="pending" {{ old('status', $mailSubmission->status) == 'pending' ? 'selected' : '' }}>
+                                <option value="pending"
+                                    {{ old('status', $mailSubmission->status) == 'pending' ? 'selected' : '' }}>
                                     Pending</option>
-                                <option value="process" {{ old('status', $mailSubmission->status) == 'process' ? 'selected' : '' }}>
+                                <option value="process"
+                                    {{ old('status', $mailSubmission->status) == 'process' ? 'selected' : '' }}>
                                     Diproses</option>
-                                <option value="completed" {{ old('status', $mailSubmission->status) == 'completed' ? 'selected' : '' }}>
+                                <option value="completed"
+                                    {{ old('status', $mailSubmission->status) == 'completed' ? 'selected' : '' }}>
                                     Selesai</option>
                             </select>
                             @error('status')
@@ -154,9 +167,10 @@
                             @error('file')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            @if($mailSubmission->file)
+                            @if ($mailSubmission->file)
                                 <small class="form-text text-muted">
-                                    File saat ini: <a href="{{ asset('storage/' . $mailSubmission->file) }}" target="_blank">{{ basename($mailSubmission->file) }}</a>
+                                    File saat ini: <a href="{{ asset('storage/' . $mailSubmission->file) }}"
+                                        target="_blank">{{ basename($mailSubmission->file) }}</a>
                                 </small>
                             @endif
                         </div>
@@ -179,7 +193,7 @@
 @section('scripts')
     <!-- Summernote JS -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    
+
     <script>
         // Initialize Summernote
         $(document).ready(function() {

@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Detail Pengguna - Portal Parakan')
+@section('title', 'Detail Pengguna')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Pengguna /</span> Detail Pengguna
+            <span class="text-muted fw-light">Manajemen Pengguna /</span> Detail Pengguna
         </h4>
         <div class="d-flex gap-2">
             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">
@@ -28,6 +28,7 @@
             border: 4px solid #fff;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
+
         .user-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -35,31 +36,38 @@
             padding: 2rem;
             margin-bottom: 2rem;
         }
+
         .info-card {
             border: none;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             border-radius: 12px;
         }
+
         .info-item {
             padding: 1rem 0;
             border-bottom: 1px solid #f0f0f0;
         }
+
         .info-item:last-child {
             border-bottom: none;
         }
+
         .info-label {
             font-weight: 600;
             color: #6c757d;
             margin-bottom: 0.25rem;
         }
+
         .info-value {
             font-size: 1.1rem;
             color: #495057;
         }
+
         .badge-large {
             font-size: 0.875rem;
             padding: 0.5rem 1rem;
         }
+
         .activity-item {
             padding: 1rem;
             border-left: 3px solid #e9ecef;
@@ -67,12 +75,15 @@
             background: #f8f9fa;
             border-radius: 8px;
         }
+
         .activity-item.news {
             border-left-color: #007bff;
         }
+
         .activity-item.complaint {
             border-left-color: #ffc107;
         }
+
         .activity-item.response {
             border-left-color: #28a745;
         }
@@ -84,10 +95,11 @@
     <div class="user-header">
         <div class="row align-items-center">
             <div class="col-md-3 text-center">
-                @if($user->avatar)
+                @if ($user->avatar)
                     <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="user-avatar">
                 @else
-                    <div class="user-avatar d-flex align-items-center justify-content-center" style="background: rgba(255,255,255,0.2);">
+                    <div class="user-avatar d-flex align-items-center justify-content-center"
+                        style="background: rgba(255,255,255,0.2);">
                         <i class="bx bx-user" style="font-size: 3rem;"></i>
                     </div>
                 @endif
@@ -97,18 +109,18 @@
                     <div class="col-md-8">
                         <h2 class="mb-2 text-white">{{ $user->name }}</h2>
                         <p class="mb-3 opacity-75">{{ $user->email }}</p>
-                        @if($user->bio)
+                        @if ($user->bio)
                             <p class="mb-3 opacity-90">{{ $user->bio }}</p>
                         @endif
                     </div>
                     <div class="col-md-4 text-end">
-                        @if($user->role == 'admin')
+                        @if ($user->role == 'admin')
                             <span class="badge bg-danger badge-large">Admin</span>
                         @else
                             <span class="badge bg-info badge-large">Masyarakat</span>
                         @endif
                         <div class="mt-3">
-                            @if($user->email_verified_at)
+                            @if ($user->email_verified_at)
                                 <span class="badge bg-success">
                                     <i class="bx bx-check-circle me-1"></i> Terverifikasi
                                 </span>
@@ -142,7 +154,7 @@
                                 <div class="info-label">Email</div>
                                 <div class="info-value">
                                     {{ $user->email }}
-                                    @if($user->email_verified_at)
+                                    @if ($user->email_verified_at)
                                         <i class="bx bx-check-circle text-success ms-2" title="Terverifikasi"></i>
                                     @else
                                         <i class="bx bx-x-circle text-danger ms-2" title="Belum Terverifikasi"></i>
@@ -158,7 +170,7 @@
                             <div class="info-item">
                                 <div class="info-label">Role</div>
                                 <div class="info-value">
-                                    @if($user->role == 'admin')
+                                    @if ($user->role == 'admin')
                                         <span class="badge bg-danger">Admin</span>
                                     @else
                                         <span class="badge bg-info">Masyarakat</span>
@@ -175,15 +187,15 @@
                             </div>
                         </div>
                     </div>
-                    
-                    @if($user->address)
+
+                    @if ($user->address)
                         <div class="info-item">
                             <div class="info-label">Alamat</div>
                             <div class="info-value">{{ $user->address }}</div>
                         </div>
                     @endif
-                    
-                    @if($user->bio)
+
+                    @if ($user->bio)
                         <div class="info-item">
                             <div class="info-label">Bio</div>
                             <div class="info-value">{{ $user->bio }}</div>
@@ -237,8 +249,9 @@
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">
                             <i class="bx bx-edit me-1"></i> Edit Pengguna
                         </a>
-                        @if($user->id != auth()->id())
-                            <button class="btn btn-outline-danger" onclick="confirmDelete({{ $user->id }}, '{{ $user->name }}')">
+                        @if ($user->id != auth()->id())
+                            <button class="btn btn-outline-danger"
+                                onclick="confirmDelete({{ $user->id }}, '{{ $user->name }}')">
                                 <i class="bx bx-trash me-1"></i> Hapus Pengguna
                             </button>
                         @endif
@@ -259,9 +272,9 @@
                         $recentNews = $user->news()->latest()->take(3)->get();
                         $hasActivity = $recentNews->count() > 0;
                     @endphp
-                    
-                    @if($hasActivity)
-                        @foreach($recentNews as $news)
+
+                    @if ($hasActivity)
+                        @foreach ($recentNews as $news)
                             <div class="activity-item news">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <div>

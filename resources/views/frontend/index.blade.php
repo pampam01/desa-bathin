@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index,follow">
-    <meta name="author" content="{{ $seoData['author'] ?? 'KKN UNIKU Kelompok 7 Desa Parakan' }}">
+    <meta name="author" content="{{ $seoData['author'] }}">
     <meta name="theme-color" content="{{ $seoData['theme_color'] ?? '#dc3545' }}">
 
     <!-- SEO Meta Tags -->
@@ -83,7 +83,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(45deg, #dc3545, #ff6b7a);
+            background: linear-gradient(45deg, #35dc43c1 0%, #31b02a 100%);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -477,7 +477,7 @@
         .complaint-divider {
             width: 60px;
             height: 4px;
-            background: linear-gradient(45deg, #dc3545, #ff6b7a);
+            background: linear-gradient(45deg, #35dc43c1 0%, #31b02a 100%);
             margin: 20px 0;
             border-radius: 2px;
         }
@@ -714,7 +714,7 @@
         <div class="container">
             <div class="row text-center mb-5 mt-5" data-aos="fade-up" data-aos-duration="800">
                 <div class="col-lg-8 mx-auto">
-                    <div class="section-subtitle badge bg-danger">Visi & Misi</div>
+                    <div class="section-subtitle badge bg-success">Visi & Misi</div>
                     <h2 class="display-5 fw-bold">Arah Pembangunan Desa</h2>
                     <div class="about-divider mx-auto"></div>
                     <p class="lead text-muted">Komitmen kami dalam membangun masa depan yang berkelanjutan</p>
@@ -755,7 +755,7 @@
         <div class="container">
             <div class="row text-center mb-5 mt-5" data-aos="fade-up" data-aos-duration="800">
                 <div class="col-lg-8 mx-auto">
-                    <div class="section-subtitle badge bg-danger">Struktur Organisasi</div>
+                    <div class="section-subtitle badge bg-success">Struktur Organisasi</div>
                     <h2 class="display-5 fw-bold">Struktur Pemerintahan Desa</h2>
                     <div class="about-divider mx-auto"></div>
                     <p class="lead text-muted">Organisasi pemerintahan desa yang melayani masyarakat dengan dedikasi
@@ -999,12 +999,12 @@
         <div class="container">
             <div class="row mb-5 justify-align-center mt-5" data-aos="fade-up" data-aos-duration="800">
                 <div class="col-lg-8">
-                    <div class="section-subtitle badge bg-danger">Berita Terkini</div>
+                    <div class="section-subtitle badge bg-success">Berita Terkini</div>
                     <h5 class="display-5 fw-bold fs-2 my-3">Berita dan Informasi Desa Terbaru</h5>
                     <div class="news-divider"></div>
                 </div>
                 <div class="col-lg-4 text-end">
-                    <a href="{{ route('frontend.news.index') }}" class="btn btn-danger rounded-5">Lihat Semua Berita
+                    <a href="{{ route('frontend.news.index') }}" class="btn btn-success rounded-5">Lihat Semua Berita
                         <i class='bx bx-chevrons-right'></i></a>
                 </div>
             </div>
@@ -1026,7 +1026,7 @@
                                     <h5>{{ $new->title }}</h5>
                                     <p>{{ Str::limit($new->content, 100) }}</p>
                                     <a href="{{ route('frontend.news.show', $new->id) }}"
-                                        class="btn btn-outline-danger btn-sm rounded-3">Baca Selengkapnya</a>
+                                        class="btn btn-outline-success btn-sm rounded-3">Baca Selengkapnya</a>
                                 </div>
                             </div>
                         </div>
@@ -1090,11 +1090,11 @@
     <div class="container">
         <div class="row mb-5 justify-align-center mt-5" data-aos="fade-up" data-aos-duration="800">
             <div class="col-lg-4 text-start">
-                <a href="{{ route('frontend.complaints.index') }}" class="btn btn-danger rounded-5">Lihat Semua
+                <a href="{{ route('frontend.complaints.index') }}" class="btn btn-success rounded-5">Lihat Semua
                     Pengaduan <i class='bx bx-chevrons-right'></i></a>
             </div>
             <div class="col-lg-8 text-end">
-                <div class="section-subtitle badge bg-danger">Pengaduan Terkini</div>
+                <div class="section-subtitle badge bg-success">Pengaduan Terkini</div>
                 <h5 class="display-5 fw-bold fs-2 my-3">Pengaduan Masyarakat Mengenai Keluhan</h5>
                 <div class="complaint-divider ms-auto"></div>
             </div>
@@ -1117,7 +1117,7 @@
                                 <h5>{{ $complaint->title }}</h5>
                                 <p>{!! Str::limit($complaint->description, 100) !!}</p>
                                 <a href="{{ route('frontend.complaints.show', $complaint->id) }}"
-                                    class="btn btn-outline-danger btn-sm rounded-3">Baca Selengkapnya</a>
+                                    class="btn btn-outline-success btn-sm rounded-3">Baca Selengkapnya</a>
                             </div>
                         </div>
                     </div>
@@ -1138,9 +1138,8 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
-                <h2>Mari Bersama Membangun Desa</h2>
-                <p>Bergabunglah dengan kami dalam memajukan Desa Parakan. Suara dan partisipasi Anda sangat
-                    berarti bagi masa depan desa.</p>
+                <h2>Mari Bersama</h2>
+                <p>Membangun Kota Ini Bersama Kami</p>
                 <div class="footer-cta-buttons">
                     <a href="#tentang" class="footer-cta-btn">
                         <i class='bx bx-phone'></i>
@@ -1148,7 +1147,7 @@
                     </a>
                     <a href="{{ route('login') }}" class="footer-cta-btn secondary">
                         <i class='bx bx-user'></i>
-                        Layanan Desa
+                        Pusat Layanan
                     </a>
                 </div>
             </div>

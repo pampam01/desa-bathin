@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Kelola Pengajuan Surat - Portal Parakan')
+@section('title', 'Kelola Pengajuan Surat')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Pengajuan Surat /</span> Semua Pengajuan Surat
+            <span class="text-muted fw-light">Manajemen Pengajuan Surat /</span> Semua Pengajuan Surat
         </h4>
     </div>
 @endsection
@@ -173,7 +173,7 @@
                                     </td>
                                     <td>
                                         <div class="">
-                                            <small class="text-muted">{!! Str::limit($mail->description, 50)  !!}</small>
+                                            <small class="text-muted">{!! Str::limit($mail->description, 50) !!}</small>
                                         </div>
                                     </td>
                                     <td>
@@ -192,7 +192,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if($mail->file)
+                                        @if ($mail->file)
                                             <span class="badge bg-success">
                                                 <i class="bx bx-check me-1"></i>Tersedia
                                             </span>
@@ -227,11 +227,10 @@
                 </div>
                 <!-- Pagination -->
                 @if (method_exists($mails, 'links'))
-                  <!-- Pagination -->
-                  <div class="d-flex justify-content-center mt-3">
-                      {{ $mails->links() }}
-                  </div>
-                  
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $mails->links() }}
+                    </div>
                 @endif
             @else
                 <div class="text-center py-5">

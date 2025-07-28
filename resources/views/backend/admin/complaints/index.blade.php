@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Kelola Pengaduan - Portal Parakan')
+@section('title', 'Kelola Pengaduan')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Pengaduan /</span> Semua Pengaduan
+            <span class="text-muted fw-light">Manajemen Pengaduan /</span> Semua Pengaduan
         </h4>
         <a href="{{ route('complaints.create') }}" class="btn btn-primary">
             <i class="bx bx-plus me-1"></i> Tambah Pengaduan
@@ -263,7 +263,8 @@
                     <div class="d-flex justify-content-between align-items-center mt-3">
                         <div>
                             <small class="text-muted">
-                                Menampilkan {{ $complaints->firstItem() }} - {{ $complaints->lastItem() }} dari {{ $complaints->total() }}
+                                Menampilkan {{ $complaints->firstItem() }} - {{ $complaints->lastItem() }} dari
+                                {{ $complaints->total() }}
                                 pengaduan
                             </small>
                         </div>

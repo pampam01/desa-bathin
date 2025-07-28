@@ -8,7 +8,7 @@
 
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Dashboard - Portal Parakan')
+@section('title', 'Dashboard')
 
 @section('content')
     {{-- Konten dari file asli telah dipindahkan ke dashboard.blade.php --}}

@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Kelola Pengguna - Portal Parakan')
+@section('title', 'Kelola Pengguna')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Pengguna /</span> Semua Pengguna
+            <span class="text-muted fw-light">Manajemen Pengguna /</span> Semua Pengguna
         </h4>
         <a href="{{ route('users.create') }}" class="btn btn-primary">
             <i class="bx bx-plus me-1"></i> Tambah Pengguna
@@ -73,7 +73,8 @@
                         <select class="form-select" name="role">
                             <option value="">Semua Role</option>
                             <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                            <option value="masyarakat" {{ request('role') == 'masyarakat' ? 'selected' : '' }}>Masyarakat</option>
+                            <option value="masyarakat" {{ request('role') == 'masyarakat' ? 'selected' : '' }}>Masyarakat
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -244,7 +245,8 @@
                                             </a>
                                             @if ($user->id != auth()->id())
                                                 <button type="button" class="btn btn-sm btn-outline-danger"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pengguna"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Hapus Pengguna"
                                                     onclick="confirmDelete({{ $user->id }}, '{{ $user->name }}')">
                                                     <i class="bx bx-trash"></i>
                                                 </button>
@@ -262,7 +264,8 @@
                     <div class="d-flex justify-content-between align-items-center mt-3">
                         <div>
                             <small class="text-muted">
-                                Menampilkan {{ $users->firstItem() }} - {{ $users->lastItem() }} dari {{ $users->total() }}
+                                Menampilkan {{ $users->firstItem() }} - {{ $users->lastItem() }} dari
+                                {{ $users->total() }}
                                 pengguna
                             </small>
                         </div>

@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Edit Pengguna - Portal Parakan')
+@section('title', 'Edit Pengguna')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Portal Parakan / Pengguna /</span> Edit Pengguna
+            <span class="text-muted fw-light">Manajemen Pengguna /</span> Edit Pengguna
         </h4>
         <a href="{{ route('users.index') }}" class="btn btn-outline-secondary">
             <i class="bx bx-arrow-back me-1"></i> Kembali
@@ -28,6 +28,7 @@
             object-fit: cover;
             border: 3px solid #dee2e6;
         }
+
         .drag-drop-area {
             border: 2px dashed #dee2e6;
             border-radius: 8px;
@@ -36,30 +37,44 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
+
         .drag-drop-area:hover,
         .drag-drop-area.dragover {
             border-color: #696cff;
             background-color: #f8f9ff;
         }
+
         .drag-drop-area.dragover {
             transform: scale(1.02);
         }
+
         .password-strength {
             margin-top: 5px;
         }
+
         .password-strength .strength-bar {
             height: 4px;
             background-color: #e9ecef;
             border-radius: 2px;
             overflow: hidden;
         }
+
         .password-strength .strength-fill {
             height: 100%;
             transition: width 0.3s ease;
         }
-        .strength-weak { background-color: #dc3545; }
-        .strength-medium { background-color: #ffc107; }
-        .strength-strong { background-color: #28a745; }
+
+        .strength-weak {
+            background-color: #dc3545;
+        }
+
+        .strength-medium {
+            background-color: #ffc107;
+        }
+
+        .strength-strong {
+            background-color: #28a745;
+        }
     </style>
 @endpush
 
@@ -79,10 +94,11 @@
                         <div class="row">
                             <!-- Name -->
                             <div class="col-md-6 mb-3">
-                                <label for="name" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" 
-                                       id="name" name="name" value="{{ old('name', $user->name) }}" 
-                                       placeholder="Masukkan nama lengkap..." required>
+                                <label for="name" class="form-label">Nama Lengkap <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    id="name" name="name" value="{{ old('name', $user->name) }}"
+                                    placeholder="Masukkan nama lengkap..." required>
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -91,9 +107,9 @@
                             <!-- Email -->
                             <div class="col-md-6 mb-3">
                                 <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" 
-                                       id="email" name="email" value="{{ old('email', $user->email) }}" 
-                                       placeholder="user@example.com" required>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                    id="email" name="email" value="{{ old('email', $user->email) }}"
+                                    placeholder="user@example.com" required>
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -102,9 +118,9 @@
                             <!-- Phone -->
                             <div class="col-md-6 mb-3">
                                 <label for="phone" class="form-label">Nomor Telepon</label>
-                                <input type="tel" class="form-control @error('phone') is-invalid @enderror" 
-                                       id="phone" name="phone" value="{{ old('phone', $user->phone) }}" 
-                                       placeholder="08123456789">
+                                <input type="tel" class="form-control @error('phone') is-invalid @enderror"
+                                    id="phone" name="phone" value="{{ old('phone', $user->phone) }}"
+                                    placeholder="08123456789">
                                 @error('phone')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -113,10 +129,14 @@
                             <!-- Role -->
                             <div class="col-md-6 mb-3">
                                 <label for="role" class="form-label">Role <span class="text-danger">*</span></label>
-                                <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required>
+                                <select class="form-select @error('role') is-invalid @enderror" id="role"
+                                    name="role" required>
                                     <option value="">Pilih Role</option>
-                                    <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="masyarakat" {{ old('role', $user->role) == 'masyarakat' ? 'selected' : '' }}>Masyarakat</option>
+                                    <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>
+                                        Admin</option>
+                                    <option value="masyarakat"
+                                        {{ old('role', $user->role) == 'masyarakat' ? 'selected' : '' }}>Masyarakat
+                                    </option>
                                 </select>
                                 @error('role')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -126,9 +146,8 @@
                             <!-- Address -->
                             <div class="col-12 mb-3">
                                 <label for="address" class="form-label">Alamat</label>
-                                <textarea class="form-control @error('address') is-invalid @enderror" 
-                                          id="address" name="address" rows="3" 
-                                          placeholder="Masukkan alamat lengkap...">{{ old('address', $user->address) }}</textarea>
+                                <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="3"
+                                    placeholder="Masukkan alamat lengkap...">{{ old('address', $user->address) }}</textarea>
                                 @error('address')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -137,9 +156,8 @@
                             <!-- Bio -->
                             <div class="col-12 mb-3">
                                 <label for="bio" class="form-label">Bio</label>
-                                <textarea class="form-control @error('bio') is-invalid @enderror" 
-                                          id="bio" name="bio" rows="3" 
-                                          placeholder="Tulis bio singkat...">{{ old('bio', $user->bio) }}</textarea>
+                                <textarea class="form-control @error('bio') is-invalid @enderror" id="bio" name="bio" rows="3"
+                                    placeholder="Tulis bio singkat...">{{ old('bio', $user->bio) }}</textarea>
                                 @error('bio')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -164,9 +182,8 @@
                             <div class="col-md-6 mb-3">
                                 <label for="password" class="form-label">Password Baru</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" 
-                                           id="password" name="password" 
-                                           placeholder="Masukkan password baru...">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        id="password" name="password" placeholder="Masukkan password baru...">
                                     <button type="button" class="btn btn-outline-secondary" id="togglePassword">
                                         <i class="bx bx-hide"></i>
                                     </button>
@@ -186,9 +203,8 @@
                             <div class="col-md-6 mb-3">
                                 <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" 
-                                           id="password_confirmation" name="password_confirmation" 
-                                           placeholder="Konfirmasi password baru...">
+                                    <input type="password" class="form-control" id="password_confirmation"
+                                        name="password_confirmation" placeholder="Konfirmasi password baru...">
                                     <button type="button" class="btn btn-outline-secondary" id="toggleConfirmPassword">
                                         <i class="bx bx-hide"></i>
                                     </button>
@@ -208,13 +224,13 @@
                         <h5 class="mb-0"><i class="bx bx-image me-2"></i>Avatar</h5>
                     </div>
                     <div class="card-body text-center">
-                        @if($user->avatar)
+                        @if ($user->avatar)
                             <!-- Current Avatar -->
                             <div class="mb-3">
                                 <label class="form-label">Avatar Saat Ini</label>
                                 <div class="current-avatar-preview">
-                                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="Current Avatar" 
-                                         class="avatar-preview mb-2" id="avatarPreview">
+                                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="Current Avatar"
+                                        class="avatar-preview mb-2" id="avatarPreview">
                                 </div>
                             </div>
                         @endif
@@ -224,28 +240,29 @@
                                  src="{{ $user->avatar ? asset('storage/' . $user->avatar) : '' }}"
                                  alt="Avatar Preview" class="avatar-preview"> --}}
                         </div>
-                        
+
                         <div class="drag-drop-area" id="dragDropArea">
                             <i class="bx bx-cloud-upload bx-lg text-primary mb-2"></i>
                             <p class="mb-2">Seret & lepas gambar di sini</p>
                             <p class="text-muted mb-3">atau</p>
-                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="document.getElementById('avatar').click()">
+                            <button type="button" class="btn btn-outline-primary btn-sm"
+                                onclick="document.getElementById('avatar').click()">
                                 {{ $user->avatar ? 'Ganti Avatar' : 'Pilih Avatar' }}
                             </button>
                         </div>
-                        
-                        <input type="file" class="form-control d-none @error('avatar') is-invalid @enderror" 
-                               id="avatar" name="avatar" accept="image/*" onchange="previewAvatar(this)">
-                        
+
+                        <input type="file" class="form-control d-none @error('avatar') is-invalid @enderror"
+                            id="avatar" name="avatar" accept="image/*" onchange="previewAvatar(this)">
+
                         <!-- Hidden field to track avatar removal -->
                         <input type="hidden" id="remove_avatar" name="remove_avatar" value="0">
-                        
+
                         @error('avatar')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
-                        
+
                         <div class="form-text">Format: JPG, PNG, WebP. Maksimal 2MB</div>
-                        
+
                         <div class="mt-3 d-none" id="avatarActions">
                             <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAvatar()">
                                 <i class="bx bx-trash"></i> Hapus
@@ -268,7 +285,7 @@
                             <label class="form-label">Terakhir Diperbarui</label>
                             <p class="text-muted mb-0">{{ $user->updated_at->format('d M Y, H:i') }}</p>
                         </div>
-                        @if($user->email_verified_at)
+                        @if ($user->email_verified_at)
                             <div class="mb-3">
                                 <label class="form-label">Email Terverifikasi</label>
                                 <p class="text-success mb-0">
@@ -329,13 +346,13 @@
                 const maxLength = 1000;
                 const currentLength = $(this).val().length;
                 const remaining = maxLength - currentLength;
-                
+
                 let counter = $('#bio').siblings('.char-counter');
                 if (counter.length === 0) {
                     counter = $('<div class="char-counter form-text"></div>');
                     $('#bio').after(counter);
                 }
-                
+
                 counter.text(`${currentLength}/${maxLength} karakter`);
                 counter.toggleClass('text-danger', remaining < 0);
             });
@@ -345,7 +362,7 @@
         document.getElementById('togglePassword').addEventListener('click', function() {
             const password = document.getElementById('password');
             const icon = this.querySelector('i');
-            
+
             if (password.type === 'password') {
                 password.type = 'text';
                 icon.classList.remove('bx-hide');
@@ -360,7 +377,7 @@
         document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
             const password = document.getElementById('password_confirmation');
             const icon = this.querySelector('i');
-            
+
             if (password.type === 'password') {
                 password.type = 'text';
                 icon.classList.remove('bx-hide');
@@ -378,20 +395,20 @@
             const strengthContainer = document.querySelector('.password-strength');
             const strengthFill = document.getElementById('strengthFill');
             const strengthText = document.getElementById('strengthText');
-            
+
             if (password.length > 0) {
                 strengthContainer.style.display = 'block';
-                
+
                 let strength = 0;
                 let text = '';
-                
+
                 if (password.length >= 8) strength++;
                 if (password.match(/[a-z]/)) strength++;
                 if (password.match(/[A-Z]/)) strength++;
                 if (password.match(/[0-9]/)) strength++;
                 if (password.match(/[^a-zA-Z0-9]/)) strength++;
-                
-                switch(strength) {
+
+                switch (strength) {
                     case 0:
                     case 1:
                         strengthFill.style.width = '20%';
@@ -419,7 +436,7 @@
                         text = 'Sangat kuat';
                         break;
                 }
-                
+
                 strengthText.textContent = text;
             } else {
                 strengthContainer.style.display = 'none';
@@ -431,7 +448,7 @@
             const password = document.getElementById('password').value;
             const confirmPassword = this.value;
             const matchText = document.getElementById('passwordMatch');
-            
+
             if (confirmPassword) {
                 if (password === confirmPassword) {
                     matchText.textContent = 'Password cocok';
@@ -447,7 +464,7 @@
 
         // Drag and Drop for avatar
         const dragDropArea = document.getElementById('dragDropArea');
-        
+
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             dragDropArea.addEventListener(eventName, preventDefaults, false);
         });
@@ -478,7 +495,7 @@
         function handleDrop(e) {
             const dt = e.dataTransfer;
             const files = dt.files;
-            
+
             if (files.length > 0) {
                 document.getElementById('avatar').files = files;
                 previewAvatar(document.getElementById('avatar'));
@@ -489,20 +506,21 @@
         function previewAvatar(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
-                
+
                 reader.onload = function(e) {
                     document.getElementById('avatarPreview').src = e.target.result;
                     document.getElementById('avatarActions').classList.remove('d-none');
                     document.getElementById('dragDropArea').style.display = 'none';
                 };
-                
+
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
         function removeAvatar() {
             document.getElementById('avatar').value = '';
-            document.getElementById('avatarPreview').src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiByeD0iNTAiIGZpbGw9IiNmOGY5ZmEiLz4KPHN2ZyB4PSIyNSIgeT0iMjUiIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2Yzc1N2QiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KPHBhdGggZD0iTTIwIDIxdi0yYTQgNCAwIDAgMC00LTRIOGE0IDQgMCAwIDAtNCA0djIiLz4KPGNpcmNsZSBjeD0iMTIiIGN5PSI3IiByPSI0Ii8+Cjwvc3ZnPgo8L3N2Zz4K";
+            document.getElementById('avatarPreview').src =
+                "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiByeD0iNTAiIGZpbGw9IiNmOGY5ZmEiLz4KPHN2ZyB4PSIyNSIgeT0iMjUiIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2Yzc1N2QiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KPHBhdGggZD0iTTIwIDIxdi0yYTQgNCAwIDAgMC00LTRIOGE0IDQgMCAwIDAtNCA0djIiLz4KPGNpcmNsZSBjeD0iMTIiIGN5PSI3IiByPSI0Ii8+Cjwvc3ZnPgo8L3N2Zz4K";
             document.getElementById('avatarActions').classList.add('d-none');
             document.getElementById('dragDropArea').style.display = 'block';
         }
@@ -517,21 +535,21 @@
         document.getElementById('userForm').addEventListener('submit', function(e) {
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('password_confirmation').value;
-            
+
             if (password && confirmPassword) {
                 if (password !== confirmPassword) {
                     e.preventDefault();
                     alert('Password dan konfirmasi password tidak cocok!');
                     return;
                 }
-                
+
                 if (password.length < 8) {
                     e.preventDefault();
                     alert('Password harus minimal 8 karakter!');
                     return;
                 }
             }
-            
+
             showLoading();
         });
     </script>

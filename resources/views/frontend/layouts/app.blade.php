@@ -12,7 +12,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- My Custom CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/mystyle.css') }}">
-    
+
     @stack('styles')
 </head>
 
@@ -21,10 +21,10 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ route('welcome') }}">
-                <span class="badge">P</span>
-                <span>Portal Parakan</span>
-                <small class="d-block" style="font-size: 0.7rem; color: #6c757d;">Kecamatan Maleber, Kabupaten
-                    Kuningan</small>
+                <span class="badge">KUA</span>
+                <span>Portal Masyarakat</span>
+                <small class="d-block" style="font-size: 0.7rem; color: #6c757d;">Pusat Pengaduan Masyarakat KUA desa
+                    Bathin XXIV</small>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -34,19 +34,22 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{ route('welcome') }}">Beranda</a>
+                        <a class="nav-link {{ Request::is('/') ? 'active' : '' }}"
+                            href="{{ route('welcome') }}">Beranda</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('welcome') }}#tentang">Tentang</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('berita*') ? 'active' : '' }}" href="{{ route('frontend.news.index') }}">Berita</a>
+                        <a class="nav-link {{ Request::is('berita*') ? 'active' : '' }}"
+                            href="{{ route('frontend.news.index') }}">Berita</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ route('welcome') }}#layanan">Layanan</a>
+                        <a class="nav-link" href="{{ route('welcome') }}#layanan">Layanan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('pengaduan*') ? 'active' : '' }}" href="{{ route('frontend.complaints.index') }}">Pengaduan</a>
+                        <a class="nav-link {{ Request::is('pengaduan*') ? 'active' : '' }}"
+                            href="{{ route('frontend.complaints.index') }}">Pengaduan</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -67,8 +70,8 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <h2>Mari Bersama Membangun Desa</h2>
-                        <p>Bergabunglah dengan kami dalam memajukan Desa Parakan. Suara dan partisipasi Anda sangat berarti bagi masa depan desa.</p>
+                        <h2>Pusat Pengaduan Masyarakat KUA desa Bathin XXIV</h2>
+                        <p></p>
                         <div class="footer-cta-buttons">
                             <a href="#tentang" class="footer-cta-btn">
                                 <i class='bx bx-phone'></i>
@@ -76,14 +79,14 @@
                             </a>
                             <a href="{{ route('login') }}" class="footer-cta-btn secondary">
                                 <i class='bx bx-user'></i>
-                                Layanan Desa
+                                Layanan
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="footer-main">
             <div class="container">
                 <div class="row">
@@ -126,8 +129,10 @@
                     <div class="col-lg-4 col-md-12 mb-4">
                         <div class="footer-column">
                             <h5>Portal Parakan</h5>
-                            <p>Website resmi Desa Parakan, Kecamatan Maleber, Kabupaten Kuningan, Jawa Barat. Menyediakan informasi terkini tentang kegiatan dan perkembangan desa.</p>
-                            <p>Portal ini menjadi jembatan komunikasi antara pemerintah desa dan masyarakat dalam rangka meningkatkan transparansi dan partisipasi dalam pembangunan desa.</p>
+                            <p>Website resmi Desa Parakan, Kecamatan Maleber, Kabupaten Kuningan, Jawa Barat.
+                                Menyediakan informasi terkini tentang kegiatan dan perkembangan desa.</p>
+                            <p>Portal ini menjadi jembatan komunikasi antara pemerintah desa dan masyarakat dalam rangka
+                                meningkatkan transparansi dan partisipasi dalam pembangunan desa.</p>
                         </div>
                     </div>
                 </div>
@@ -136,7 +141,8 @@
 
         <div class="footer-bottom">
             <div class="container">
-                <p class="footer-copyright">&copy; 2025 Portal Parakan - KKN Kelompok 7 UNIKU 2025. <br> Hak Cipta Dilindungi Undang-Undang.</p>
+                <p class="footer-copyright">&copy; 2025 Portal Parakan - KKN Kelompok 7 UNIKU 2025. <br> Hak Cipta
+                    Dilindungi Undang-Undang.</p>
             </div>
         </div>
     </footer>
