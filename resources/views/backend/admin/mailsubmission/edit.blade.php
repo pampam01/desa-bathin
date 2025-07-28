@@ -3,7 +3,6 @@
 @section('title', 'Edit Pengajuan Surat')
 
 @section('styles')
-    <!-- Summernote CSS -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 @endsection
 
@@ -16,7 +15,6 @@
 @endsection
 
 @section('content')
-    <!-- Content -->
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
@@ -29,7 +27,6 @@
             </div>
         </div>
         <div class="card-body">
-            <!-- Submission Info -->
             <div class="alert alert-info" role="alert">
                 <div class="d-flex align-items-center">
                     <i class="bx bx-info-circle me-2"></i>
@@ -41,142 +38,135 @@
                 </div>
             </div>
 
-            <!-- Edit Form -->
             <form action="{{ route('mail-submissions.update', $mailSubmission->id) }}" method="POST"
                 enctype="multipart/form-data" id="editSubmissionForm">
                 @csrf
                 @method('PUT')
 
+                {{-- Baris 1: NIK & No. KK --}}
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="nik" class="form-label">NIK <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik"
-                                name="nik" value="{{ old('nik', $mailSubmission->nik) }}" required>
-                            @error('nik')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="nik" class="form-label">NIK <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik"
+                            name="nik" value="{{ old('nik', $mailSubmission->nik) }}" required pattern="\d{16}"
+                            title="NIK harus terdiri dari 16 digit angka">
+                        @error('nik')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="no_kk" class="form-label">No. KK <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control @error('no_kk') is-invalid @enderror" id="no_kk"
-                                name="no_kk" value="{{ old('no_kk', $mailSubmission->no_kk) }}" required>
-                            @error('no_kk')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="no_kk" class="form-label">No. KK <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('no_kk') is-invalid @enderror" id="no_kk"
+                            name="no_kk" value="{{ old('no_kk', $mailSubmission->no_kk) }}" required pattern="\d{16}"
+                            title="No. KK harus terdiri dari 16 digit angka">
+                        @error('no_kk')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
+                {{-- Baris 2: Nama & No. HP --}}
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                name="name" value="{{ old('name', $mailSubmission->name) }}" required>
-                            @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="name" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                            name="name" value="{{ old('name', $mailSubmission->name) }}" required>
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="no_hp" class="form-label">No. HP</label>
-                            <input type="text" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp"
-                                name="no_hp" value="{{ old('no_hp', $mailSubmission->no_hp) }}">
-                            @error('no_hp')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="no_hp" class="form-label">No. HP</label>
+                        <input type="text" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp"
+                            name="no_hp" value="{{ old('no_hp', $mailSubmission->no_hp) }}" pattern="\d{10,15}"
+                            title="No. HP harus terdiri dari 10-15 digit angka">
+                        @error('no_hp')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
+                {{-- Baris 3: Jenis Surat (Refactored with Loop) --}}
                 <div class="mb-3">
                     <label for="jenis_surat" class="form-label">Jenis Surat <span class="text-danger">*</span></label>
                     <select class="form-select @error('jenis_surat') is-invalid @enderror" id="jenis_surat"
                         name="jenis_surat" required>
                         <option value="">Pilih Jenis Surat</option>
-                        <option value="Surat Keterangan Domisili"
-                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Domisili' ? 'selected' : '' }}>
-                            Surat Keterangan Domisili</option>
-                        <option value="Surat Keterangan Usaha"
-                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Usaha' ? 'selected' : '' }}>
-                            Surat Keterangan Usaha</option>
-                        <option value="Surat Keterangan Tidak Mampu"
-                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Tidak Mampu' ? 'selected' : '' }}>
-                            Surat Keterangan Tidak Mampu</option>
-                        <option value="Surat Keterangan Kematian"
-                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Kematian' ? 'selected' : '' }}>
-                            Surat Keterangan Kematian</option>
-                        <option value="Surat Keterangan Lahir"
-                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Lahir' ? 'selected' : '' }}>
-                            Surat Keterangan Lahir</option>
-                        <option value="Surat Keterangan Pindah"
-                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Pindah' ? 'selected' : '' }}>
-                            Surat Keterangan Pindah</option>
-                        <option value="Surat Keterangan Belum Menikah"
-                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Belum Menikah' ? 'selected' : '' }}>
-                            Surat Keterangan Belum Menikah</option>
-                        <option value="Surat Keterangan Cerai"
-                            {{ old('jenis_surat', $mailSubmission->jenis_surat) == 'Surat Keterangan Cerai' ? 'selected' : '' }}>
-                            Surat Keterangan Cerai</option>
+                        @php
+                            $jenisSuratOptions = [
+                                'Surat Keterangan Domisili',
+                                'Surat Keterangan Usaha',
+                                'Surat Keterangan Tidak Mampu',
+                                'Surat Keterangan Kematian',
+                                'Surat Keterangan Lahir',
+                                'Surat Keterangan Pindah',
+                                'Surat Keterangan Belum Menikah',
+                                'Surat Keterangan Cerai',
+                            ];
+                        @endphp
+                        @foreach ($jenisSuratOptions as $option)
+                            <option value="{{ $option }}"
+                                {{ old('jenis_surat', $mailSubmission->jenis_surat) == $option ? 'selected' : '' }}>
+                                {{ $option }}
+                            </option>
+                        @endforeach
                     </select>
                     @error('jenis_surat')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
+                {{-- Baris 4: Keterangan Tambahan --}}
                 <div class="mb-3">
-                    <label for="description" class="form-label">Keterangan Tambahan</label>
-                    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
-                        placeholder="Masukkan keterangan tambahan jika diperlukan...">{!! old('description', $mailSubmission->description) !!}</textarea>
+                    <label for="summernote" class="form-label">Keterangan Tambahan</label>
+                    <textarea class="form-control @error('description') is-invalid @enderror" id="summernote" name="description">{{ old('description', $mailSubmission->description) }}</textarea>
                     @error('description')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
+                {{-- Baris 5: Status & File --}}
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
-                            <select class="form-select @error('status') is-invalid @enderror" id="status"
-                                name="status" required>
-                                <option value="">Pilih Status</option>
-                                <option value="pending"
-                                    {{ old('status', $mailSubmission->status) == 'pending' ? 'selected' : '' }}>
-                                    Pending</option>
-                                <option value="process"
-                                    {{ old('status', $mailSubmission->status) == 'process' ? 'selected' : '' }}>
-                                    Diproses</option>
-                                <option value="completed"
-                                    {{ old('status', $mailSubmission->status) == 'completed' ? 'selected' : '' }}>
-                                    Selesai</option>
-                            </select>
-                            @error('status')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                        <select class="form-select @error('status') is-invalid @enderror" id="status" name="status"
+                            required>
+                            <option value="">Pilih Status</option>
+                            @php
+                                $statusOptions = [
+                                    'pending' => 'Pending',
+                                    'process' => 'Diproses',
+                                    'completed' => 'Selesai',
+                                ];
+                            @endphp
+                            @foreach ($statusOptions as $key => $value)
+                                <option value="{{ $key }}"
+                                    {{ old('status', $mailSubmission->status) == $key ? 'selected' : '' }}>
+                                    {{ $value }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="file" class="form-label">File Pendukung</label>
-                            <input type="file" class="form-control @error('file') is-invalid @enderror" id="file"
-                                name="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
-                            @error('file')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            @if ($mailSubmission->file)
-                                <small class="form-text text-muted">
-                                    File saat ini: <a href="{{ asset('storage/' . $mailSubmission->file) }}"
-                                        target="_blank">{{ basename($mailSubmission->file) }}</a>
-                                </small>
-                            @endif
-                        </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="file" class="form-label">File Pendukung</label>
+                        <input type="file" class="form-control @error('file') is-invalid @enderror" id="file"
+                            name="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                        @error('file')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        @if ($mailSubmission->file)
+                            <small class="form-text text-muted">
+                                File saat ini: <a href="{{ asset('storage/' . $mailSubmission->file) }}"
+                                    target="_blank">{{ basename($mailSubmission->file) }}</a>
+                            </small>
+                        @endif
                     </div>
                 </div>
 
+                {{-- Tombol Aksi --}}
                 <div class="d-flex gap-2">
                     <button type="submit" class="btn btn-primary">
                         <i class="bx bx-save me-2"></i>Simpan Perubahan
@@ -191,105 +181,47 @@
 @endsection
 
 @section('scripts')
-    <!-- Summernote JS -->
+    {{-- PERBAIKAN 1: Tambahkan jQuery SEBELUM Summernote JS --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <script>
-        // Initialize Summernote
         $(document).ready(function() {
-            $('#description').summernote({
-                height: 200,
-                minHeight: null,
-                maxHeight: null,
-                focus: false,
+            // PERBAIKAN 2: Gunakan selector ID #summernote yang benar
+            $('#summernote').summernote({
                 placeholder: 'Masukkan keterangan tambahan jika diperlukan...',
+                height: 200,
                 toolbar: [
                     ['style', ['style']],
                     ['font', ['bold', 'underline', 'clear']],
-                    ['fontname', ['fontname']],
-                    ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
-                    ['table', ['table']],
                     ['insert', ['link']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
-                ],
-                callbacks: {
-                    onImageUpload: function(files) {
-                        // Handle image upload if needed
-                        console.log('Image upload not implemented');
-                    }
+                    ['view', ['fullscreen', 'codeview']]
+                ]
+            });
+
+            // PERBAIKAN 3: Hapus blok validasi JavaScript yang berlebihan dengan alert()
+            // Biarkan validasi HTML5 'required' dan Laravel yang bekerja.
+
+            // Script untuk loading state pada tombol submit
+            document.getElementById('editSubmissionForm').addEventListener('submit', function(e) {
+                const submitBtn = this.querySelector('button[type="submit"]');
+                // Cek validitas form bawaan browser
+                if (this.checkValidity()) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin me-2"></i>Menyimpan...';
                 }
             });
-        });
 
-        // Form validation
-        document.getElementById('editSubmissionForm').addEventListener('submit', function(e) {
-            const nik = document.getElementById('nik').value.trim();
-            const noKk = document.getElementById('no_kk').value.trim();
-            const name = document.getElementById('name').value.trim();
-            const jenisSurat = document.getElementById('jenis_surat').value;
-            const status = document.getElementById('status').value;
-
-            // Update description from Summernote
-            $('#description').summernote('triggerEvent', 'summernote.change');
-
-            if (!nik) {
-                e.preventDefault();
-                alert('NIK tidak boleh kosong');
-                return;
-            }
-
-            if (!noKk) {
-                e.preventDefault();
-                alert('No. KK tidak boleh kosong');
-                return;
-            }
-
-            if (!name) {
-                e.preventDefault();
-                alert('Nama lengkap tidak boleh kosong');
-                return;
-            }
-
-            if (!jenisSurat) {
-                e.preventDefault();
-                alert('Jenis surat harus dipilih');
-                return;
-            }
-
-            if (!status) {
-                e.preventDefault();
-                alert('Status harus dipilih');
-                return;
-            }
-
-            // Show loading state
-            const submitBtn = this.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin me-2"></i>Menyimpan...';
-        });
-
-        // NIK and No KK validation
-        document.getElementById('nik').addEventListener('input', function() {
-            this.value = this.value.replace(/\D/g, '');
-            if (this.value.length > 16) {
-                this.value = this.value.slice(0, 16);
-            }
-        });
-
-        document.getElementById('no_kk').addEventListener('input', function() {
-            this.value = this.value.replace(/\D/g, '');
-            if (this.value.length > 16) {
-                this.value = this.value.slice(0, 16);
-            }
-        });
-
-        // Phone number validation
-        document.getElementById('no_hp').addEventListener('input', function() {
-            this.value = this.value.replace(/\D/g, '');
-            if (this.value.length > 15) {
-                this.value = this.value.slice(0, 15);
-            }
+            // Script untuk membatasi input hanya angka (opsional, tapi bagus)
+            ['nik', 'no_kk', 'no_hp'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', function() {
+                        this.value = this.value.replace(/\D/g, '');
+                    });
+                }
+            });
         });
     </script>
 @endsection

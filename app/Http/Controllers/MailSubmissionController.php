@@ -26,7 +26,8 @@ class MailSubmissionController extends Controller
         $pendingmails = $mails->where('status', 'pending')->count();
         $resolvedmails = $mails->where('status', 'completed')->count();
         $processmails = $mails->where('status', 'process')->count();
-        return view('backend.admin.mailsubmission.index', compact('mails','pendingmails', 'resolvedmails', 'processmails', 'totalmails'));
+        $mailsfiles = $mails->where('file', '!=', null)->count();
+        return view('backend.admin.mailsubmission.index', compact('mails','pendingmails', 'resolvedmails', 'processmails', 'totalmails', 'mailsfiles'));
     }
 
     /**
@@ -88,7 +89,27 @@ class MailSubmissionController extends Controller
             'name' => 'required|string|max:15',
             'jenis_surat' => 'required|string|max:255',
             'description' => 'required|string',
+            'status' => 'required|string|max:255',
+            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+            'image' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
         ]);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            // Buat nama file yang lebih deskriptif
+            $fileName = 'surat_pendukung_' . time() . '.' . $file->getClientOriginalExtension();
+            // Simpan file dan dapatkan path lengkapnya
+            $path = $file->storeAs('mail_documents', $fileName, 'public');
+            // Simpan path lengkap ke database
+            $data['file'] = $path;
+        };
+    
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('mail_images', $imageName, 'public');
+            $data['image'] = $imageName;
+        }
 
         $data['user_id'] = Auth::user()->id;
         $updateMail = $mailSubmission->update ($data);

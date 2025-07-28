@@ -192,7 +192,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($mail->file)
+                                        @if ($mailsfiles > 0)
                                             <span class="badge bg-success">
                                                 <i class="bx bx-check me-1"></i>Tersedia
                                             </span>
