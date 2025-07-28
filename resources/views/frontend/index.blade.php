@@ -7,28 +7,31 @@
     <meta name="robots" content="index,follow">
     <meta name="author" content="{{ $seoData['author'] ?? 'KKN UNIKU Kelompok 7 Desa Parakan' }}">
     <meta name="theme-color" content="{{ $seoData['theme_color'] ?? '#dc3545' }}">
-    
+
     <!-- SEO Meta Tags -->
-    <title>{{ $seoData['title'] ?? 'Portal Parakan - Website Resmi Desa Parakan' }}</title>
-    <meta name="description" content="{{ $seoData['description'] ?? 'Website resmi Desa Parakan, Kecamatan Maleber, Kabupaten Kuningan' }}">
+    <title>{{ $seoData['title'] }}</title>
+    <meta name="description"
+        content="{{ $seoData['description'] ?? 'Website resmi Desa Parakan, Kecamatan Maleber, Kabupaten Kuningan' }}">
     <meta name="keywords" content="{{ $seoData['keywords'] ?? 'desa parakan, kecamatan maleber, portal desa' }}">
     <link rel="canonical" href="{{ $seoData['canonical_url'] ?? url('/') }}">
-    
+
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="{{ $seoData['og_title'] ?? $seoData['title'] ?? 'Portal Parakan' }}">
-    <meta property="og:description" content="{{ $seoData['og_description'] ?? $seoData['description'] ?? 'Website resmi Desa Parakan' }}">
+    <meta property="og:title" content="{{ $seoData['og_title'] ?? ($seoData['title'] ?? 'Portal Parakan') }}">
+    <meta property="og:description"
+        content="{{ $seoData['og_description'] ?? ($seoData['description'] ?? 'Website resmi Desa Parakan') }}">
     <meta property="og:type" content="{{ $seoData['og_type'] ?? 'website' }}">
     <meta property="og:url" content="{{ $seoData['og_url'] ?? url('/') }}">
     <meta property="og:image" content="{{ $seoData['og_image'] ?? asset('assets/img/logo-desa.png') }}">
     <meta property="og:site_name" content="Portal Parakan">
     <meta property="og:locale" content="id_ID">
-    
+
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="{{ $seoData['twitter_card'] ?? 'summary_large_image' }}">
-    <meta name="twitter:title" content="{{ $seoData['twitter_title'] ?? $seoData['title'] ?? 'Portal Parakan' }}">
-    <meta name="twitter:description" content="{{ $seoData['twitter_description'] ?? $seoData['description'] ?? 'Website resmi Desa Parakan' }}">
+    <meta name="twitter:title" content="{{ $seoData['twitter_title'] ?? ($seoData['title'] ?? 'Portal Parakan') }}">
+    <meta name="twitter:description"
+        content="{{ $seoData['twitter_description'] ?? ($seoData['description'] ?? 'Website resmi Desa Parakan') }}">
     <meta name="twitter:image" content="{{ $seoData['twitter_image'] ?? asset('assets/img/logo-desa.png') }}">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset('assets/img/logo-desa.png') }}">
@@ -96,7 +99,7 @@
         }
 
         .org-card.kepala-desa {
-            background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%);
+            background: linear-gradient(135deg, #35dc43c1 0%, #31b02a 100%);
             color: white;
             max-width: 320px;
             margin: 0 auto;
@@ -456,7 +459,7 @@
         .navbar-nav .nav-link:hover,
         .navbar-nav .nav-link.active {
             background: rgba(220, 53, 69, 0.1);
-            color: #dc3545 !important;
+            color: #35dc5f !important;
         }
 
         .navbar-toggler {
@@ -554,10 +557,10 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <span class="badge">P</span>
-                <span>Portal Parakan</span>
-                <small class="d-block" style="font-size: 0.7rem; color: #6c757d;">Kecamatan Maleber, Kabupaten
-                    Kuningan</small>
+                <span class="badge">KUA</span>
+                <span>{{ $seoData['og_title'] }}</span>
+                <small class="d-block"
+                    style="font-size: 0.7rem; color: #6c757d;">{{ $seoData['og_description'] }}</small>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -602,17 +605,16 @@
             <div class="hero-content">
                 <h1>
                     Selamat Datang di
-                    <span class="highlight">Portal Parakan</span>
+                    <span class="highlight">{{ $seoData['title'] }}</span>
                 </h1>
                 <p>
-                    Desa yang indah dengan kearifan lokal dan potensi alam yang melimpah,
-                    menuju masa depan yang berkelanjutan
+                    {{ $seoData['description'] }}
                 </p>
 
                 <div class="mt-4">
                     <a href="#tentang" class="btn-hero primary">
                         <i class='bx bx-info-circle'></i>
-                        Tentang Desa
+                        Tentang
                     </a>
                     <a href="#pengaduan" class="btn-hero secondary">
                         <i class='bx bx-phone'></i>
@@ -685,11 +687,10 @@
         <div class="container">
             <div class="row text-center mb-5 mt-5" data-aos="fade-up" data-aos-duration="800">
                 <div class="col-lg-8 mx-auto">
-                    <div class="section-subtitle badge bg-danger">Tentang Kami</div>
-                    <h2 class="display-5 fw-bold">Mengenal Desa Parakan</h2>
+                    <div class="section-subtitle badge bg-success">Tentang Kami</div>
+                    <h2 class="display-5 fw-bold">Kantor Agama Kecamatan BATHIN XXIV</h2>
                     <div class="about-divider mx-auto"></div>
-                    <p class="lead text-muted">Perjalanan panjang sejarah dan budaya yang membentuk identitas Desa
-                        Parakan</p>
+                    <p class="lead text-muted">{{ $seoData['description'] }}</p>
                 </div>
             </div>
 
@@ -700,7 +701,7 @@
                 </div>
 
                 <div class="about-text" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="600">
-                    <h3>Sejarah & Warisan Budaya</h3>
+                    <h3></h3>
                     <div class="about-divider"></div>
                     <p>{!! $description !!}</p>
                 </div>
@@ -1012,7 +1013,8 @@
             @if (@isset($news) && $news->count() > 0)
                 <div class="row g-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                     @foreach ($news as $index => $new)
-                        <div class="col-md-4" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="{{ 400 + ($index * 100) }}">
+                        <div class="col-md-4" data-aos="zoom-in" data-aos-duration="600"
+                            data-aos-delay="{{ 400 + $index * 100 }}">
                             <div class="news-card">
                                 <img src="{{ $new->image ? asset('storage/' . $new->image) : asset('assets/img/backgrounds/masjid.jpg') }}"
                                     alt="{{ $new->title }}">
@@ -1102,7 +1104,8 @@
         @if (@isset($complaints) && $complaints->count() > 0)
             <div class="row g-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                 @foreach ($complaints as $index => $complaint)
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="{{ 400 + ($index * 100) }}">
+                    <div class="col-md-4" data-aos="zoom-in" data-aos-duration="600"
+                        data-aos-delay="{{ 400 + $index * 100 }}">
                         <div class="news-card">
                             <img src="{{ $complaint->image ? asset('storage/' . $complaint->image) : asset('assets/img/backgrounds/masjid.jpg') }}"
                                 alt="{{ $complaint->title }}">
@@ -1322,12 +1325,12 @@
 
     // Observe all cards
     document.querySelectorAll('.feature-card, .news-card, .stat-card, .org-card, .bpd-card, .info-card').forEach(
-    card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'all 0.6s ease';
-        observer.observe(card);
-    });
+        card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
 
     // Counter animation for stats
     const counters = document.querySelectorAll('.stat-number');

@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #dc3545;
+    --primary-color: #35dc5f;
     --secondary-color: #6c757d;
     --dark-color: #212529;
     --light-color: #f8f9fa;
@@ -52,7 +52,7 @@ body {
 .hero-section {
     height: 100vh;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
-        url("../img/backgrounds/balaidesa.jpg") no-repeat center center;
+        url("../img/backgrounds/dashboard_img.jpg") no-repeat center center;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
