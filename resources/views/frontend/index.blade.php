@@ -10,26 +10,24 @@
 
     <!-- SEO Meta Tags -->
     <title>{{ $seoData['title'] }}</title>
-    <meta name="description"
-        content="{{ $seoData['description'] ?? 'Website resmi Desa Parakan, Kecamatan Maleber, Kabupaten Kuningan' }}">
-    <meta name="keywords" content="{{ $seoData['keywords'] ?? 'desa parakan, kecamatan maleber, portal desa' }}">
+    <meta name="description" content="{{ $seoData['description'] ?? '' }}">
+    <meta name="keywords" content="{{ $seoData['keywords'] ?? '' }}">
     <link rel="canonical" href="{{ $seoData['canonical_url'] ?? url('/') }}">
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="{{ $seoData['og_title'] ?? ($seoData['title'] ?? 'Portal Parakan') }}">
-    <meta property="og:description"
-        content="{{ $seoData['og_description'] ?? ($seoData['description'] ?? 'Website resmi Desa Parakan') }}">
+    <meta property="og:title" content="{{ $seoData['og_title'] ?? ($seoData['title'] ?? '') }}">
+    <meta property="og:description" content="{{ $seoData['og_description'] ?? ($seoData['description'] ?? '') }}">
     <meta property="og:type" content="{{ $seoData['og_type'] ?? 'website' }}">
     <meta property="og:url" content="{{ $seoData['og_url'] ?? url('/') }}">
     <meta property="og:image" content="{{ $seoData['og_image'] ?? asset('assets/img/logo-desa.png') }}">
-    <meta property="og:site_name" content="Portal Parakan">
+    <meta property="og:site_name" content="">
     <meta property="og:locale" content="id_ID">
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="{{ $seoData['twitter_card'] ?? 'summary_large_image' }}">
-    <meta name="twitter:title" content="{{ $seoData['twitter_title'] ?? ($seoData['title'] ?? 'Portal Parakan') }}">
+    <meta name="twitter:title" content="{{ $seoData['twitter_title'] ?? ($seoData['title'] ?? '') }}">
     <meta name="twitter:description"
-        content="{{ $seoData['twitter_description'] ?? ($seoData['description'] ?? 'Website resmi Desa Parakan') }}">
+        content="{{ $seoData['twitter_description'] ?? ($seoData['description'] ?? '') }}">
     <meta name="twitter:image" content="{{ $seoData['twitter_image'] ?? asset('assets/img/logo-desa.png') }}">
 
     <!-- Favicon -->
@@ -598,7 +596,7 @@
     <!-- Hero Section -->
     <section class="hero-section" id="home">
         <div class="hero-website-info">
-            Website Resmi Desa Parakan
+            Website Resmi {{ $seoData['title'] }}
         </div>
 
         <div class="container">
@@ -697,7 +695,7 @@
             <div class="about-content" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
                 <div class="about-image" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="400">
                     <img src="https://maleber.godesa.id/assets/uploads/4f18e3f3136e9c95d94278695be1b634.jpeg"
-                        alt="Desa Parakan">
+                        alt="KUA Bathin XXIV">
                 </div>
 
                 <div class="about-text" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="600">
@@ -1047,7 +1045,7 @@
         <div class="row text-center mb-5 mt-5" data-aos="fade-up" data-aos-duration="800">
             <div class="col-lg-8 mx-auto">
                 <h5 class="display-5 fw-bold">Layanan Kami</h5>
-                <p class="lead text-muted">Berbagai layanan digital untuk kemudahan warga Desa Parakan</p>
+                <p class="lead text-muted">Berbagai layanan digital KUA Bathin XXIV</p>
             </div>
         </div>
 
@@ -1197,8 +1195,8 @@
 
             <div class="col-lg-4 col-md-12 mb-4">
                 <div class="footer-column">
-                    <h5>Portal Parakan</h5>
-                    <p>Website resmi Desa Parakan, Kecamatan Maleber, Kabupaten Kuningan, Jawa Barat.
+                    <h5>KUA Bathin XXIV</h5>
+                    <p>Website resmi KUA Bathin XXIV, Kecamatan Maleber, Kabupaten Kuningan, Jawa Barat.
                         Menyediakan informasi terkini tentang kegiatan dan perkembangan desa.</p>
                     <p>Portal ini menjadi jembatan komunikasi antara pemerintah desa dan masyarakat dalam rangka
                         meningkatkan transparansi dan partisipasi dalam pembangunan desa.</p>
@@ -1210,7 +1208,7 @@
 
 <div class="footer-bottom">
     <div class="container">
-        <p class="footer-copyright">&copy; 2025 Portal Parakan - KKN Kelompok 7 UNIKU 2025. <br> Hak Cipta
+        <p class="footer-copyright">&copy; 2025 KUA Bathin XXIV - <br> Hak Cipta
             Dilindungi Undang-Undang.</p>
     </div>
 </div>
@@ -1221,12 +1219,12 @@
 <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="videoModalLabel">Profil Desa Parakan</h5>
+            <h5 class="modal-title" id="videoModalLabel">Profil KUA Bathin XXIV</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Profil Desa Parakan"
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Profil KUA Bathin XXIV"
                     allowfullscreen></iframe>
             </div>
         </div>
