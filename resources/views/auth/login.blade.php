@@ -39,7 +39,7 @@
                     </div>
                 @endif
 
-                <div class="mb-3">
+                <div class="mb-3 ">
                     <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                     <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                         name="email" value="{{ old('email') }}" placeholder="Masukkan email Anda" required autofocus />

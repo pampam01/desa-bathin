@@ -43,4 +43,4 @@
     <script src="../assets/js/config.js"></script>
 </head>
 
-<body>
+</html>
