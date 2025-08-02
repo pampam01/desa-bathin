@@ -1,18 +1,18 @@
 <!-- Footer -->
 <footer class="content-footer footer bg-footer-theme">
-  <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-    <div class="mb-2 mb-md-0">
-      ©
-      <script>
-        document.write(new Date().getFullYear());
-      </script>
-      , Portal Desa Parakan - KKN Kelompok 7 UNIKU 2025 with ❤️
+    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+        <div class="mb-2 mb-md-0">
+            ©
+            <script>
+                document.write(new Date().getFullYear());
+            </script>
+            made by desa bathin
+        </div>
+        <div>
+            <a href="route('privacy')" class="footer-link me-4">Kebijakan Privasi</a>
+            <a href="route('terms')" class="footer-link me-4">Syarat & Ketentuan</a>
+            <a href="route('contact')" class="footer-link me-4">Hubungi Kami</a>
+        </div>
     </div>
-    <div>
-      <a href="route('privacy')" class="footer-link me-4">Kebijakan Privasi</a>
-      <a href="route('terms')" class="footer-link me-4">Syarat & Ketentuan</a>
-      <a href="route('contact')" class="footer-link me-4">Hubungi Kami</a>
-    </div>
-  </div>
 </footer>
 <!-- / Footer -->

@@ -134,7 +134,6 @@
                 </a>
             </li>
         @endif
-
         <!-- Profile -->
         <li class="menu-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">
             <a href="{{ route('profile.index') }}" class="menu-link">
@@ -142,14 +141,7 @@
                 <div data-i18n="Profile">Profile</div>
             </a>
         </li>
-
         <!-- Settings -->
-        {{-- <li class="menu-item {{ request()->routeIs('settings.*') ? 'active' : '' }}">
-      <a href="{{ route('settings.index') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-cog"></i>
-        <div data-i18n="Settings">Pengaturan</div>
-      </a>
-    </li> --}}
     </ul>
 </aside>
 <!-- / Menu -->
