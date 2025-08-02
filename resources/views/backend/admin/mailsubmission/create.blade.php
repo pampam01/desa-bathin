@@ -61,7 +61,8 @@
                             <label for="nik" class="form-label">Nomor Induk Kependudukan (NIK) <span
                                     class="text-danger">*</span></label>
                             <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik"
-                                name="nik" value="{{ old('nik') }}" placeholder="Masukkan NIK..." required>
+                                name="nik" value="{{ old('nik') }}" placeholder="Masukkan NIK..." required
+                                pattern="[0-9]{16}" maxlength="16">
                             @error('nik')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -72,7 +73,8 @@
                             <label for="no_kk" class="form-label">Nomor Kartu Keluarga (KK) <span
                                     class="text-danger">*</span></label>
                             <input type="number" class="form-control @error('no_kk') is-invalid @enderror" id="no_kk"
-                                name="no_kk" value="{{ old('no_kk') }}" placeholder="Masukkan KK..." required>
+                                name="no_kk" value="{{ old('no_kk') }}" placeholder="Masukkan KK..." required
+                                pattern="[0-9]{16}" maxlength="16">
                             @error('no_kk')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

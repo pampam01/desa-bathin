@@ -44,8 +44,8 @@ class MailSubmissionController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nik' => 'required|string|max:255',
-            'no_kk' => 'required|string|max:255',
+            'nik' => 'required|string|min:16|max:16',
+            'no_kk' => 'required|string|min:16|max:16',
             'no_hp' => 'required|string|max:15',
             'name' => 'required|string|max:15',
             'jenis_surat' => 'required|string|max:255',
@@ -84,8 +84,8 @@ class MailSubmissionController extends Controller
     public function update(Request $request, MailSubmission $mailSubmission)
     {
         $data = $request->validate([
-            'nik' => 'required|string|max:255',
-            'no_kk' => 'required|string|max:255',
+            'nik' => 'required|string|min:16|max:16',
+            'no_kk' => 'required|string|min:16|max:16',
             'name' => 'required|string|max:15',
             'jenis_surat' => 'required|string|max:255',
             'description' => 'required|string',
