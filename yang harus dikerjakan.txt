@@ -1,0 +1,4 @@
+1. user biasa tidak boleh menanggapi pengaduan
+2. fitur pengaduan ditolak 
+3. fitur surat ditolak
+4. fitur likes 
