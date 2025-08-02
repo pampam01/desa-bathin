@@ -228,30 +228,39 @@
                                         <br>
                                         <small class="text-muted">{{ $item->created_at->format('H:i') }}</small>
                                     </td>
-                                    <td>
-                                        <div class="d-flex gap-1">
-                                            <a href="{{ route('complaints.show', $item->id) }}"
-                                                class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Lihat Detail">
-                                                <i class="bx bx-show"></i>
-                                            </a>
-                                            <a href="{{ route('complaint-response.create', ['complaint_id' => $item->id]) }}"
-                                                class="btn btn-sm btn-outline-success" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Tanggapi Pengaduan">
-                                                <i class="bx bx-reply"></i>
-                                            </a>
-                                            <a href="{{ route('complaints.edit', $item->id) }}"
-                                                class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Edit Pengaduan">
-                                                <i class="bx bx-edit"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-sm btn-outline-danger"
-                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pengaduan"
-                                                onclick="confirmDelete({{ $item->id }}, '{{ $item->title }}')">
-                                                <i class="bx bx-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
+                                    @if ($item->status == 'resolved' && Auth::user()->role != 'admin')
+                                        <td>
+                                            <span class="badge bg-success">Pengaduan Telah Selesai</span>
+                                        </td>
+                                    @else
+                                        <td>
+                                            <div class="d-flex gap-1">
+                                                <a href="{{ route('complaints.show', $item->id) }}"
+                                                    class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Lihat Detail">
+                                                    <i class="bx bx-show"></i>
+                                                </a>
+                                                <a href="{{ route('complaint-response.create', ['complaint_id' => $item->id]) }}"
+                                                    class="btn btn-sm btn-outline-success" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Tanggapi Pengaduan">
+                                                    <i class="bx bx-reply"></i>
+                                                </a>
+                                                <a href="{{ route('complaints.edit', $item->id) }}"
+                                                    class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Edit Pengaduan">
+                                                    <i class="bx bx-edit"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Hapus Pengaduan"
+                                                    onclick="confirmDelete({{ $item->id }}, '{{ $item->title }}')">
+                                                    <i class="bx bx-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    @endif
+                                    {{-- aksi --}}
+
                                 </tr>
                             @endforeach
                         </tbody>

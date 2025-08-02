@@ -52,6 +52,10 @@
 @endpush
 
 @section('content')
+
+    <a href="{{ route('complaints.index') }}" class="btn btn-outline-secondary">
+        <i class="bx bx-arrow-back me-1"></i> Kembali
+    </a>
     <form action="{{ route('complaints.update', $complaint->id) }}" method="POST" enctype="multipart/form-data"
         id="newsForm">
         @csrf
@@ -176,20 +180,23 @@
                     </div>
                     <div class="card-body">
                         <!-- Status -->
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-select @error('status') is-invalid @enderror" id="status"
-                                name="status">
-                                <option value="draft"
-                                    {{ old('status', $complaint->status) == 'draft' ? 'selected' : '' }}>Draft</option>
-                                <option value="resolved"
-                                    {{ old('status', $complaint->status) == 'resolved' ? 'selected' : '' }}>Selesai
-                                </option>
-                            </select>
-                            @error('status')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        @if (Auth::user()->role == 'admin')
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-select @error('status') is-invalid @enderror" id="status"
+                                    name="status">
+                                    <option value="draft"
+                                        {{ old('status', $complaint->status) == 'draft' ? 'selected' : '' }}>Draft
+                                    </option>
+                                    <option value="resolved"
+                                        {{ old('status', $complaint->status) == 'resolved' ? 'selected' : '' }}>Selesai
+                                    </option>
+                                </select>
+                                @error('status')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        @endif
 
                         <!-- Action Buttons -->
                         <div class="d-grid gap-2">
@@ -205,6 +212,7 @@
             </div>
         </div>
     </form>
+
 @endsection
 
 @push('scripts')
