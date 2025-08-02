@@ -6,22 +6,40 @@ use Illuminate\Database\Eloquent\Model;
 
 class MailSubmission extends Model
 {
-    protected $guarded = [
-        'id',
-    ]; 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
+        'user_id',      // <-- PENTING: user_id sekarang diizinkan
+        'nik',
+        'no_kk',
         'name',
         'no_hp',
-        'email',
-        'message',
-        'image',
+        'jenis_surat',
+        'description',
         'status',
         'file',
+        'image',
     ];
 
+    /**
+     * Mendefinisikan relasi ke model User.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Accessor untuk mendapatkan path lengkap gambar.
+     */
     public function getImageAttribute($value)
     {
-        return asset('storage/' . $value);
+        if ($value) {
+            return asset('storage/' . $value);
+        }
+        return null; // Mengembalikan null jika tidak ada gambar
     }
-    
 }

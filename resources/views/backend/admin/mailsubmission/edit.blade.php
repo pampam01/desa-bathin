@@ -2,9 +2,10 @@
 
 @section('title', 'Edit Pengajuan Surat')
 
-@section('styles')
+@push('styles')
+    {{-- Summernote CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-@endsection
+@endpush
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
@@ -86,23 +87,14 @@
                     </div>
                 </div>
 
-                {{-- Baris 3: Jenis Surat (Refactored with Loop) --}}
+                {{-- Baris 3: Jenis Surat --}}
                 <div class="mb-3">
                     <label for="jenis_surat" class="form-label">Jenis Surat <span class="text-danger">*</span></label>
                     <select class="form-select @error('jenis_surat') is-invalid @enderror" id="jenis_surat"
                         name="jenis_surat" required>
                         <option value="">Pilih Jenis Surat</option>
                         @php
-                            $jenisSuratOptions = [
-                                'Surat Keterangan Domisili',
-                                'Surat Keterangan Usaha',
-                                'Surat Keterangan Tidak Mampu',
-                                'Surat Keterangan Kematian',
-                                'Surat Keterangan Lahir',
-                                'Surat Keterangan Pindah',
-                                'Surat Keterangan Belum Menikah',
-                                'Surat Keterangan Cerai',
-                            ];
+                            $jenisSuratOptions = ['Surat Keterangan Domisili', 'Surat Keterangan Usaha', 'Surat Keterangan Tidak Mampu', 'Surat Keterangan Kematian', 'Surat Keterangan Lahir', 'Surat Keterangan Pindah', 'Surat Keterangan Belum Menikah', 'Surat Keterangan Cerai'];
                         @endphp
                         @foreach ($jenisSuratOptions as $option)
                             <option value="{{ $option }}"
@@ -118,8 +110,8 @@
 
                 {{-- Baris 4: Keterangan Tambahan --}}
                 <div class="mb-3">
-                    <label for="summernote" class="form-label">Keterangan Tambahan</label>
-                    <textarea class="form-control @error('description') is-invalid @enderror" id="summernote" name="description">{{ old('description', $mailSubmission->description) }}</textarea>
+                    <label for="summernote" class="form-label">Keterangan Tambahan <span class="text-danger">*</span></label>
+                    <textarea class="form-control @error('description') is-invalid @enderror" id="summernote" name="description" required>{{ old('description', $mailSubmission->description) }}</textarea>
                     @error('description')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -133,11 +125,7 @@
                             required>
                             <option value="">Pilih Status</option>
                             @php
-                                $statusOptions = [
-                                    'pending' => 'Pending',
-                                    'process' => 'Diproses',
-                                    'completed' => 'Selesai',
-                                ];
+                                $statusOptions = ['pending' => 'Pending', 'process' => 'Diproses', 'completed' => 'Selesai'];
                             @endphp
                             @foreach ($statusOptions as $key => $value)
                                 <option value="{{ $key }}"
@@ -180,14 +168,14 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     {{-- PERBAIKAN 1: Tambahkan jQuery SEBELUM Summernote JS --}}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            // PERBAIKAN 2: Gunakan selector ID #summernote yang benar
+            // PERBAIKAN 2: Inisialisasi Summernote dengan benar
             $('#summernote').summernote({
                 placeholder: 'Masukkan keterangan tambahan jika diperlukan...',
                 height: 200,
@@ -200,28 +188,14 @@
                 ]
             });
 
-            // PERBAIKAN 3: Hapus blok validasi JavaScript yang berlebihan dengan alert()
-            // Biarkan validasi HTML5 'required' dan Laravel yang bekerja.
-
-            // Script untuk loading state pada tombol submit
+            // Script untuk loading state pada tombol submit (lebih aman)
             document.getElementById('editSubmissionForm').addEventListener('submit', function(e) {
                 const submitBtn = this.querySelector('button[type="submit"]');
-                // Cek validitas form bawaan browser
                 if (this.checkValidity()) {
                     submitBtn.disabled = true;
                     submitBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin me-2"></i>Menyimpan...';
                 }
             });
-
-            // Script untuk membatasi input hanya angka (opsional, tapi bagus)
-            ['nik', 'no_kk', 'no_hp'].forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.addEventListener('input', function() {
-                        this.value = this.value.replace(/\D/g, '');
-                    });
-                }
-            });
         });
     </script>
-@endsection
+@endpush
