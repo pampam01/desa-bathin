@@ -94,7 +94,16 @@
                         name="jenis_surat" required>
                         <option value="">Pilih Jenis Surat</option>
                         @php
-                            $jenisSuratOptions = ['Surat Keterangan Domisili', 'Surat Keterangan Usaha', 'Surat Keterangan Tidak Mampu', 'Surat Keterangan Kematian', 'Surat Keterangan Lahir', 'Surat Keterangan Pindah', 'Surat Keterangan Belum Menikah', 'Surat Keterangan Cerai'];
+                            $jenisSuratOptions = [
+                                'Surat Keterangan Domisili',
+                                'Surat Keterangan Usaha',
+                                'Surat Keterangan Tidak Mampu',
+                                'Surat Keterangan Kematian',
+                                'Surat Keterangan Lahir',
+                                'Surat Keterangan Pindah',
+                                'Surat Keterangan Belum Menikah',
+                                'Surat Keterangan Cerai',
+                            ];
                         @endphp
                         @foreach ($jenisSuratOptions as $option)
                             <option value="{{ $option }}"
@@ -110,7 +119,8 @@
 
                 {{-- Baris 4: Keterangan Tambahan --}}
                 <div class="mb-3">
-                    <label for="summernote" class="form-label">Keterangan Tambahan <span class="text-danger">*</span></label>
+                    <label for="summernote" class="form-label">Keterangan Tambahan <span
+                            class="text-danger">*</span></label>
                     <textarea class="form-control @error('description') is-invalid @enderror" id="summernote" name="description" required>{{ old('description', $mailSubmission->description) }}</textarea>
                     @error('description')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -125,7 +135,12 @@
                             required>
                             <option value="">Pilih Status</option>
                             @php
-                                $statusOptions = ['pending' => 'Pending', 'process' => 'Diproses', 'completed' => 'Selesai'];
+                                $statusOptions = [
+                                    'pending' => 'Pending',
+                                    'process' => 'Diproses',
+                                    'completed' => 'Selesai',
+                                    'rejected' => 'Ditolak',
+                                ];
                             @endphp
                             @foreach ($statusOptions as $key => $value)
                                 <option value="{{ $key }}"

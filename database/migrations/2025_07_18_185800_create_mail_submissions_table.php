@@ -29,11 +29,11 @@ return new class extends Migration
             ]);
             $table->text('description')->nullable();
             $table->string('no_hp')->nullable();
-            $table->enum('status', ['pending', 'process', 'completed'])->default('pending');
+            $table->enum('status', ['pending', 'process', 'completed', 'rejected'])->default('pending');
             $table->string('file')->nullable();
             $table->timestamps();
         });
-    }
+    }   
 
     /**
      * Reverse the migrations.

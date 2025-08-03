@@ -17,7 +17,7 @@ class MailSubmissionController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role !== 'admin') {
+        if(Auth::user()->role == 'admin') {
             $mails = MailSubmission::latest()->paginate(10);
         } else {
             $mails = MailSubmission::where('user_id', Auth::id())->latest()->paginate(10);
@@ -26,8 +26,9 @@ class MailSubmissionController extends Controller
         $pendingmails = $mails->where('status', 'pending')->count();
         $resolvedmails = $mails->where('status', 'completed')->count();
         $processmails = $mails->where('status', 'process')->count();
+        $rejectedmails = $mails->where('status', 'rejected')->count();
         $mailsfiles = $mails->where('file', '!=', null)->count();
-        return view('backend.admin.mailsubmission.index', compact('mails','pendingmails', 'resolvedmails', 'processmails', 'totalmails', 'mailsfiles'));
+        return view('backend.admin.mailsubmission.index', compact('mails','pendingmails', 'resolvedmails', 'processmails', 'totalmails', 'mailsfiles', 'rejectedmails'));
     }
 
     /**
@@ -111,7 +112,7 @@ class MailSubmissionController extends Controller
             $data['image'] = $imageName;
         }
 
-        $data['user_id'] = Auth::user()->id;
+        // $data['user_id'] = Auth::user()->id;
         $updateMail = $mailSubmission->update ($data);
 
         if(!$updateMail) {
@@ -142,7 +143,7 @@ class MailSubmissionController extends Controller
     public function updateStatus(Request $request, MailSubmission $mailSubmission)
     {
         $request->validate([
-            'status' => 'required|in:pending,process,completed'
+            'status' => 'required|in:pending,process,completed,rejected'
         ]);
 
         $mailSubmission->update([

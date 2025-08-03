@@ -130,6 +130,9 @@
                                 <option value="surat keterangan belum menikah"
                                     {{ old('jenis_surat') == 'surat keterangan belum menikah' ? 'selected' : '' }}>Surat
                                     Keterangan Belum Menikah</option>
+                                <option value="surat keterangan cerai"
+                                    {{ old('jenis_surat') == 'surat keterangan cerai' ? 'selected' : '' }}>Surat
+                                    Keterangan Cerai</option>
                             </select>
                             @error('jenis_surat')
                                 <div class="invalid-feedback">{{ $message }}</div>

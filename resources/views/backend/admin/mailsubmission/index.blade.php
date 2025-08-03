@@ -33,6 +33,8 @@
                             <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>
                                 Pending</option>
                             <option value="process" {{ request('status') == 'process' ? 'selected' : '' }}>Proses</option>
+                            <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Ditolak
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -189,14 +191,18 @@
                                             <span class="badge bg-success">
                                                 <i class="bx bx-check-circle me-1"></i>Selesai
                                             </span>
+                                        @elseif($mail->status == 'rejected')
+                                            <span class="badge bg-danger">
+                                                <i class="bx bx-x-circle me-1"></i>Ditolak
+                                            </span>
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($mailsfiles > 0)
+                                        @if ($mailsfiles > 0 && $mail->user_id == Auth::id())
                                             <span class="badge bg-success">
                                                 <i class="bx bx-check me-1"></i>Tersedia
                                             </span>
-                                        @else
+                                        @elseif($mailsfiles == 0 && $mail->user_id == Auth::id())
                                             <span class="badge bg-secondary">
                                                 <i class="bx bx-x me-1"></i>Belum ada
                                             </span>

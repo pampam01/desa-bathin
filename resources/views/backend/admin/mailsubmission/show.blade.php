@@ -98,6 +98,10 @@
                                             <span class="badge bg-warning">Pending</span>
                                         @elseif($mailSubmission->status == 'process')
                                             <span class="badge bg-info">Diproses</span>
+                                        @elseif($mailSubmission->status == 'rejected')
+                                            <span class="badge bg-danger">
+                                                <i class="bx bx-x-circle me-1"></i>Ditolak
+                                            </span>
                                         @else
                                             <span class="badge bg-success">Selesai</span>
                                         @endif
@@ -203,6 +207,10 @@
                                     <span class="badge bg-warning">Pending</span>
                                 @elseif($mailSubmission->status == 'process')
                                     <span class="badge bg-info">Diproses</span>
+                                @elseif($mailSubmission->status == 'rejected')
+                                    <span class="badge bg-danger">
+                                        <i class="bx bx-x-circle me-1"></i>Ditolak
+                                    </span>
                                 @else
                                     <span class="badge bg-success">Selesai</span>
                                 @endif
