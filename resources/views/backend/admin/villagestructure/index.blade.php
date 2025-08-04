@@ -1,11 +1,11 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Struktur Pemerintahan Desa')
+@section('title', 'Struktur Perangkat KUA')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Manajemen Struktur Pemerintahan /</span> Struktur Pemerintahan Desa
+            <span class="text-muted fw-light">Manajemen Struktur Perangkat KUA /</span> Struktur Perangkat KUA
         </h4>
         <div class="text-muted">
             <small><i class="bx bx-info-circle me-1"></i>Kelola data pejabat desa yang sudah ada</small>
@@ -15,13 +15,13 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
-    <li class="breadcrumb-item active">Struktur Pemerintahan Desa</li>
+    <li class="breadcrumb-item active">Struktur Perangkat KUA</li>
 @endsection
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h5 class="mb-0">Data Struktur Pemerintahan Desa</h5>
+            <h5 class="mb-0">Data Struktur Perangkat KUA</h5>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -96,7 +96,7 @@
                                 <td colspan="9" class="text-center">
                                     <div class="py-4">
                                         <i class="bx bx-user-x fs-1 text-muted"></i>
-                                        <p class="text-muted mt-2">Belum ada data struktur pemerintahan</p>
+                                        <p class="text-muted mt-2">Belum ada data struktur perangkat KUA</p>
                                         <small class="text-muted">Data akan tersedia setelah seeder dijalankan</small>
                                     </div>
                                 </td>

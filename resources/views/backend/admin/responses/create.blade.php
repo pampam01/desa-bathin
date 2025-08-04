@@ -69,21 +69,30 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
-                            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status"
-                                required>
-                                <option value="">Pilih Status</option>
-                                <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="process" {{ old('status') == 'process' ? 'selected' : '' }}>Diproses
-                                </option>
-                                <option value="resolved" {{ old('status') == 'resolved' ? 'selected' : '' }}>Selesai
-                                </option>
-                            </select>
-                            @error('status')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        @if (Auth::user()->role == 'admin')
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                                <select class="form-select @error('status') is-invalid @enderror" id="status"
+                                    name="status" required>
+                                    <option value="">Pilih Status</option>
+                                    <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending
+                                    </option>
+                                    <option value="process" {{ old('status') == 'process' ? 'selected' : '' }}>Diproses
+                                    </option>
+                                    <option value="resolved" {{ old('status') == 'resolved' ? 'selected' : '' }}>Selesai
+                                    </option>
+                                </select>
+                                @error('status')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        @else
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('status') is-invalid @enderror"
+                                    id="status" name="status" value="{{ old('status', 'pending') }}" readonly>
+                            </div>
+                        @endif
 
                         <div class="mb-3">
                             <label class="form-label">Penanggap</label>
@@ -217,17 +226,17 @@
                                 </div>
                                 
                                 ${complaint.image ? `
-                                        <div class="mb-3">
-                                            <strong>Gambar:</strong>
-                                            <div class="mt-2">
-                                                <img src="${complaint.image}" 
-                                                     alt="Bukti pengaduan" 
-                                                     class="img-fluid rounded shadow-sm" 
-                                                     style="max-height: 300px; cursor: pointer;"
-                                                     onclick="openImageModal(this.src)">
-                                            </div>
-                                        </div>
-                                    ` : ''}
+                                                        <div class="mb-3">
+                                                            <strong>Gambar:</strong>
+                                                            <div class="mt-2">
+                                                                <img src="${complaint.image}" 
+                                                                     alt="Bukti pengaduan" 
+                                                                     class="img-fluid rounded shadow-sm" 
+                                                                     style="max-height: 300px; cursor: pointer;"
+                                                                     onclick="openImageModal(this.src)">
+                                                            </div>
+                                                        </div>
+                                                    ` : ''}
                             </div>
                         `;
                     })

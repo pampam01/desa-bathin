@@ -240,11 +240,13 @@
                                                     data-bs-placement="top" title="Lihat Detail">
                                                     <i class="bx bx-show"></i>
                                                 </a>
-                                                <a href="{{ route('complaint-response.create', ['complaint_id' => $item->id]) }}"
-                                                    class="btn btn-sm btn-outline-success" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Tanggapi Pengaduan">
-                                                    <i class="bx bx-reply"></i>
-                                                </a>
+                                                @if (Auth::user()->role == 'admin')
+                                                    <a href="{{ route('complaint-response.create', ['complaint_id' => $item->id]) }}"
+                                                        class="btn btn-sm btn-outline-success" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Tanggapi Pengaduan">
+                                                        <i class="bx bx-reply"></i>
+                                                    </a>
+                                                @endif
                                                 <a href="{{ route('complaints.edit', $item->id) }}"
                                                     class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip"
                                                     data-bs-placement="top" title="Edit Pengaduan">

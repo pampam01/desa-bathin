@@ -754,7 +754,7 @@
             <div class="row text-center mb-5 mt-5" data-aos="fade-up" data-aos-duration="800">
                 <div class="col-lg-8 mx-auto">
                     <div class="section-subtitle badge bg-success">Struktur Organisasi</div>
-                    <h2 class="display-5 fw-bold">Struktur Pemerintahan Desa</h2>
+                    <h2 class="display-5 fw-bold">Struktur Perangkat KUA</h2>
                     <div class="about-divider mx-auto"></div>
                     <p class="lead text-muted">Organisasi pemerintahan desa yang melayani masyarakat dengan dedikasi
                         tinggi

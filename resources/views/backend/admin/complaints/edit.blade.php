@@ -196,6 +196,13 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                        @else
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <input type="text" class="form-control @error('status') is-invalid @enderror"
+                                    id="status" name="status" value="{{ old('status', $complaint->status) }}"
+                                    readonly>
+                            </div>
                         @endif
 
                         <!-- Action Buttons -->
