@@ -18,7 +18,7 @@
                                 class="rounded-circle">
                         @else
                             <div class="avatar-placeholder w-px-40 h-auto rounded-circle d-flex align-items-center justify-content-center mx-auto"
-                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 2.5rem; font-weight: bold;">
+                                style="background: linear-gradient(135deg, #66ea6d 0%, #4ea24b 100%); color: white; font-size: 2rem; font-weight: bold;">
                                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                             </div>
                         @endif
@@ -34,8 +34,8 @@
                                             <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar"
                                                 class="rounded-circle">
                                         @else
-                                            <div class="avatar-placeholder w-px-40 h-auto rounded-circle d-flex align-items-center justify-content-center mx-auto"
-                                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 2.5rem; font-weight: bold;">
+                                            <div class="avatar-placeholder w-px-30 h-auto rounded-circle d-flex align-items-center justify-content-center mx-auto mt-0"
+                                                style="background: linear-gradient(135deg, #66ea83 0%, #4ba252 100%); color: white; font-size: 1.5rem; font-weight: bold;">
                                                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                                             </div>
                                         @endif

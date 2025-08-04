@@ -33,7 +33,7 @@
                                     style="object-fit: cover;">
                             @else
                                 <div class="avatar-placeholder rounded-circle d-flex align-items-center justify-content-center mx-auto"
-                                    style="width: 120px; height: 120px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 2.5rem; font-weight: bold;">
+                                    style="width: 120px; height: 120px; background: linear-gradient(135deg, #66ea6d 0%, #4ea24b 100%); color: white; font-size: 3rem; font-weight: bold;">
                                     {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                                 </div>
                             @endif
