@@ -6,7 +6,7 @@ use App\Models\AboutVillage;
 use App\Models\Complaint;
 use App\Models\MailSubmission;
 use App\Models\News;
-use App\Models\NewsLike;
+
 use App\Models\User;
 use App\Models\VillageStructure;
 use Illuminate\Http\Request;
@@ -39,8 +39,7 @@ class DashboardController extends Controller
             return $item->created_at->isCurrentMonth();
         })->count();
 
-        $likes = NewsLike::all();
-        $totalLikes = $likes->count();
+
 
         return view('backend.admin.dashboard', compact(
             'totalNews',
@@ -50,8 +49,7 @@ class DashboardController extends Controller
             'complaintsThisMonth',
             'recentComplaints',
             'totalUsers',
-            'newUsersThisMonth',
-            'totalLikes'
+            'newUsersThisMonth'
         ));
     }
 
@@ -83,8 +81,7 @@ class DashboardController extends Controller
             return $item->created_at->isCurrentMonth();
         })->count();
 
-        $likes = NewsLike::where('user_id', Auth::user()->id)->get();
-        $totalLikes = $likes->count();
+
 
         return view('backend.admin.dashboard', compact(
             'totalNews',
@@ -96,8 +93,7 @@ class DashboardController extends Controller
             'totalUsers',
             'newUsersThisMonth',
             'totalMailSubmissions',
-            'newMailSubmissionsThisMonth',
-            'totalLikes'
+            'newMailSubmissionsThisMonth'
         ));
     }
 

@@ -33,13 +33,7 @@ class News extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Get the likes for this news.
-     */
-    public function likes(): HasMany
-    {
-        return $this->hasMany(NewsLike::class);
-    }
+
 
     /**
      * Get the comments for this news.

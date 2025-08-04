@@ -216,7 +216,7 @@
                         @endif
 
                         <div class="news-body">
-                            {!! $news->content !!} 
+                            {!! $news->content !!}
                         </div>
 
                         <!-- Social Share -->

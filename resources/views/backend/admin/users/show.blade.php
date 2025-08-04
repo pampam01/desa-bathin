@@ -228,7 +228,7 @@
                         <div class="col-md-4">
                             <div class="p-3">
                                 <i class="bx bx-heart bx-lg text-danger mb-2"></i>
-                                <h4 class="mb-1">{{ $user->newsLikes()->count() }}</h4>
+                                <h4 class="mb-1">0</h4>
                                 <small class="text-muted">Total Likes</small>
                             </div>
                         </div>

@@ -142,8 +142,7 @@
                             <i class="bx bx-heart bx-md text-info"></i>
                         </div>
                         <div>
-                            <span class="fw-semibold d-block mb-1">Total Likes</span>
-                            <h3 class="card-title mb-0">{{ $totalLikes ?? 0 }}</h3>
+
                         </div>
                     </div>
                 </div>
@@ -183,7 +182,7 @@
                                 <th>Judul</th>
                                 <th>Penulis</th>
                                 <th>Status</th>
-                                <th>Likes</th>
+
                                 <th>Tanggal</th>
                                 <th width="140">Aksi</th>
                             </tr>
@@ -234,7 +233,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <span class="badge bg-info">{{ $item->likes_count ?? 0 }}</span>
+                                        <span class="badge bg-info">0</span>
                                     </td>
                                     <td>
                                         <small class="text-muted">{{ $item->created_at->format('d M Y') }}</small>

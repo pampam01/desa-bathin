@@ -62,13 +62,7 @@ class User extends Authenticatable
         return $this->hasMany(Complaint::class);
     }
 
-    /**
-     * Get the news likes for the user.
-     */
-    public function newsLikes(): HasMany
-    {
-        return $this->hasMany(NewsLike::class);
-    }
+
 
     /**
      * Get the comments for the user.

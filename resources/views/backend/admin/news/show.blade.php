@@ -158,7 +158,7 @@
                     <div class="row text-center">
                         <div class="col-6">
                             <div class="mb-2">
-                                <h4 class="text-white mb-0">{{ $news->likes ?? 0 }}</h4>
+                                <h4 class="text-white mb-0">0</h4>
                                 <small class="text-white-50">Likes</small>
                             </div>
                         </div>

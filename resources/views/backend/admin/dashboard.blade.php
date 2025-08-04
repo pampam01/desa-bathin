@@ -127,8 +127,7 @@
                             <i class="bx bx-like bx-lg text-info"></i>
                         </div>
                     </div>
-                    <span class="fw-semibold d-block mb-1">Total Likes</span>
-                    <h3 class="card-title mb-2">{{ $totalLikes ?? 0 }}</h3>
+
                     <small class="text-info fw-semibold">
                         <i class="bx bx-heart"></i> Pada semua berita
                     </small>
@@ -201,7 +200,7 @@
                                                     <div class="d-flex gap-2 text-muted">
                                                         <small>
                                                             <i class="bx bx-like me-1"></i>
-                                                            {{ $news->likes_count ?? 0 }}
+                                                            0
                                                         </small>
                                                         <small>
                                                             <i class="bx bx-show me-1"></i>
