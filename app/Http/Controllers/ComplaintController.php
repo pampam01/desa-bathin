@@ -44,8 +44,9 @@ class ComplaintController extends Controller
         $resolvedComplaints = $complaints->where('status', 'resolved')->count();
         $rejectedComplaints = $complaints->where('status', 'rejected')->count();
         $draftComplaints = $complaints->where('status', 'draft')->count();
+        $inProgressComplaints = $complaints->where('status', 'in_progress')->count();
 
-        return view('backend.admin.complaints.index', compact('complaints', 'totalComplaints', 'resolvedComplaints', 'rejectedComplaints', 'draftComplaints'));
+        return view('backend.admin.complaints.index', compact('complaints', 'totalComplaints', 'resolvedComplaints', 'rejectedComplaints', 'draftComplaints', 'inProgressComplaints'));
     }
     
     public function pending()
@@ -53,6 +54,7 @@ class ComplaintController extends Controller
         $complaints = Complaint::where('status', 'pending')->get();
         return view('backend.admin.complaints.pending', compact('complaints'));
     }
+
 
     /**
      * Show the form for creating a new resource.

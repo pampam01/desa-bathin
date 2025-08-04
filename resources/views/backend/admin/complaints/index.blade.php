@@ -216,6 +216,8 @@
                                             <span class="badge bg-success complaints-status">Selesai</span>
                                         @elseif ($item->status == 'rejected')
                                             <span class="badge bg-danger complaints-status">Ditolak</span>
+                                        @elseif ($item->status == 'in_progress')
+                                            <span class="badge bg-secondary complaints-status">Diproses</span>
                                         @else
                                             <span class="badge bg-warning complaints-status">Draft</span>
                                         @endif

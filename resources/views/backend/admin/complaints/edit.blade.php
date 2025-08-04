@@ -188,8 +188,15 @@
                                     <option value="draft"
                                         {{ old('status', $complaint->status) == 'draft' ? 'selected' : '' }}>Draft
                                     </option>
+                                    <option value="in_progress"
+                                        {{ old('status', $complaint->status) == 'in_progress' ? 'selected' : '' }}>
+                                        Diproses
+                                    </option>
                                     <option value="resolved"
                                         {{ old('status', $complaint->status) == 'resolved' ? 'selected' : '' }}>Selesai
+                                    </option>
+                                    <option value="rejected"
+                                        {{ old('status', $complaint->status) == 'rejected' ? 'selected' : '' }}>Ditolak
                                     </option>
                                 </select>
                                 @error('status')
