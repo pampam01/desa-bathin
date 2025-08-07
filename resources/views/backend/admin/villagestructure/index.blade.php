@@ -5,10 +5,10 @@
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Manajemen Struktur Perangkat KUA /</span> Struktur Perangkat KUA
+            <span class="text-muted fw-light">Manajemen Struktur /</span> Struktur Perangkat KUA
         </h4>
         <div class="text-muted">
-            <small><i class="bx bx-info-circle me-1"></i>Kelola data pejabat desa yang sudah ada</small>
+            <small><i class="bx bx-info-circle me-1"></i>Kelola data pegawai KUA yang sudah ada</small>
         </div>
     </div>
 @endsection
@@ -32,7 +32,7 @@
                             <th>Nama</th>
                             <th>Jabatan</th>
                             <th>Level</th>
-                            <th>Departemen</th>
+                            <th>Seksi / Bagian</th>
                             <th>Kontak</th>
                             <th>Urutan</th>
                             <th>Status</th>
@@ -108,9 +108,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        // Add any custom JavaScript if needed
-    </script>
-@endpush

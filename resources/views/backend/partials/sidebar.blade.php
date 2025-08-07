@@ -118,13 +118,13 @@
             <li class="menu-item {{ request()->routeIs('aboutvillage.*') ? 'active' : '' }}">
                 <a href="{{ route('aboutvillage.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-building-house"></i>
-                    <div data-i18n="AboutVillage">Tentang Desa</div>
+                    <div data-i18n="AboutVillage">Tentang KUA</div>
                 </a>
             </li>
             <li class="menu-item {{ request()->routeIs('villagestructure.*') ? 'active' : '' }}">
                 <a href="{{ route('villagestructure.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-building"></i>
-                    <div data-i18n="VillageStruktur">Struktur BPD Desa</div>
+                    <div data-i18n="VillageStruktur">Struktur KUA</div>
                 </a>
             </li>
             <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">

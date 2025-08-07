@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Portal Parakan - Website Resmi Desa Parakan')</title>
+    <title>@yield('title', 'Portal KUA - Website Resmi KUA Bathin')</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -128,11 +128,9 @@
 
                     <div class="col-lg-4 col-md-12 mb-4">
                         <div class="footer-column">
-                            <h5>Portal Parakan</h5>
-                            <p>Website resmi Desa Parakan, Kecamatan Maleber, Kabupaten Kuningan, Jawa Barat.
-                                Menyediakan informasi terkini tentang kegiatan dan perkembangan desa.</p>
-                            <p>Portal ini menjadi jembatan komunikasi antara pemerintah desa dan masyarakat dalam rangka
-                                meningkatkan transparansi dan partisipasi dalam pembangunan desa.</p>
+                            <h5>Portal KUA Bathin</h5>
+                            <p>Website resmi KUA Desa Bathin, Jambi.
+                                Menyediakan layanan pengajuan dan pengaduan terkait agama.</p>
                         </div>
                     </div>
                 </div>

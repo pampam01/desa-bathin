@@ -701,48 +701,6 @@
                 <div class="about-text" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="600">
                     <h3></h3>
                     <div class="about-divider"></div>
-                    <p>{!! $description !!}</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Identity Section -->
-    <section class="identity-section" id="identitas">
-        <div class="container">
-            <div class="row text-center mb-5 mt-5" data-aos="fade-up" data-aos-duration="800">
-                <div class="col-lg-8 mx-auto">
-                    <div class="section-subtitle badge bg-success">Visi & Misi</div>
-                    <h2 class="display-5 fw-bold">Arah Pembangunan Desa</h2>
-                    <div class="about-divider mx-auto"></div>
-                    <p class="lead text-muted">Komitmen kami dalam membangun masa depan yang berkelanjutan</p>
-                </div>
-            </div>
-
-            <div class="identity-content" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                <div class="row g-4 justify-content-center">
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="300">
-                        <div class="identity-card">
-                            <div class="identity-icon">
-                                <i class='bx bx-medal'></i>
-                            </div>
-                            <h4>Visi Desa</h4>
-                            <div class="about-divider mx-auto"></div>
-                            <p>{!! $visi !!}</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="500">
-                        <div class="identity-card">
-                            <div class="identity-icon">
-                                <i class='bx bx-file'></i>
-                            </div>
-                            <h4>Misi Desa</h4>
-                            <div class="about-divider mx-auto"></div>
-                            <p>{!! $misi !!}</p>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -756,7 +714,7 @@
                     <div class="section-subtitle badge bg-success">Struktur Organisasi</div>
                     <h2 class="display-5 fw-bold">Struktur Perangkat KUA</h2>
                     <div class="about-divider mx-auto"></div>
-                    <p class="lead text-muted">Organisasi pemerintahan desa yang melayani masyarakat dengan dedikasi
+                    <p class="lead text-muted">KUA Kecamatan bathin melayani masyarakat dengan dedikasi
                         tinggi
                     </p>
                 </div>
@@ -940,57 +898,6 @@
                 @endif
             </div>
 
-            <!-- BPD Section -->
-            <div class="bpd-section mt-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
-                <div class="row">
-                    <div class="col-lg-6" data-aos="fade-right" data-aos-duration="800" data-aos-delay="600">
-                        <div class="bpd-card">
-                            <div class="bpd-header">
-                                <i class='bx bx-group'></i>
-                                <h4>Badan Permusyawaratan Desa (BPD)</h4>
-                            </div>
-                            <div class="bpd-content">
-                                @if ($villageStructures['bpd']->isNotEmpty())
-                                    @foreach ($villageStructures['bpd'] as $bpd)
-                                        <div class="bpd-member">
-                                            <span class="position">{{ $bpd->position }}:</span>
-                                            <span class="name">{{ $bpd->name }}</span>
-                                        </div>
-                                    @endforeach
-                                @else
-                                    <div class="bpd-member">
-                                        <span class="position">Ketua BPD:</span>
-                                        <span class="name">Sedang Proses Pembentukan</span>
-                                    </div>
-                                    <div class="bpd-member">
-                                        <span class="position">Wakil Ketua:</span>
-                                        <span class="name">Sedang Proses Pembentukan</span>
-                                    </div>
-                                    <div class="bpd-member">
-                                        <span class="position">Sekretaris:</span>
-                                        <span class="name">Sedang Proses Pembentukan</span>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6" data-aos="fade-left" data-aos-duration="800" data-aos-delay="800">
-                        <div class="info-card">
-                            <h5>Tugas dan Fungsi BPD</h5>
-                            <ul class="function-list">
-                                <li><i class='bx bx-check'></i> Membahas dan menyepakati Rancangan Peraturan Desa</li>
-                                <li><i class='bx bx-check'></i> Menampung dan menyalurkan aspirasi masyarakat</li>
-                                <li><i class='bx bx-check'></i> Melakukan pengawasan kinerja Kepala Desa</li>
-                                <li><i class='bx bx-check'></i> Mengusulkan pengangkatan dan pemberhentian Kepala Desa
-                                </li>
-                                <li><i class='bx bx-check'></i> Membentuk panitia pemilihan Kepala Desa</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- News Section -->
     <section class="news-section" id="berita">
