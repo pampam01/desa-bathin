@@ -555,7 +555,9 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <span class="badge">KUA</span>
+                <img src="{{ asset('kemeneg.jpg') }}" alt="Logo" class="logo"
+                    style="width: 30px; height: 30px; aspect-ratio: 1/1; object-fit: contain;">
+
                 <span>{{ $seoData['og_title'] }}</span>
                 <small class="d-block"
                     style="font-size: 0.7rem; color: #6c757d;">{{ $seoData['og_description'] }}</small>
@@ -694,8 +696,7 @@
 
             <div class="about-content" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
                 <div class="about-image" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="400">
-                    <img src="https://maleber.godesa.id/assets/uploads/4f18e3f3136e9c95d94278695be1b634.jpeg"
-                        alt="KUA Bathin XXIV">
+                    <img src="{{ asset('assets/img/backgrounds/banner2.jpg') }}" alt="KUA Bathin XXIV">
                 </div>
 
                 <div class="about-text" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="600">
@@ -899,388 +900,391 @@
             </div>
 
 
-    <!-- News Section -->
-    <section class="news-section" id="berita">
-        <div class="container">
-            <div class="row mb-5 justify-align-center mt-5" data-aos="fade-up" data-aos-duration="800">
-                <div class="col-lg-8">
-                    <div class="section-subtitle badge bg-success">Berita Terkini</div>
-                    <h5 class="display-5 fw-bold fs-2 my-3">Berita dan Informasi Desa Terbaru</h5>
-                    <div class="news-divider"></div>
-                </div>
-                <div class="col-lg-4 text-end">
-                    <a href="{{ route('frontend.news.index') }}" class="btn btn-success rounded-5">Lihat Semua Berita
-                        <i class='bx bx-chevrons-right'></i></a>
-                </div>
-            </div>
+            <!-- News Section -->
+            <section class="news-section" id="berita">
+                <div class="container">
+                    <div class="row mb-5 justify-align-center mt-5" data-aos="fade-up" data-aos-duration="800">
+                        <div class="col-lg-8">
+                            <div class="section-subtitle badge bg-success">Berita Terkini</div>
+                            <h5 class="display-5 fw-bold fs-2 my-3">Berita dan Informasi Desa Terbaru</h5>
+                            <div class="news-divider"></div>
+                        </div>
+                        <div class="col-lg-4 text-end">
+                            <a href="{{ route('frontend.news.index') }}" class="btn btn-success rounded-5">Lihat
+                                Semua Berita
+                                <i class='bx bx-chevrons-right'></i></a>
+                        </div>
+                    </div>
 
-            <!-- News Cards -->
-            @if (@isset($news) && $news->count() > 0)
-                <div class="row g-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                    @foreach ($news as $index => $new)
-                        <div class="col-md-4" data-aos="zoom-in" data-aos-duration="600"
-                            data-aos-delay="{{ 400 + $index * 100 }}">
-                            <div class="news-card">
-                                <img src="{{ $new->image ? asset('storage/' . $new->image) : asset('assets/img/backgrounds/masjid.jpg') }}"
-                                    alt="{{ $new->title }}">
-                                <div class="news-card-body">
-                                    <div class="news-meta mb-2">
-                                        <span class="text-muted"><i class='bx bx-time-five text-danger'></i>
-                                            {{ $new->created_at->diffForHumans() }}</span>
+                    <!-- News Cards -->
+                    @if (@isset($news) && $news->count() > 0)
+                        <div class="row g-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                            @foreach ($news as $index => $new)
+                                <div class="col-md-4" data-aos="zoom-in" data-aos-duration="600"
+                                    data-aos-delay="{{ 400 + $index * 100 }}">
+                                    <div class="news-card">
+                                        <img src="{{ $new->image ? asset('storage/' . $new->image) : asset('assets/img/backgrounds/masjid.jpg') }}"
+                                            alt="{{ $new->title }}">
+                                        <div class="news-card-body">
+                                            <div class="news-meta mb-2">
+                                                <span class="text-muted"><i class='bx bx-time-five text-danger'></i>
+                                                    {{ $new->created_at->diffForHumans() }}</span>
+                                            </div>
+                                            <h5>{{ $new->title }}</h5>
+                                            <p>{{ Str::limit($new->content, 100) }}</p>
+                                            <a href="{{ route('frontend.news.show', $new->id) }}"
+                                                class="btn btn-outline-success btn-sm rounded-3">Baca Selengkapnya</a>
+                                        </div>
                                     </div>
-                                    <h5>{{ $new->title }}</h5>
-                                    <p>{{ Str::limit($new->content, 100) }}</p>
-                                    <a href="{{ route('frontend.news.show', $new->id) }}"
-                                        class="btn btn-outline-success btn-sm rounded-3">Baca Selengkapnya</a>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
-                    @endforeach
-                </div>
-            @endisset
-            @if ($news->count() == 0)
-                <div class="alert alert-info mt-4" role="alert">
-                    Tidak ada berita terbaru saat ini.
-                </div>
-            @endif
-    </div>
-</section>
-
-<!-- Features Section -->
-<section class="features-section" id="layanan">
-    <div class="container">
-        <div class="row text-center mb-5 mt-5" data-aos="fade-up" data-aos-duration="800">
-            <div class="col-lg-8 mx-auto">
-                <h5 class="display-5 fw-bold">Layanan Kami</h5>
-                <p class="lead text-muted">Berbagai layanan digital KUA Bathin XXIV</p>
+                    @endisset
+                    @if ($news->count() == 0)
+                        <div class="alert alert-info mt-4" role="alert">
+                            Tidak ada berita terbaru saat ini.
+                        </div>
+                    @endif
             </div>
-        </div>
+        </section>
 
-        <div class="row g-4">
-            <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class='bx bx-news'></i>
+        <!-- Features Section -->
+        <section class="features-section" id="layanan">
+            <div class="container">
+                <div class="row text-center mb-5 mt-5" data-aos="fade-up" data-aos-duration="800">
+                    <div class="col-lg-8 mx-auto">
+                        <h5 class="display-5 fw-bold">Layanan Kami</h5>
+                        <p class="lead text-muted">Berbagai layanan digital KUA Bathin XXIV</p>
                     </div>
-                    <h4>Portal Berita</h4>
-                    <p>Informasi terkini tentang kegiatan dan pengumuman resmi dari pemerintah desa</p>
                 </div>
-            </div>
 
-            <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class='bx bx-message-square-detail'></i>
-                    </div>
-                    <h4>Pengaduan Online</h4>
-                    <p>Sampaikan aspirasi dan keluhan Anda secara online dengan mudah dan cepat</p>
-                </div>
-            </div>
-
-            <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class='bx bx-file-blank'></i>
-                    </div>
-                    <h4>Layanan Administrasi</h4>
-                    <p>Akses mudah untuk berbagai keperluan administrasi desa dan dokumen penting</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Pengaduan Section -->
-<section class="news-section" id="pengaduan">
-    <div class="container">
-        <div class="row mb-5 justify-align-center mt-5" data-aos="fade-up" data-aos-duration="800">
-            <div class="col-lg-4 text-start">
-                <a href="{{ route('frontend.complaints.index') }}" class="btn btn-success rounded-5">Lihat Semua
-                    Pengaduan <i class='bx bx-chevrons-right'></i></a>
-            </div>
-            <div class="col-lg-8 text-end">
-                <div class="section-subtitle badge bg-success">Pengaduan Terkini</div>
-                <h5 class="display-5 fw-bold fs-2 my-3">Pengaduan Masyarakat Mengenai Keluhan</h5>
-                <div class="complaint-divider ms-auto"></div>
-            </div>
-        </div>
-
-        <!-- Complaint Cards -->
-        @if (@isset($complaints) && $complaints->count() > 0)
-            <div class="row g-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                @foreach ($complaints as $index => $complaint)
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-duration="600"
-                        data-aos-delay="{{ 400 + $index * 100 }}">
-                        <div class="news-card">
-                            <img src="{{ $complaint->image ? asset('storage/' . $complaint->image) : asset('assets/img/backgrounds/masjid.jpg') }}"
-                                alt="{{ $complaint->title }}">
-                            <div class="news-card-body">
-                                <div class="news-meta mb-2">
-                                    <span class="text-muted"><i class='bx bx-time-five text-danger'></i>
-                                        {{ $complaint->created_at->diffForHumans() }}</span>
-                                </div>
-                                <h5>{{ $complaint->title }}</h5>
-                                <p>{!! Str::limit($complaint->description, 100) !!}</p>
-                                <a href="{{ route('frontend.complaints.show', $complaint->id) }}"
-                                    class="btn btn-outline-success btn-sm rounded-3">Baca Selengkapnya</a>
+                <div class="row g-4">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class='bx bx-news'></i>
                             </div>
+                            <h4>Portal Berita</h4>
+                            <p>Informasi terkini tentang kegiatan dan pengumuman resmi dari pemerintah desa</p>
                         </div>
                     </div>
-                @endforeach
-            </div>
-        @endisset
-        @if ($news->count() == 0)
-            <div class="alert alert-info mt-4" role="alert">
-                Tidak ada berita terbaru saat ini.
-            </div>
-        @endif
-</div>
-</section>
 
-<!-- Footer -->
-<footer class="footer">
-<div class="footer-top" data-aos="fade-up" data-aos-duration="800">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <h2>Mari Bersama</h2>
-                <p>Membangun Kota Ini Bersama Kami</p>
-                <div class="footer-cta-buttons">
-                    <a href="#tentang" class="footer-cta-btn">
-                        <i class='bx bx-phone'></i>
-                        Hubungi Kami
-                    </a>
-                    <a href="{{ route('login') }}" class="footer-cta-btn secondary">
-                        <i class='bx bx-user'></i>
-                        Pusat Layanan
-                    </a>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class='bx bx-message-square-detail'></i>
+                            </div>
+                            <h4>Pengaduan Online</h4>
+                            <p>Sampaikan aspirasi dan keluhan Anda secara online dengan mudah dan cepat</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class='bx bx-file-blank'></i>
+                            </div>
+                            <h4>Layanan Administrasi</h4>
+                            <p>Akses mudah untuk berbagai keperluan administrasi desa dan dokumen penting</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pengaduan Section -->
+        <section class="news-section" id="pengaduan">
+            <div class="container">
+                <div class="row mb-5 justify-align-center mt-5" data-aos="fade-up" data-aos-duration="800">
+                    <div class="col-lg-4 text-start">
+                        <a href="{{ route('frontend.complaints.index') }}"
+                            class="btn btn-success rounded-5">Lihat Semua
+                            Pengaduan <i class='bx bx-chevrons-right'></i></a>
+                    </div>
+                    <div class="col-lg-8 text-end">
+                        <div class="section-subtitle badge bg-success">Pengaduan Terkini</div>
+                        <h5 class="display-5 fw-bold fs-2 my-3">Pengaduan Masyarakat Mengenai Keluhan</h5>
+                        <div class="complaint-divider ms-auto"></div>
+                    </div>
+                </div>
+
+                <!-- Complaint Cards -->
+                @if (@isset($complaints) && $complaints->count() > 0)
+                    <div class="row g-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        @foreach ($complaints as $index => $complaint)
+                            <div class="col-md-4" data-aos="zoom-in" data-aos-duration="600"
+                                data-aos-delay="{{ 400 + $index * 100 }}">
+                                <div class="news-card">
+                                    <img src="{{ $complaint->image ? asset('storage/' . $complaint->image) : asset('assets/img/backgrounds/masjid.jpg') }}"
+                                        alt="{{ $complaint->title }}">
+                                    <div class="news-card-body">
+                                        <div class="news-meta mb-2">
+                                            <span class="text-muted"><i class='bx bx-time-five text-danger'></i>
+                                                {{ $complaint->created_at->diffForHumans() }}</span>
+                                        </div>
+                                        <h5>{{ $complaint->title }}</h5>
+                                        <p>{!! Str::limit($complaint->description, 100) !!}</p>
+                                        <a href="{{ route('frontend.complaints.show', $complaint->id) }}"
+                                            class="btn btn-outline-success btn-sm rounded-3">Baca Selengkapnya</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endisset
+                @if ($news->count() == 0)
+                    <div class="alert alert-info mt-4" role="alert">
+                        Tidak ada berita terbaru saat ini.
+                    </div>
+                @endif
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top" data-aos="fade-up" data-aos-duration="800">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2>Mari Bersama</h2>
+                        <p>Membangun Kota Ini Bersama Kami</p>
+                        <div class="footer-cta-buttons">
+                            <a href="#tentang" class="footer-cta-btn">
+                                <i class='bx bx-phone'></i>
+                                Hubungi Kami
+                            </a>
+                            <a href="{{ route('login') }}" class="footer-cta-btn secondary">
+                                <i class='bx bx-user'></i>
+                                Pusat Layanan
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-main" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="footer-column">
+                            <h5>Kontak</h5>
+                            <div class="contact-item">
+                                <i class='bx bx-map'></i>
+                                <p>{{ $location }}</p>
+                            </div>
+                            <div class="contact-item">
+                                <i class='bx bx-envelope'></i>
+                                <p>{{ $email }}</p>
+                            </div>
+                            <div class="contact-item">
+                                <i class='bx bx-phone'></i>
+                                <p>{{ $telp }}</p>
+                            </div>
+                            <div class="contact-item">
+                                <i class='bx bx-time'></i>
+                                <p>Senin - Jumat: 08:00 - 16:00 WIB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="footer-column">
+                            <h5>Link Terkait</h5>
+                            <ul>
+                                <li><a href="#home">Beranda</a></li>
+                                <li><a href="#tentang">Tentang Desa</a></li>
+                                <li><a href="#struktur">Struktur Pemerintahan</a></li>
+                                <li><a href="#berita">Berita</a></li>
+                                <li><a href="#layanan">Layanan</a></li>
+                                <li><a href="#pengaduan">Pengaduan</a></li>
+                                <li><a href="{{ route('login') }}">Portal Administrasi</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 mb-4">
+                        <div class="footer-column">
+                            <h5>KUA Bathin XXIV</h5>
+                            <p>Website resmi KUA Bathin XXIV, Kecamatan Maleber, Kabupaten Kuningan, Jawa Barat.
+                                Menyediakan informasi terkini tentang kegiatan dan perkembangan desa.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">&copy; 2025 KUA Bathin XXIV - <br> Hak Cipta
+                    Dilindungi Undang-Undang.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Video Modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="videoModalLabel">Profil KUA Bathin XXIV</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Profil KUA Bathin XXIV"
+                            allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="footer-main" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="footer-column">
-                    <h5>Kontak</h5>
-                    <div class="contact-item">
-                        <i class='bx bx-map'></i>
-                        <p>{{ $location }}</p>
-                    </div>
-                    <div class="contact-item">
-                        <i class='bx bx-envelope'></i>
-                        <p>{{ $email }}</p>
-                    </div>
-                    <div class="contact-item">
-                        <i class='bx bx-phone'></i>
-                        <p>{{ $telp }}</p>
-                    </div>
-                    <div class="contact-item">
-                        <i class='bx bx-time'></i>
-                        <p>Senin - Jumat: 08:00 - 16:00 WIB</p>
-                    </div>
-                </div>
-            </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="footer-column">
-                    <h5>Link Terkait</h5>
-                    <ul>
-                        <li><a href="#home">Beranda</a></li>
-                        <li><a href="#tentang">Tentang Desa</a></li>
-                        <li><a href="#struktur">Struktur Pemerintahan</a></li>
-                        <li><a href="#berita">Berita</a></li>
-                        <li><a href="#layanan">Layanan</a></li>
-                        <li><a href="#pengaduan">Pengaduan</a></li>
-                        <li><a href="{{ route('login') }}">Portal Administrasi</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-12 mb-4">
-                <div class="footer-column">
-                    <h5>KUA Bathin XXIV</h5>
-                    <p>Website resmi KUA Bathin XXIV, Kecamatan Maleber, Kabupaten Kuningan, Jawa Barat.
-                        Menyediakan informasi terkini tentang kegiatan dan perkembangan desa.</p>
-                    <p>Portal ini menjadi jembatan komunikasi antara pemerintah desa dan masyarakat dalam rangka
-                        meningkatkan transparansi dan partisipasi dalam pembangunan desa.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="footer-bottom">
-    <div class="container">
-        <p class="footer-copyright">&copy; 2025 KUA Bathin XXIV - <br> Hak Cipta
-            Dilindungi Undang-Undang.</p>
-    </div>
-</div>
-</footer>
-
-<!-- Video Modal -->
-<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="videoModalLabel">Profil KUA Bathin XXIV</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Profil KUA Bathin XXIV"
-                    allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- AOS JS -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-<!-- Custom JS -->
-<script>
-    // Initialize AOS
-    AOS.init({
-        duration: 800,
-        delay: 100,
-        once: true,
-        offset: 50
-    });
-
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Navbar scroll effect and active state
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        } else {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        }
-
-        // Update active nav links
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.navbar-nav .nav-link[data-section]');
-
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (window.scrollY >= (sectionTop - 100)) {
-                current = section.getAttribute('id');
-            }
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            delay: 100,
+            once: true,
+            offset: 50
         });
 
-        // Default to home if no section is active
-        if (!current) {
-            current = 'home';
-        }
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('data-section') === current) {
-                link.classList.add('active');
-            }
-        });
-    });
-
-    // Initialize active state on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        const navLinks = document.querySelectorAll('.navbar-nav .nav-link[data-section]');
-        navLinks.forEach(link => {
-            if (link.getAttribute('data-section') === 'home') {
-                link.classList.add('active');
-            }
-        });
-    });
-
-    // Animation on scroll
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // Observe all cards
-    document.querySelectorAll('.feature-card, .news-card, .stat-card, .org-card, .bpd-card, .info-card').forEach(
-        card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'all 0.6s ease';
-            observer.observe(card);
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
 
-    // Counter animation for stats
-    const counters = document.querySelectorAll('.stat-number');
-
-    function animateCounter(counter) {
-        const target = parseInt(counter.getAttribute('data-target'));
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16); // 60fps
-        let current = 0;
-
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                counter.textContent = target.toLocaleString();
-                clearInterval(timer);
+        // Navbar scroll effect and active state
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
             } else {
-                counter.textContent = Math.floor(current).toLocaleString();
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
             }
-        }, 16);
-    }
 
-    // Initialize counter animation on scroll
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counter = entry.target;
-                // Set initial value to 0
-                counter.textContent = '0';
-                // Start animation
-                setTimeout(() => animateCounter(counter), 200);
-                counterObserver.unobserve(counter);
+            // Update active nav links
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link[data-section]');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            // Default to home if no section is active
+            if (!current) {
+                current = 'home';
             }
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === current) {
+                    link.classList.add('active');
+                }
+            });
         });
-    }, {
-        threshold: 0.5
-    });
 
-    // Set data-target and observe counters
-    counters.forEach(counter => {
-        const originalText = counter.textContent;
-        const targetValue = originalText.replace(/[^\d]/g, '');
-        counter.setAttribute('data-target', targetValue);
-        counter.textContent = '0';
-        counterObserver.observe(counter);
-    });
-</script>
+        // Initialize active state on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link[data-section]');
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-section') === 'home') {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.feature-card, .news-card, .stat-card, .org-card, .bpd-card, .info-card').forEach(
+            card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+
+        // Counter animation for stats
+        const counters = document.querySelectorAll('.stat-number');
+
+        function animateCounter(counter) {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const duration = 2000; // 2 seconds
+            const increment = target / (duration / 16); // 60fps
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    counter.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    counter.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 16);
+        }
+
+        // Initialize counter animation on scroll
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    // Set initial value to 0
+                    counter.textContent = '0';
+                    // Start animation
+                    setTimeout(() => animateCounter(counter), 200);
+                    counterObserver.unobserve(counter);
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        // Set data-target and observe counters
+        counters.forEach(counter => {
+            const originalText = counter.textContent;
+            const targetValue = originalText.replace(/[^\d]/g, '');
+            counter.setAttribute('data-target', targetValue);
+            counter.textContent = '0';
+            counterObserver.observe(counter);
+        });
+    </script>
 </body>
 
 </html>

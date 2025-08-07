@@ -52,7 +52,7 @@ body {
 .hero-section {
     height: 100vh;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
-        url("../img/backgrounds/dashboard_img.jpg") no-repeat center center;
+        url("../img/backgrounds/banner.jpg") no-repeat center center;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

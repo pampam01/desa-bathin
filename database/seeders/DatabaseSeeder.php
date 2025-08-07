@@ -14,16 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        // User::factory()->create([
-        //     'name' => 'Gue Admin',
-        //     'email' => 'admin@parakan.id',
-        //     'role' => 'admin',
-        //     'password' => bcrypt('password'), // Password is 'password'
-        // ]);
-
-
         $this->call(ComplaintSeeder::class);
         $this->call(NewsSeeder::class);
         $this->call(VillageStructureSeeder::class);
@@ -32,12 +22,12 @@ class DatabaseSeeder extends Seeder
             'family_total' => 250,
             'blok_total' => 4,
             'program_total' => 3,
-            'description' => 'Desa Parakan adalah desa yang terletak di kaki gunung dengan pemandangan alam yang indah.',
-            'visi' => 'Mewujudkan desa yang mandiri dan sejahtera.',
-            'misi' => 'Meningkatkan kualitas hidup masyarakat melalui program-program pembangunan.',
-            'location' => 'Jl. Raya Parakan No.1, Desa Parakan',
-            'no_telp' => '081234567890',
-            'email' => 'info@parakan.id'
+            'description' => 'KUA bathin melayani segala kebutuhan masyarakat desa bathin',
+            'visi' => 'Terwujudnya masyarakat Indonesia yang taat beragama, rukun, cerdas, mandiri, dan sejahtera lahir batin',
+            'misi' => 'Meningkatkan kualitas kehidupan beragama, meningkatkan kualitas kerukunan umat beragama, meningkatkan kualitas pendidikan agama, meningkatkan kualitas penyelenggaraan ibadah haji, dan mewujudkan tata kelola pemerintahan yang bersih dan berwibawa',
+            'location' => '5228+5V7, Muara Jangga, Kec. Batin XXIV, Kabupaten Batang Hari, Jambi 36656',
+            'no_telp' => '082182287235',
+            'email' => ''
         ]);
     }
 }

@@ -2,7 +2,7 @@
 
 @section('title', 'Registrasi')
 
-@section('heading', 'Daftar Akun Pusat Pengaduan!')
+@section('heading', 'Daftar Akun')
 
 @section('subheading', 'Bergabunglah dengan sistem informasi untuk mendapatkan layanan terbaik!')
 

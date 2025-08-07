@@ -5,7 +5,7 @@
 @push('styles')
     <style>
         .page-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #66ea75 0%, #4ba24e 100%);
             color: white;
             padding: 100px 0 60px;
             margin-top: -80px;
@@ -152,7 +152,7 @@
         }
 
         .back-to-list {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #66ea75 0%, #4ba261 100%);
             border: none;
             border-radius: 50px;
             padding: 0.75rem 1.5rem;
