@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('village_structures', function (Blueprint $table) {
+        Schema::create('kua_structures', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // Nama pejabat
-            $table->string('position'); // Jabatan (Kepala Desa, Sekretaris, etc.)
-            $table->enum('level', ['kepala_desa', 'sekretaris', 'kaur', 'kasi', 'kadus', 'bpd']); // Level hierarki
-            $table->string('department')->nullable(); // Bagian/departemen (TU, Keuangan, etc.)
+            $table->string('position'); // Jabatan 
+            $table->enum('level', ['kepala_kemenag', 'kesubagg_tu', 'kasi_bimas_islam', 'kepala_kua', 'pengadministrasi', 'operator_simkah', 'pramu_kantor']); // Level hierarki
+            $table->string('department')->nullable(); // Bagian/departemen
             $table->string('photo')->nullable(); // Path foto
             $table->text('description')->nullable(); // Deskripsi singkat
             $table->string('phone')->nullable(); // Nomor telepon
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('village_structures');
+        Schema::dropIfExists('kua_structures');
     }
 };

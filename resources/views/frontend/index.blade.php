@@ -96,14 +96,14 @@
             border-color: rgba(220, 53, 69, 0.3);
         }
 
-        .org-card.kepala-desa {
+        .org-card.kepala-kemenag {
             background: linear-gradient(135deg, #35dc43c1 0%, #31b02a 100%);
             color: white;
             max-width: 320px;
             margin: 0 auto;
         }
 
-        .org-card.sekretaris {
+        .org-card.kesubagg_tu {
             background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
             color: white;
             max-width: 300px;
@@ -122,8 +122,8 @@
             overflow: hidden;
         }
 
-        .org-card.kepala-desa .org-card-photo,
-        .org-card.sekretaris .org-card-photo {
+        .org-card.kepala-kemenag .org-card-photo,
+        .org-card.kesubagg_tu .org-card-photo {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
         }
 
@@ -137,8 +137,8 @@
             background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(255, 107, 122, 0.1) 100%);
         }
 
-        .org-card.kepala-desa .org-card-photo::before,
-        .org-card.sekretaris .org-card-photo::before {
+        .org-card.kepala-kemenag .org-card-photo::before,
+        .org-card.kesubagg_tu .org-card-photo::before {
             background: none;
         }
 
@@ -165,14 +165,14 @@
             border-radius: 50%;
         }
 
-        .org-card:not(.kepala-desa):not(.sekretaris) .org-avatar {
+        .org-card:not(.kepala-kemenag):not(.kesubagg_tu) .org-avatar {
             background: linear-gradient(135deg, #dc3545, #ff6b7a);
             color: white;
         }
 
         /* Ensure all avatars have consistent styling when they have photos */
-        .org-card.kepala-desa .org-avatar,
-        .org-card.sekretaris .org-avatar {
+        .org-card.kepala-kemenag .org-avatar,
+        .org-card.kesubagg_tu .org-avatar {
             background: rgba(255, 255, 255, 0.2);
         }
 
@@ -186,8 +186,8 @@
             justify-content: center;
         }
 
-        .org-card.kepala-desa .org-card-content,
-        .org-card.sekretaris .org-card-content {
+        .org-card.kepala-kemenag .org-card-content,
+        .org-card.kesubagg_tu .org-card-content {
             padding: 25px 30px;
         }
 
@@ -206,8 +206,8 @@
             line-height: 1.4;
         }
 
-        .org-card.kepala-desa .org-name,
-        .org-card.sekretaris .org-name {
+        .org-card.kepala-kemenag .org-name,
+        .org-card.kesubagg_tu .org-name {
             font-size: 16px;
             margin-bottom: 18px;
         }
@@ -275,42 +275,7 @@
             transform: translateY(-50%);
         }
 
-        .bpd-section {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
 
-        .bpd-card {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-
-        .bpd-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .bpd-header i {
-            font-size: 30px;
-            margin-right: 15px;
-        }
-
-        .bpd-member {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .bpd-member:last-child {
-            border-bottom: none;
-        }
 
         .position {
             font-weight: 600;
@@ -370,8 +335,8 @@
                 padding: 16px;
             }
 
-            .org-card.kepala-desa .org-card-content,
-            .org-card.sekretaris .org-card-content {
+            .org-card.kepala-kemenag .org-card-content,
+            .org-card.kesubagg_tu .org-card-content {
                 padding: 20px;
             }
 
@@ -379,15 +344,7 @@
                 display: none;
             }
 
-            .bpd-section {
-                padding: 20px;
-            }
 
-            .bpd-member {
-                flex-direction: column;
-                text-align: center;
-                gap: 5px;
-            }
 
             .org-info h5,
             .org-info h6 {
@@ -723,27 +680,27 @@
 
             <!-- Organization Chart -->
             <div class="org-chart-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                <!-- Level 1 - Kepala Desa -->
-                @if ($villageStructures['kepala']->isNotEmpty())
+                <!-- Level 1 - Kepala Kemenag -->
+                @if ($kuaStructures['kepala_kemenag']->isNotEmpty())
                     <div class="org-level level-1" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="400">
-                        @foreach ($villageStructures['kepala'] as $kepala)
-                            <div class="org-card kepala-desa">
+                        @foreach ($kuaStructures['kepala_kemenag'] as $kepala_kemenag)
+                            <div class="org-card kepala-kemenag">
                                 <div class="org-card-photo">
                                     <div class="org-avatar">
-                                        @if ($kepala->photo_url)
-                                            <img src="{{ $kepala->photo_url }}" alt="{{ $kepala->name }}"
-                                                class="avatar-img">
+                                        @if ($kepala_kemenag->photo_url)
+                                            <img src="{{ $kepala_kemenag->photo_url }}"
+                                                alt="{{ $kepala_kemenag->name }}" class="avatar-img">
                                         @else
-                                            <i class='bx {{ $kepala->icon }}'></i>
+                                            <i class='bx {{ $kepala_kemenag->icon }}'></i>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="org-card-content">
                                     <div class="org-info">
-                                        <h6>{{ $kepala->position }}</h6>
-                                        <p class="org-name">{{ $kepala->name }}</p>
+                                        <h6>{{ $kepala_kemenag->position }}</h6>
+                                        <p class="org-name">{{ $kepala_kemenag->name }}</p>
                                         <span
-                                            class="org-badge {{ $kepala->badge_class }}">{{ $kepala->department }}</span>
+                                            class="org-badge {{ $kepala_kemenag->badge_class }}">{{ $kepala_kemenag->department }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -752,31 +709,31 @@
                 @endif
 
                 <!-- Connector Line -->
-                {{-- @if ($villageStructures['kepala']->isNotEmpty() && $villageStructures['sekretaris']->isNotEmpty())
+                {{-- @if ($villageStructures['kepala_kemenag']->isNotEmpty() && $villageStructures['kesubagg_tu']->isNotEmpty())
                 <div class="org-connector vertical"></div>
                 @endif --}}
 
-                <!-- Level 2 - Sekretaris Desa -->
-                @if ($villageStructures['sekretaris']->isNotEmpty())
+                <!-- Level 2 - Kesubagg TU -->
+                @if ($kuaStructures['kesubagg_tu']->isNotEmpty())
                     <div class="org-level level-2" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
-                        @foreach ($villageStructures['sekretaris'] as $sekretaris)
-                            <div class="org-card sekretaris">
+                        @foreach ($kuaStructures['kesubagg_tu'] as $kesubagg_tu)
+                            <div class="org-card kesubagg_tu">
                                 <div class="org-card-photo">
                                     <div class="org-avatar">
-                                        @if ($sekretaris->photo_url)
-                                            <img src="{{ $sekretaris->photo_url }}" alt="{{ $sekretaris->name }}"
+                                        @if ($kesubagg_tu->photo_url)
+                                            <img src="{{ $kesubagg_tu->photo_url }}" alt="{{ $kesubagg_tu->name }}"
                                                 class="avatar-img">
                                         @else
-                                            <i class='bx {{ $sekretaris->icon }}'></i>
+                                            <i class='bx {{ $kesubagg_tu->icon }}'></i>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="org-card-content">
                                     <div class="org-info">
-                                        <h6>{{ $sekretaris->position }}</h6>
-                                        <p class="org-name">{{ $sekretaris->name }}</p>
+                                        <h6>{{ $kesubagg_tu->position }}</h6>
+                                        <p class="org-name">{{ $kesubagg_tu->name }}</p>
                                         <span
-                                            class="org-badge {{ $sekretaris->badge_class }}">{{ $sekretaris->department }}</span>
+                                            class="org-badge {{ $kesubagg_tu->badge_class }}">{{ $kesubagg_tu->department }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -785,34 +742,34 @@
                 @endif
 
                 <!-- Connector Lines -->
-                {{-- @if ($villageStructures['sekretaris']->isNotEmpty() && $villageStructures['kaur']->isNotEmpty())
+                {{-- @if ($villageStructures['kesubagg_tu']->isNotEmpty() && $villageStructures['kasi_bimas_islam']->isNotEmpty())
                 <div class="org-connector vertical"></div>
                 <div class="org-connector horizontal"></div>
                 @endif --}}
 
-                <!-- Level 3 - Kepala Urusan -->
-                @if ($villageStructures['kaur']->isNotEmpty())
+                <!-- Level 3 - Kasi Bimas Islam -->
+                @if ($kuaStructures['kasi_bimas_islam']->isNotEmpty())
                     <div class="org-level level-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="800">
                         <div class="row g-3 justify-content-center">
-                            @foreach ($villageStructures['kaur'] as $kaur)
+                            @foreach ($kuaStructures['kasi_bimas_islam'] as $kasi_bimas_islam)
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="org-card kaur">
+                                    <div class="org-card kasi_bimas_islam">
                                         <div class="org-card-photo">
                                             <div class="org-avatar">
-                                                @if ($kaur->photo_url)
-                                                    <img src="{{ $kaur->photo_url }}" alt="{{ $kaur->name }}"
-                                                        class="avatar-img">
+                                                @if ($kasi_bimas_islam->photo_url)
+                                                    <img src="{{ $kasi_bimas_islam->photo_url }}"
+                                                        alt="{{ $kasi_bimas_islam->name }}" class="avatar-img">
                                                 @else
-                                                    <i class='bx {{ $kaur->icon }}'></i>
+                                                    <i class='bx {{ $kasi_bimas_islam->icon }}'></i>
                                                 @endif
                                             </div>
                                         </div>
                                         <div class="org-card-content">
                                             <div class="org-info">
-                                                <h6>{{ $kaur->position }}</h6>
-                                                <p class="org-name">{{ $kaur->name }}</p>
+                                                <h6>{{ $kasi_bimas_islam->position }}</h6>
+                                                <p class="org-name">{{ $kasi_bimas_islam->name }}</p>
                                                 <span
-                                                    class="org-badge {{ $kaur->badge_class }}">{{ $kaur->department }}</span>
+                                                    class="org-badge {{ $kasi_bimas_islam->badge_class }}">{{ $kasi_bimas_islam->department }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -823,34 +780,34 @@
                 @endif
 
                 <!-- Connector Lines -->
-                {{-- @if ($villageStructures['kaur']->isNotEmpty() && $villageStructures['kasi']->isNotEmpty())
+                {{-- @if ($villageStructures['kasi_bimas_islam']->isNotEmpty() && $villageStructures['kepala_kua']->isNotEmpty())
                 <div class="org-connector vertical mt-4"></div>
                 <div class="org-connector horizontal"></div>
                 @endif --}}
 
-                <!-- Level 4 - Kepala Seksi -->
-                @if ($villageStructures['kasi']->isNotEmpty())
+                <!-- Level 4 - Kepala KUA -->
+                @if ($kuaStructures['kepala_kua']->isNotEmpty())
                     <div class="org-level level-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1000">
                         <div class="row g-3 justify-content-center">
-                            @foreach ($villageStructures['kasi'] as $kasi)
+                            @foreach ($kuaStructures['kepala_kua'] as $kepala_kua)
                                 <div class="col-lg-4 col-md-6">
-                                    <div class="org-card kasi">
+                                    <div class="org-card kepala_kua">
                                         <div class="org-card-photo">
                                             <div class="org-avatar">
-                                                @if ($kasi->photo_url)
-                                                    <img src="{{ $kasi->photo_url }}" alt="{{ $kasi->name }}"
-                                                        class="avatar-img">
+                                                @if ($kepala_kua->photo_url)
+                                                    <img src="{{ $kepala_kua->photo_url }}"
+                                                        alt="{{ $kepala_kua->name }}" class="avatar-img">
                                                 @else
-                                                    <i class='bx {{ $kasi->icon }}'></i>
+                                                    <i class='bx {{ $kepala_kua->icon }}'></i>
                                                 @endif
                                             </div>
                                         </div>
                                         <div class="org-card-content">
                                             <div class="org-info">
-                                                <h6>{{ $kasi->position }}</h6>
-                                                <p class="org-name">{{ $kasi->name }}</p>
+                                                <h6>{{ $kepala_kua->position }}</h6>
+                                                <p class="org-name">{{ $kepala_kua->name }}</p>
                                                 <span
-                                                    class="org-badge {{ $kasi->badge_class }}">{{ $kasi->department }}</span>
+                                                    class="org-badge {{ $kepala_kua->badge_class }}">{{ $kepala_kua->department }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -861,34 +818,98 @@
                 @endif
 
                 <!-- Connector Lines -->
-                {{-- @if ($villageStructures['kasi']->isNotEmpty() && $villageStructures['kadus']->isNotEmpty())
+                {{-- @if ($villageStructures['kepala_kua']->isNotEmpty() && $villageStructures['pengadministrasi']->isNotEmpty())
                 <div class="org-connector vertical mt-4"></div>
                 <div class="org-connector horizontal"></div>
                 @endif --}}
 
-                <!-- Level 5 - Kepala Dusun -->
-                @if ($villageStructures['kadus']->isNotEmpty())
+                <!-- Level 5 - Pengadministrasi -->
+                @if ($kuaStructures['pengadministrasi']->isNotEmpty())
                     <div class="org-level level-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1200">
                         <div class="row g-3 justify-content-center">
-                            @foreach ($villageStructures['kadus'] as $kadus)
+                            @foreach ($kuaStructures['pengadministrasi'] as $pengadministrasi)
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                                    <div class="org-card kadus">
+                                    <div class="org-card pengadministrasi">
                                         <div class="org-card-photo">
                                             <div class="org-avatar">
-                                                @if ($kadus->photo_url)
-                                                    <img src="{{ $kadus->photo_url }}" alt="{{ $kadus->name }}"
-                                                        class="avatar-img">
+                                                @if ($pengadministrasi->photo_url)
+                                                    <img src="{{ $pengadministrasi->photo_url }}"
+                                                        alt="{{ $pengadministrasi->name }}" class="avatar-img">
                                                 @else
-                                                    <i class='bx {{ $kadus->icon }}'></i>
+                                                    <i class='bx {{ $pengadministrasi->icon }}'></i>
                                                 @endif
                                             </div>
                                         </div>
                                         <div class="org-card-content">
                                             <div class="org-info">
-                                                <h6>{{ $kadus->position }}</h6>
-                                                <p class="org-name">{{ $kadus->name }}</p>
+                                                <h6>{{ $pengadministrasi->position }}</h6>
+                                                <p class="org-name">{{ $pengadministrasi->name }}</p>
                                                 <span
-                                                    class="org-badge {{ $kadus->badge_class }}">{{ $kadus->department }}</span>
+                                                    class="org-badge {{ $pengadministrasi->badge_class }}">{{ $pengadministrasi->department }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                <!-- Level 6 - Operator Simkah -->
+                @if ($kuaStructures['operator_simkah']->isNotEmpty())
+                    <div class="org-level level-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1400">
+                        <div class="row g-3 justify-content-center">
+                            @foreach ($kuaStructures['operator_simkah'] as $operator_simkah)
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                                    <div class="org-card operator_simkah">
+                                        <div class="org-card-photo">
+                                            <div class="org-avatar">
+                                                @if ($operator_simkah->photo_url)
+                                                    <img src="{{ $operator_simkah->photo_url }}"
+                                                        alt="{{ $operator_simkah->name }}" class="avatar-img">
+                                                @else
+                                                    <i class='bx {{ $operator_simkah->icon }}'></i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="org-card-content">
+                                            <div class="org-info">
+                                                <h6>{{ $operator_simkah->position }}</h6>
+                                                <p class="org-name">{{ $operator_simkah->name }}</p>
+                                                <span
+                                                    class="org-badge {{ $operator_simkah->badge_class }}">{{ $operator_simkah->department }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                <!-- Level 7 - Pramu Kantor -->
+                @if ($kuaStructures['pramu_kantor']->isNotEmpty())
+                    <div class="org-level level-7" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1600">
+                        <div class="row g-3 justify-content-center">
+                            @foreach ($kuaStructures['pramu_kantor'] as $pramu_kantor)
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                                    <div class="org-card pramu_kantor">
+                                        <div class="org-card-photo">
+                                            <div class="org-avatar">
+                                                @if ($pramu_kantor->photo_url)
+                                                    <img src="{{ $pramu_kantor->photo_url }}"
+                                                        alt="{{ $pramu_kantor->name }}" class="avatar-img">
+                                                @else
+                                                    <i class='bx {{ $pramu_kantor->icon }}'></i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="org-card-content">
+                                            <div class="org-info">
+                                                <h6>{{ $pramu_kantor->position }}</h6>
+                                                <p class="org-name">{{ $pramu_kantor->name }}</p>
+                                                <span
+                                                    class="org-badge {{ $pramu_kantor->badge_class }}">{{ $pramu_kantor->department }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1232,7 +1253,7 @@
         }, observerOptions);
 
         // Observe all cards
-        document.querySelectorAll('.feature-card, .news-card, .stat-card, .org-card, .bpd-card, .info-card').forEach(
+        document.querySelectorAll('.feature-card, .news-card, .stat-card, .org-card, .info-card').forEach(
             card => {
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(20px)';

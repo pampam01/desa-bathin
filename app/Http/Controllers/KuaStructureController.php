@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\VillageStructure;
+use App\Models\KuaStructure;
 use Illuminate\Support\Facades\Storage;
 
-class VillageStructureController extends Controller
+class KuaStructureController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $structures = VillageStructure::orderBy('sort_order')->get();
-        return view('backend.admin.villagestructure.index', compact('structures'));
+        $structures = KuaStructure::orderBy('sort_order')->get();
+        return view('backend.admin.kuastructure.index', compact('structures'));
     }
 
     /**
@@ -38,25 +38,25 @@ class VillageStructureController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(VillageStructure $villagestructure)
+    public function show(KuaStructure $kuastructure)
     {
-        return view('backend.admin.villagestructure.show', compact('villagestructure'));
+        return view('backend.admin.kuastructure.show', compact('kuastructure'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(VillageStructure $villagestructure)
+    public function edit(KuaStructure $kuastructure)
     {
         // Pass the structure with alias for consistency
-        $structure = $villagestructure;
-        return view('backend.admin.villagestructure.edit', compact('structure'));
+        $structure = $kuastructure;
+        return view('backend.admin.kuastructure.edit', compact('structure'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, VillageStructure $villagestructure)
+    public function update(Request $request, KuaStructure $kuastructure)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -71,23 +71,23 @@ class VillageStructureController extends Controller
 
         if ($request->hasFile('photo')) {
             // Delete old photo if exists
-            if ($villagestructure->photo) {
-                Storage::disk('public')->delete($villagestructure->photo);
+            if ($kuastructure->photo) {
+                Storage::disk('public')->delete($kuastructure->photo);
             }
-            $validatedData['photo'] = $request->file('photo')->store('village-structure', 'public');
+            $validatedData['photo'] = $request->file('photo')->store('kua-structure', 'public');
         }
 
-        $villagestructure->update($validatedData);
+        $kuastructure->update($validatedData);
 
-        return redirect()->route('villagestructure.index')
-            ->with('success', 'Data pejabat berhasil diperbarui');
+        return redirect()->route('kuastructure.index')
+            ->with('success', 'Data pejabat KUA berhasil diperbarui');
     }
 
     /**
      * Remove the specified resource from storage.
      * DISABLED: Edit-only management
      */
-    public function destroy(VillageStructure $villagestructure)
+    public function destroy(KuaStructure $kuastructure)
     {
         abort(404, 'Penghapusan data tidak diizinkan. Ubah status menjadi "Tidak Aktif" jika diperlukan.');
     }

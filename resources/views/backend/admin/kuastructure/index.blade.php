@@ -85,8 +85,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('villagestructure.edit', $structure) }}"
-                                        class="btn btn-sm btn-primary">
+                                    <a href="{{ route('kuastructure.edit', $structure) }}" class="btn btn-sm btn-primary">
                                         <i class="bx bx-edit me-1"></i>Edit
                                     </a>
                                 </td>

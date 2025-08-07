@@ -7,7 +7,7 @@
         <h4 class="fw-bold py-3 mb-4">
             <span class="text-muted fw-light">Manajemen Struktur KUA /</span> Edit Data Pegawai
         </h4>
-        <a href="{{ route('villagestructure.index') }}" class="btn btn-secondary">
+        <a href="{{ route('kuastructure.index') }}" class="btn btn-secondary">
             <i class="bx bx-arrow-back me-1"></i> Kembali
         </a>
     </div>
@@ -15,7 +15,7 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('villagestructure.index') }}">Struktur KUA</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('kuastructure.index') }}">Struktur KUA</a></li>
     <li class="breadcrumb-item active">Edit Pegawai</li>
 @endsection
 
@@ -28,7 +28,7 @@
                     <small class="text-muted">Perbarui informasi pegawai KUA</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('villagestructure.update', $structure) }}" method="POST"
+                    <form action="{{ route('kuastructure.update', $structure) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -159,7 +159,8 @@
                                         @error('description')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
-                                        <small class="text-muted">Informasi tambahan tentang pegawai (cth: NIP, Golongan, dll.)</small>
+                                        <small class="text-muted">Informasi tambahan tentang pegawai (cth: NIP, Golongan,
+                                            dll.)</small>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +170,7 @@
                             <div class="col-12">
                                 <hr>
                                 <div class="d-flex justify-content-end">
-                                    <a href="{{ route('villagestructure.index') }}" class="btn btn-secondary me-2">
+                                    <a href="{{ route('kuastructure.index') }}" class="btn btn-secondary me-2">
                                         <i class="bx bx-x me-1"></i>Batal
                                     </a>
                                     <button type="submit" class="btn btn-primary">
@@ -200,7 +201,7 @@
                 }
 
                 const allowedTypes = ['image/jpeg', 'image/png'];
-                 if (!allowedTypes.includes(file.type)) {
+                if (!allowedTypes.includes(file.type)) {
                     alert('Format file tidak didukung. Gunakan JPG atau PNG.');
                     input.value = '';
                     return;

@@ -8,7 +8,7 @@ use App\Models\MailSubmission;
 use App\Models\News;
 
 use App\Models\User;
-use App\Models\VillageStructure;
+use App\Models\KuaStructure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -114,14 +114,15 @@ class DashboardController extends Controller
         $telp = $aboutVillage->no_telp ?? '';
         $email = $aboutVillage->email ?? '';
 
-        // Get village structure data
-        $villageStructures = [
-            'kepala' => VillageStructure::kepala()->get(),
-            'sekretaris' => VillageStructure::sekretaris()->get(),
-            'kaur' =>VillageStructure::kaur()->get(),
-            'kasi' => VillageStructure::kasi()->get(),
-            'kadus' => VillageStructure::kadus()->get(),
-            'bpd' =>VillageStructure::bpd()->get(),
+        // Get KUA structure data
+        $kuaStructures = [
+            'kepala_kemenag' => KuaStructure::kepalaKemenag()->get(),
+            'kesubagg_tu' => KuaStructure::kesubaggTu()->get(),
+            'kasi_bimas_islam' => KuaStructure::kasiBimasIslam()->get(),
+            'kepala_kua' => KuaStructure::kepalaKua()->get(),
+            'pengadministrasi' => KuaStructure::pengadministrasi()->get(),
+            'operator_simkah' => KuaStructure::operatorSimkah()->get(),
+            'pramu_kantor' => KuaStructure::pramuKantor()->get(),
         ];
 
         // SEO Configuration for Frontend
@@ -143,6 +144,6 @@ class DashboardController extends Controller
             'theme_color' => '#008020'
         ];
 
-        return view('frontend.index', compact('news', 'complaints', 'totalPeople', 'totalFamilies', 'totalBloks', 'totalPrograms', 'description', 'visi', 'misi', 'location', 'telp', 'email', 'villageStructures', 'seoData'));
+        return view('frontend.index', compact('news', 'complaints', 'totalPeople', 'totalFamilies', 'totalBloks', 'totalPrograms', 'description', 'visi', 'misi', 'location', 'telp', 'email', 'kuaStructures', 'seoData'));
     }
 }

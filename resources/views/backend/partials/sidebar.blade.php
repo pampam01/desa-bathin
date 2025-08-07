@@ -121,8 +121,8 @@
                     <div data-i18n="AboutVillage">Tentang KUA</div>
                 </a>
             </li>
-            <li class="menu-item {{ request()->routeIs('villagestructure.*') ? 'active' : '' }}">
-                <a href="{{ route('villagestructure.index') }}" class="menu-link">
+            <li class="menu-item {{ request()->routeIs('kuastructure.*') ? 'active' : '' }}">
+                <a href="{{ route('kuastructure.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-building"></i>
                     <div data-i18n="VillageStruktur">Struktur KUA</div>
                 </a>
