@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         // First, change the column to string temporarily
-        Schema::table('village_structures', function (Blueprint $table) {
+        Schema::table('kua_structures', function (Blueprint $table) {
             $table->string('level')->change();
         });
 

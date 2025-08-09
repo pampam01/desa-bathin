@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(ComplaintSeeder::class);
         $this->call(NewsSeeder::class);
-        $this->call(VillageStructureSeeder::class);
+        $this->call(KuaStructureSeeder::class);
         AboutVillage::create([
             'people_total' => 1000,
             'family_total' => 250,

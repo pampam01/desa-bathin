@@ -15,8 +15,8 @@ class KuaStructureSeeder extends Seeder
         $structures = [
             // Kepala Kemenag
             [
-                'name' => 'Muhammad Tohir',
-                'position' => 'Kepala Kantor Kementerian Agama',
+                'name' => 'Drs Al Jufri M.Pdi',
+                'position' => 'Kepala Kemenag',
                 'level' => 'kepala_kemenag',
                 'department' => "Pemimpin",
                 'description' => 'Memimpin kantor Kementerian Agama dan bertanggung jawab atas seluruh kegiatan keagamaan',
@@ -25,8 +25,8 @@ class KuaStructureSeeder extends Seeder
 
             // Kesubagg TU
             [
-                'name' => 'Didin Jamaludin, S.pd I',
-                'position' => 'Kepala Subbag Tata Usaha',
+                'name' => 'M. Muslim. S.Ag, M.Sy',
+                'position' => 'Kepala Kesubbag TU',
                 'level' => 'kesubagg_tu',
                 'department' => 'Tata Usaha',
                 'description' => 'Mengurus administrasi umum dan ketatausahaan kantor',
@@ -35,7 +35,7 @@ class KuaStructureSeeder extends Seeder
 
             // Kasi Bimas Islam
             [
-                'name' => 'Ika Rostika',
+                'name' => 'Abdul Rahman, S.Ag',
                 'position' => 'Kasi Bimas Islam',
                 'level' => 'kasi_bimas_islam',
                 'department' => 'Bimas Islam',
@@ -45,7 +45,7 @@ class KuaStructureSeeder extends Seeder
 
             // Kepala KUA
             [
-                'name' => 'Nur M Iskandar, S.Kom',
+                'name' => 'M.Azman, S.Ag',
                 'position' => 'Kepala KUA',
                 'level' => 'kepala_kua',
                 'department' => 'KUA',
@@ -55,17 +55,64 @@ class KuaStructureSeeder extends Seeder
 
             // Pengadministrasi
             [
-                'name' => 'Pebriyana',
-                'position' => 'Pengadministrasi Umum',
+                'name' => 'M. Sodik',
+                'position' => 'Pengadministrasi Nikah Rujuk',
                 'level' => 'pengadministrasi',
-                'department' => 'Administrasi',
-                'description' => 'Mengurus administrasi umum kantor',
+                'department' => 'KUA',
+                'description' => 'Mengurus administrasi nikah rujuk',
                 'sort_order' => 5
             ],
-
+            [
+                'name' => 'Hesti Yuka Ningsih',
+                'position' => 'Pengadministrasi Zawibosos',
+                'level' => 'pengadministrasi',
+                'department' => 'KUA',
+                'description' => 'Mengurus administrasi zawibosos',
+                'sort_order' => 5
+            ],
+            [
+                'name' => 'Yulia Ningsih',
+                'position' => 'Pengadministrasi kemasjidan',
+                'level' => 'pengadministrasi',
+                'department' => 'KUA',
+                'description' => 'Mengurus administrasi kemasjidan',
+                'sort_order' => 5
+            ],
+            [
+                'name' => 'Hanapi S.H.I',
+                'position' => 'Pengadministrasi Haji/Umrah',
+                'level' => 'pengadministrasi',
+                'department' => 'KUA',
+                'description' => 'Mengurus administrasi haji/umrah',
+                'sort_order' => 5
+            ],
+            [
+                'name' => 'Muamar',
+                'position' => 'Pengadministrasi lintas sektoral',
+                'level' => 'pengadministrasi',
+                'department' => 'KUA',
+                'description' => 'Mengurus administrasi lintas sektor',
+                'sort_order' => 5
+            ],
+            [
+                'name' => 'Hanafi',
+                'position' => 'Pengadministrasi Produk Halal',
+                'level' => 'pengadministrasi',
+                'department' => 'KUA',
+                'description' => 'Mengurus administrasi produk halal',
+                'sort_order' => 5
+            ],
+            [
+                'name' => 'Hesti Yulia Ningsih',
+                'position' => 'Pengadministrasi Umum',
+                'level' => 'pengadministrasi',
+                'department' => 'KUA',
+                'description' => 'Mengurus administrasi umum',
+                'sort_order' => 5
+            ],
             // Operator Simkah
             [
-                'name' => 'Moch Baim Syaefullah',
+                'name' => 'Muamar',
                 'position' => 'Operator Simkah',
                 'level' => 'operator_simkah',
                 'department' => 'Sistem Informasi',
@@ -75,7 +122,7 @@ class KuaStructureSeeder extends Seeder
 
             // Pramu Kantor
             [
-                'name' => 'Abdul Kholiq Akhyar',
+                'name' => 'Indah',
                 'position' => 'Pramu Kantor',
                 'level' => 'pramu_kantor',
                 'department' => 'Pelayanan',

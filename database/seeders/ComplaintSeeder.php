@@ -16,32 +16,32 @@ class ComplaintSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Admin Desa',
+                'name' => 'Admin KUA',
                 'email' => 'admin@gmail.com',
                 'password' => bcrypt('admin1234'),
                 'role' => 'admin',
                 'phone' => '081234567890',
-                'address' => 'Balai Desa Parakan',
+                'address' => 'KUA bathin',
                 'bio' => 'Saya adalah admin desa yang bertugas mengelola laporan masyarakat.',
                 'avatar' => null,
             ],
             [
-                'name' => 'pampam warga',
+                'name' => 'Pampam Warga',
                 'email' => 'pampam@gmail.com',
                 'password' => bcrypt('pampam1234'),
                 'role' => 'masyarakat',
                 'phone' => '081298765432',
-                'address' => 'RT 03 RW 01 Desa Guruh Baru',
+                'address' => 'Warga Desa Bathin',
                 'bio' => 'Warga aktif yang peduli terhadap lingkungan sekitar.',
                 'avatar' => null,
             ],
             [
-                'name' => 'Siti Warga',
+                'name' => 'Siti',
                 'email' => 'siti@parakan.id',
                 'password' => bcrypt('siti1234'),
                 'role' => 'masyarakat',
                 'phone' => '082112345678',
-                'address' => 'RT 04 RW 02 Desa Parakan',
+                'address' => 'Warga Desa Bathin',
                 'bio' => 'Senang menyuarakan aspirasi melalui sistem desa digital.',
                 'avatar' => null,
             ]
