@@ -113,7 +113,7 @@
                         </div>
                         <div>
                             <span class="fw-semibold d-block mb-1">Dipublikasikan</span>
-                            <h3 class="card-title mb-0">{{ $publishedNews ?? 0 }}</h3>
+                            <h3 class="card-title mb-0">{{ $publishedNewsCount ?? 0 }}</h3>
                         </div>
                     </div>
                 </div>
@@ -166,132 +166,239 @@
                 </div>
             @endif
         </div>
-        <div class="card-body">
-            @if (isset($news) && $news->count() > 0)
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                @if (Auth::user()->role == 'admin')
-                                    <th width="50">
-                                        <input type="checkbox" class="form-check-input" id="selectAllCheckbox"
-                                            onchange="toggleSelectAll()">
-                                    </th>
-                                @endif
-                                <th>Gambar</th>
-                                <th>Judul</th>
-                                <th>Penulis</th>
-                                <th>Status</th>
+        @if (Auth::user()->role == 'admin')
+            <div class="card-body">
+                @if (isset($news) && $news->count() > 0)
 
-                                <th>Tanggal</th>
-                                <th width="140">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($news as $item)
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
                                 <tr>
                                     @if (Auth::user()->role == 'admin')
-                                        <td>
-                                            <input type="checkbox" class="form-check-input news-checkbox"
-                                                value="{{ $item->id }}" onchange="updateDeleteButton()">
-                                        </td>
+                                        <th width="50">
+                                            <input type="checkbox" class="form-check-input" id="selectAllCheckbox"
+                                                onchange="toggleSelectAll()">
+                                        </th>
                                     @endif
-                                    <td>
-                                        @if ($item->image)
-                                            <img src="{{ asset('storage/' . $item->image) }}" alt="News Image"
-                                                class="rounded" width="60" height="40"
-                                                style="object-fit: cover; cursor: pointer;"
-                                                onclick="showImagePreview('{{ asset('storage/' . $item->image) }}', '{{ $item->title }}')">
-                                        @else
-                                            <div class="bg-light rounded d-flex align-items-center justify-content-center"
-                                                style="width: 60px; height: 40px;">
-                                                <i class="bx bx-image text-muted"></i>
-                                            </div>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <h6 class="mb-0">{{ Str::limit($item->title, 50) }}</h6>
-                                            <small class="text-muted">{{ Str::limit($item->content, 80) }}</small>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-xs me-2">
-                                                <span class="avatar-initial rounded-circle bg-label-primary">
-                                                    {{ substr($item->user->name ?? 'A', 0, 1) }}
-                                                </span>
-                                            </div>
-                                            <span class="fw-semibold">{{ $item->user->name ?? 'Anonymous' }}</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        @if ($item->status == 'published')
-                                            <span class="badge bg-success news-status">Dipublikasikan</span>
-                                        @else
-                                            <span class="badge bg-warning news-status">Draft</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-info">0</span>
-                                    </td>
-                                    <td>
-                                        <small class="text-muted">{{ $item->created_at->format('d M Y') }}</small>
-                                        <br>
-                                        <small class="text-muted">{{ $item->created_at->format('H:i') }}</small>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex gap-1">
-                                            <a href="{{ route('news.show', $item->id) }}"
-                                                class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Lihat Detail">
-                                                <i class="bx bx-show"></i>
-                                            </a>
-                                            @if (Auth::user()->role == 'admin')
-                                                <a href="{{ route('news.edit', $item->id) }}"
-                                                    class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Edit Berita">
-                                                    <i class="bx bx-edit"></i>
-                                                </a>
-                                                <button type="button" class="btn btn-sm btn-outline-danger"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Berita"
-                                                    onclick="confirmDelete({{ $item->id }}, '{{ $item->title }}')">
-                                                    <i class="bx bx-trash"></i>
-                                                </button>
-                                            @endif
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                                    <th>Gambar</th>
+                                    <th>Judul</th>
+                                    <th>Penulis</th>
+                                    <th>Status</th>
 
-                <!-- Pagination -->
-                @if (method_exists($news, 'links'))
-                    <div class="d-flex justify-content-between align-items-center mt-3">
-                        <div>
-                            <small class="text-muted">
-                                Menampilkan {{ $news->firstItem() }} - {{ $news->lastItem() }} dari {{ $news->total() }}
-                                berita
-                            </small>
+                                    <th>Tanggal</th>
+                                    <th width="140">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($news as $item)
+                                    <tr>
+                                        @if (Auth::user()->role == 'admin')
+                                            <td>
+                                                <input type="checkbox" class="form-check-input news-checkbox"
+                                                    value="{{ $item->id }}" onchange="updateDeleteButton()">
+                                            </td>
+                                        @endif
+                                        <td>
+                                            @if ($item->image)
+                                                <img src="{{ asset('storage/' . $item->image) }}" alt="News Image"
+                                                    class="rounded" width="60" height="40"
+                                                    style="object-fit: cover; cursor: pointer;"
+                                                    onclick="showImagePreview('{{ asset('storage/' . $item->image) }}', '{{ $item->title }}')">
+                                            @else
+                                                <div class="bg-light rounded d-flex align-items-center justify-content-center"
+                                                    style="width: 60px; height: 40px;">
+                                                    <i class="bx bx-image text-muted"></i>
+                                                </div>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <h6 class="mb-0">{{ Str::limit($item->title, 50) }}</h6>
+                                                <small class="text-muted">{{ Str::limit($item->content, 80) }}</small>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-xs me-2">
+                                                    <span class="avatar-initial rounded-circle bg-label-primary">
+                                                        {{ substr($item->user->name ?? 'A', 0, 1) }}
+                                                    </span>
+                                                </div>
+                                                <span class="fw-semibold">{{ $item->user->name ?? 'Anonymous' }}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @if ($item->status == 'published')
+                                                <span class="badge bg-success news-status">Dipublikasikan</span>
+                                            @else
+                                                <span class="badge bg-warning news-status">Draft</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info">0</span>
+                                        </td>
+                                        <td>
+                                            <small class="text-muted">{{ $item->created_at->format('d M Y') }}</small>
+                                            <br>
+                                            <small class="text-muted">{{ $item->created_at->format('H:i') }}</small>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex gap-1">
+                                                <a href="{{ route('news.show', $item->id) }}"
+                                                    class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Lihat Detail">
+                                                    <i class="bx bx-show"></i>
+                                                </a>
+                                                @if (Auth::user()->role == 'admin')
+                                                    <a href="{{ route('news.edit', $item->id) }}"
+                                                        class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Edit Berita">
+                                                        <i class="bx bx-edit"></i>
+                                                    </a>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Hapus Berita"
+                                                        onclick="confirmDelete({{ $item->id }}, '{{ $item->title }}')">
+                                                        <i class="bx bx-trash"></i>
+                                                    </button>
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    @if (method_exists($news, 'links'))
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div>
+                                <small class="text-muted">
+                                    Menampilkan {{ $news->firstItem() }} - {{ $news->lastItem() }} dari
+                                    {{ $news->total() }}
+                                    berita
+                                </small>
+                            </div>
+                            <div>
+                                {{ $news->links() }}
+                            </div>
                         </div>
-                        <div>
-                            {{ $news->links() }}
-                        </div>
+                    @endif
+                @else
+                    <div class="text-center py-5">
+                        <i class="bx bx-news bx-lg text-muted mb-3"></i>
+                        <h5 class="text-muted">Belum Ada Berita</h5>
+                        <p class="text-muted">Mulai tambahkan berita pertama untuk portal desa Anda.</p>
+                        <a href="{{ route('news.create') }}" class="btn btn-primary">
+                            <i class="bx bx-plus me-1"></i> Tambah Berita Pertama
+                        </a>
                     </div>
                 @endif
-            @else
-                <div class="text-center py-5">
-                    <i class="bx bx-news bx-lg text-muted mb-3"></i>
-                    <h5 class="text-muted">Belum Ada Berita</h5>
-                    <p class="text-muted">Mulai tambahkan berita pertama untuk portal desa Anda.</p>
-                    <a href="{{ route('news.create') }}" class="btn btn-primary">
-                        <i class="bx bx-plus me-1"></i> Tambah Berita Pertama
-                    </a>
-                </div>
-            @endif
-        </div>
+            </div>
+        @else
+            <div class="card-body">
+                @if (isset($publishedNews) && $publishedNews->count() > 0)
+
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th>Status</th>
+                                    <th>Gambar</th>
+                                    <th>Judul</th>
+                                    <th>Penulis</th>
+                                    <th>Kategori</th>
+                                    <th>Tanggal</th>
+                                    <th width="140">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($publishedNews as $item)
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-success news-status">Dipublikasikan</span>
+                                        </td>
+                                        <td>
+                                            @if ($item->image)
+                                                <img src="{{ asset('storage/' . $item->image) }}" alt="News Image"
+                                                    class="rounded" width="60" height="40"
+                                                    style="object-fit: cover; cursor: pointer;"
+                                                    onclick="showImagePreview('{{ asset('storage/' . $item->image) }}', '{{ $item->title }}')">
+                                            @else
+                                                <div class="bg-light rounded d-flex align-items-center justify-content-center"
+                                                    style="width: 60px; height: 40px;">
+                                                    <i class="bx bx-image text-muted"></i>
+                                                </div>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <h6 class="mb-0">{{ Str::limit($item->title, 50) }}</h6>
+                                                <small class="text-muted">{{ Str::limit($item->content, 80) }}</small>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-xs me-2">
+                                                    <span class="avatar-initial rounded-circle bg-label-primary">
+                                                        {{ substr($item->user->name ?? 'A', 0, 1) }}
+                                                    </span>
+                                                </div>
+                                                <span class="fw-semibold">{{ $item->user->name ?? 'Anonymous' }}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info">0</span>
+                                        </td>
+                                        <td>
+                                            <small class="text-muted">{{ $item->created_at->format('d M Y') }}</small>
+                                            <br>
+                                            <small class="text-muted">{{ $item->created_at->format('H:i') }}</small>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex gap-1">
+                                                <a href="{{ route('news.show', $item->id) }}"
+                                                    class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Lihat Detail">
+                                                    <i class="bx bx-show"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    @if (method_exists($publishedNews, 'links'))
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div>
+                                <small class="text-muted">
+                                    Menampilkan {{ $publishedNews->firstItem() }} - {{ $publishedNews->lastItem() }} dari
+                                    {{ $publishedNews->total() }}
+                                    berita
+                                </small>
+                            </div>
+                            <div>
+                                {{ $publishedNews->links() }}
+                            </div>
+                        </div>
+                    @endif
+                @else
+                    <div class="text-center py-5">
+                        <i class="bx bx-news bx-lg text-muted mb-3"></i>
+                        <h5 class="text-muted">Belum Ada Berita</h5>
+                        <p class="text-muted">Mulai tambahkan berita pertama untuk portal desa Anda.</p>
+                        <a href="{{ route('news.create') }}" class="btn btn-primary">
+                            <i class="bx bx-plus me-1"></i> Tambah Berita Pertama
+                        </a>
+                    </div>
+                @endif
+            </div>
+        @endif
     </div>
 @endsection
 

@@ -38,10 +38,13 @@ class NewsController extends Controller
         // Urutkan dan paginasi hasilnya
         $news = $news->orderBy('created_at', 'desc')->paginate(10);
         $totalNews = $news->total();
-        $publishedNews = $news->where('status', 'published')->count();
+        $publishedNews = $news->where('status', 'published');
+        $publishedNewsCount = $publishedNews->count();
         $draftNews = $news->where('status', 'draft')->count();
 
-        return view('backend.admin.news.index', compact('news', 'totalNews', 'publishedNews', 'draftNews'));
+        
+        return view('backend.admin.news.index', compact('news', 'totalNews', 'publishedNews', 'draftNews', 'publishedNewsCount'));
+
     }
 
     /**
