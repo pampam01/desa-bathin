@@ -5,7 +5,7 @@
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Manajemen Pengguna /</span> Semua Pengguna
+            <span class="text-muted fw-light">Manajemen /</span> Semua Pengguna
         </h4>
         <a href="{{ route('users.create') }}" class="btn btn-primary">
             <i class="bx bx-plus me-1"></i> Tambah Pengguna
@@ -15,54 +15,48 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Pengguna</a></li>
     <li class="breadcrumb-item active">Semua Pengguna</li>
 @endsection
 
 @push('styles')
     <style>
-        .user-card {
-            transition: transform 0.2s, box-shadow 0.2s;
+        .card {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: none;
         }
-
-        .user-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        .table-hover tbody tr {
+            transition: background-color 0.2s ease-in-out;
         }
-
-        .user-status {
-            font-size: 0.75rem;
+        .table-hover tbody tr:hover {
+            background-color: rgba(105, 108, 255, 0.07);
         }
-
-        .btn-sm {
-            padding: 0.25rem 0.5rem;
+        .form-label, .fw-semibold {
+            font-weight: 600 !important;
         }
-
-        .btn-sm i {
-            font-size: 0.875rem;
+        .avatar-initial {
+            font-weight: 600;
         }
-
-        .avatar-lg {
-            width: 3rem;
-            height: 3rem;
-        }
-
         .role-badge {
-            font-size: 0.7rem;
-            padding: 0.25rem 0.5rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .btn-icon i {
+            font-size: 1.1rem;
         }
     </style>
 @endpush
 
 @section('content')
-    <!-- Filter and Search -->
     <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title mb-0"><i class="bx bx-filter-alt me-1"></i>Filter Pengguna</h5>
+        </div>
         <div class="card-body">
             <form method="GET" action="{{ route('users.index') }}">
-                <div class="row g-3">
+                <div class="row g-3 align-items-end">
                     <div class="col-md-4">
-                        <label class="form-label">Cari Pengguna</label>
-                        <div class="input-group">
+                        <label class="form-label">Cari</label>
+                        <div class="input-group input-group-merge">
                             <span class="input-group-text"><i class="bx bx-search"></i></span>
                             <input type="text" class="form-control" name="search" value="{{ request('search') }}"
                                 placeholder="Nama atau email...">
@@ -73,8 +67,7 @@
                         <select class="form-select" name="role">
                             <option value="">Semua Role</option>
                             <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                            <option value="masyarakat" {{ request('role') == 'masyarakat' ? 'selected' : '' }}>Masyarakat
-                            </option>
+                            <option value="masyarakat" {{ request('role') == 'masyarakat' ? 'selected' : '' }}>Masyarakat</option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -82,337 +75,291 @@
                         <input type="date" class="form-control" name="date" value="{{ request('date') }}">
                     </div>
                     <div class="col-md-2">
-                        <label class="form-label">&nbsp;</label>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bx bx-search me-1"></i> Filter
-                            </button>
-                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bx bx-search d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Filter</span>
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Statistics Cards -->
-    <div class="row mb-4">
-        <div class="col-lg-3 col-md-6 mb-3">
+    <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-lg-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bx-user bx-md text-primary"></i>
-                        </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">Total Pengguna</span>
-                            <h3 class="card-title mb-0">{{ $totalUsers ?? 0 }}</h3>
-                        </div>
+                <div class="card-body text-center">
+                    <div class="avatar avatar-md mx-auto mb-2">
+                        <span class="avatar-initial rounded-circle bg-label-primary"><i class="bx bx-user fs-3"></i></span>
                     </div>
+                    <h4 class="mb-1">{{ $totalUsers ?? 0 }}</h4>
+                    <span class="fw-semibold">Total Pengguna</span>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 mb-3">
+        <div class="col-sm-6 col-lg-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bx-shield bx-md text-success"></i>
-                        </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">Admin</span>
-                            <h3 class="card-title mb-0">{{ $adminCount ?? 0 }}</h3>
-                        </div>
+                <div class="card-body text-center">
+                    <div class="avatar avatar-md mx-auto mb-2">
+                        <span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-shield fs-3"></i></span>
                     </div>
+                    <h4 class="mb-1">{{ $adminCount ?? 0 }}</h4>
+                    <span class="fw-semibold">Admin</span>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 mb-3">
+        <div class="col-sm-6 col-lg-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bx-user-check bx-md text-info"></i>
-                        </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">Masyarakat</span>
-                            <h3 class="card-title mb-0">{{ $userCount ?? 0 }}</h3>
-                        </div>
+                <div class="card-body text-center">
+                    <div class="avatar avatar-md mx-auto mb-2">
+                        <span class="avatar-initial rounded-circle bg-label-info"><i class="bx bx-group fs-3"></i></span>
                     </div>
+                    <h4 class="mb-1">{{ $userCount ?? 0 }}</h4>
+                    <span class="fw-semibold">Masyarakat</span>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 mb-3">
+        <div class="col-sm-6 col-lg-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bx-time bx-md text-warning"></i>
-                        </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">Hari Ini</span>
-                            <h3 class="card-title mb-0">{{ $todayUsers ?? 0 }}</h3>
-                        </div>
+                <div class="card-body text-center">
+                    <div class="avatar avatar-md mx-auto mb-2">
+                        <span class="avatar-initial rounded-circle bg-label-warning"><i class="bx bx-user-plus fs-3"></i></span>
                     </div>
+                    <h4 class="mb-1">{{ $todayUsers ?? 0 }}</h4>
+                    <span class="fw-semibold">Bergabung Hari Ini</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Users List -->
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Daftar Pengguna</h5>
+            {{-- Menambahkan tombol aksi massal yang scriptnya sudah ada --}}
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary btn-sm" onclick="selectAll()">
+                    <i class="bx bx-check-square me-1"></i> Pilih Semua
+                </button>
+                <button class="btn btn-outline-danger btn-sm" id="deleteSelectedBtn" disabled>
+                    <i class="bx bx-trash me-1"></i> Hapus Terpilih
+                </button>
+            </div>
         </div>
-        <div class="card-body">
+        <div class="table-responsive text-nowrap">
             @if (isset($users) && $users->count() > 0)
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            {{-- Menambahkan checkbox untuk aksi massal --}}
+                            <th class="text-center" width="50"><input type="checkbox" class="form-check-input" id="selectAllCheckbox"></th>
+                            <th>Pengguna</th>
+                            <th>Role & Status</th>
+                            <th>Kontak</th>
+                            <th>Bergabung</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        @foreach ($users as $user)
                             <tr>
-                                <th>Pengguna</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Kontak</th>
-                                <th>Bergabung</th>
-                                <th width="140">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $user)
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-sm me-3">
+                                {{-- Menambahkan checkbox untuk aksi massal --}}
+                                <td class="text-center"><input type="checkbox" class="form-check-input user-checkbox" value="{{ $user->id }}"></td>
+                                <td>
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <div class="avatar-wrapper">
+                                            <div class="avatar avatar-lg me-3">
                                                 @if ($user->avatar)
-                                                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar"
-                                                        class="rounded-circle" width="40" height="40"
-                                                        style="object-fit: cover;">
+                                                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="rounded-circle" style="object-fit: cover;">
                                                 @else
-                                                    <span class="avatar-initial rounded-circle bg-label-primary">
-                                                        {{ strtoupper(substr($user->name, 0, 1)) }}
-                                                    </span>
-                                                @endif
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-0">{{ $user->name }}</h6>
-                                                @if ($user->bio)
-                                                    <small class="text-muted">{{ Str::limit($user->bio, 50) }}</small>
+                                                    <span class="avatar-initial rounded-circle bg-label-primary">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
                                                 @endif
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <span class="fw-semibold">{{ $user->email }}</span>
-                                        {{-- @if ($user->email_verified_at)
-                                            <i class="bx bx-check-circle text-success ms-1" title="Email Terverifikasi"></i>
-                                        @else
-                                            <i class="bx bx-x-circle text-danger ms-1" title="Email Belum Terverifikasi"></i>
-                                        @endif --}}
-                                    </td>
-                                    <td>
-                                        @if ($user->role == 'admin')
-                                            <span class="badge bg-danger role-badge">Admin</span>
-                                        @else
-                                            <span class="badge bg-info role-badge">Masyarakat</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($user->phone)
-                                            <span class="fw-semibold">{{ $user->phone }}</span>
-                                        @else
-                                            <span class="text-muted">-</span>
-                                        @endif
-                                        @if ($user->address)
-                                            <br><small class="text-muted">{{ Str::limit($user->address, 30) }}</small>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <small class="text-muted">{{ $user->created_at->format('d M Y') }}</small>
-                                        <br>
-                                        <small class="text-muted">{{ $user->created_at->format('H:i') }}</small>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex gap-1">
-                                            <a href="{{ route('users.show', $user->id) }}"
-                                                class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Lihat Detail">
-                                                <i class="bx bx-show"></i>
-                                            </a>
-                                            <a href="{{ route('users.edit', $user->id) }}"
-                                                class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Edit Pengguna">
-                                                <i class="bx bx-edit"></i>
-                                            </a>
-                                            @if ($user->id != auth()->id())
-                                                <button type="button" class="btn btn-sm btn-outline-danger"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Hapus Pengguna"
-                                                    onclick="confirmDelete({{ $user->id }}, '{{ $user->name }}')">
-                                                    <i class="bx bx-trash"></i>
-                                                </button>
-                                            @endif
+                                        <div class="d-flex flex-column">
+                                            <span class="fw-semibold">{{ $user->name }}</span>
+                                            <small class="text-muted">{{ $user->email }}</small>
                                         </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Pagination -->
-                @if (method_exists($users, 'links'))
-                    <div class="d-flex justify-content-between align-items-center mt-3">
-                        <div>
-                            <small class="text-muted">
-                                Menampilkan {{ $users->firstItem() }} - {{ $users->lastItem() }} dari
-                                {{ $users->total() }}
-                                pengguna
-                            </small>
-                        </div>
-                        <div>
-                            {{ $users->links() }}
-                        </div>
-                    </div>
-                @endif
+                                    </div>
+                                </td>
+                                <td>
+                                    @if ($user->role == 'admin')
+                                        <span class="badge bg-label-success role-badge">Admin</span>
+                                    @else
+                                        <span class="badge bg-label-info role-badge">Masyarakat</span>
+                                    @endif
+                                    {{-- Mengaktifkan tampilan status verifikasi email --}}
+                                    @if ($user->email_verified_at)
+                                        <i class="bx bx-check-circle text-success ms-1" data-bs-toggle="tooltip" title="Email Terverifikasi"></i>
+                                    @else
+                                        <i class="bx bx-time-five text-warning ms-1" data-bs-toggle="tooltip" title="Email Belum Terverifikasi"></i>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($user->phone)
+                                        <span class="fw-semibold">{{ $user->phone }}</span>
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <span class="d-block">{{ $user->created_at->format('d M Y') }}</span>
+                                    <small class="text-muted">{{ $user->created_at->diffForHumans() }}</small>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex gap-1 justify-content-center">
+                                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-icon btn-outline-info" data-bs-toggle="tooltip" title="Lihat Detail">
+                                            <i class="bx bx-show"></i>
+                                        </a>
+                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-icon btn-outline-warning" data-bs-toggle="tooltip" title="Edit Pengguna">
+                                            <i class="bx bx-edit"></i>
+                                        </a>
+                                        @if ($user->id != auth()->id())
+                                            <button type="button" class="btn btn-sm btn-icon btn-outline-danger" data-bs-toggle="tooltip" title="Hapus Pengguna"
+                                                onclick="confirmDelete({{ $user->id }}, '{{ addslashes($user->name) }}')">
+                                                <i class="bx bx-trash"></i>
+                                            </button>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             @else
                 <div class="text-center py-5">
-                    <i class="bx bx-user bx-lg text-muted mb-3"></i>
+                    <i class="bx bx-user-x fs-1 text-muted mb-3"></i>
                     <h5 class="text-muted">Belum Ada Pengguna</h5>
-                    <p class="text-muted">Tambahkan pengguna pertama untuk memulai.</p>
-                    <a href="{{ route('users.create') }}" class="btn btn-primary">
+                    <p class="text-muted">Tidak ada data pengguna yang cocok dengan filter Anda.</p>
+                    <a href="{{ route('users.create') }}" class="btn btn-primary mt-2">
                         <i class="bx bx-plus me-1"></i> Tambah Pengguna Pertama
                     </a>
                 </div>
             @endif
         </div>
+        @if (isset($users) && $users->total() > 0 && method_exists($users, 'links'))
+            <div class="card-footer d-flex justify-content-between align-items-center">
+                <small class="text-muted">
+                    Menampilkan {{ $users->firstItem() }} - {{ $users->lastItem() }} dari {{ $users->total() }} pengguna
+                </small>
+                <div>{{ $users->appends(request()->query())->links() }}</div>
+            </div>
+        @endif
     </div>
 @endsection
 
 @push('scripts')
     <script>
-        function toggleSelectAll() {
-            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-            const userCheckboxes = document.querySelectorAll('.user-checkbox');
-
-            userCheckboxes.forEach(checkbox => {
-                checkbox.checked = selectAllCheckbox.checked;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inisialisasi Tooltip
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
             });
 
-            updateDeleteButton();
-        }
+            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+            const userCheckboxes = document.querySelectorAll('.user-checkbox');
+            const deleteBtn = document.getElementById('deleteSelectedBtn');
 
-        function selectAll() {
-            document.getElementById('selectAllCheckbox').checked = true;
-            toggleSelectAll();
-        }
+            if (selectAllCheckbox && deleteBtn) {
+                // Event listener untuk checkbox "pilih semua"
+                selectAllCheckbox.addEventListener('change', function() {
+                    userCheckboxes.forEach(checkbox => {
+                        checkbox.checked = this.checked;
+                    });
+                    updateDeleteButton();
+                });
+
+                // Event listener untuk setiap checkbox pengguna
+                userCheckboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', updateDeleteButton);
+                });
+                
+                // Panggil sekali saat load untuk inisialisasi
+                updateDeleteButton();
+            }
+        });
 
         function updateDeleteButton() {
             const checkedBoxes = document.querySelectorAll('.user-checkbox:checked');
             const deleteBtn = document.getElementById('deleteSelectedBtn');
-
-            if (checkedBoxes.length > 0) {
-                deleteBtn.disabled = false;
-                deleteBtn.innerHTML = `<i class="bx bx-trash me-1"></i> Hapus Terpilih (${checkedBoxes.length})`;
-            } else {
-                deleteBtn.disabled = true;
-                deleteBtn.innerHTML = '<i class="bx bx-trash me-1"></i> Hapus Terpilih';
+            if (deleteBtn) {
+                if (checkedBoxes.length > 0) {
+                    deleteBtn.disabled = false;
+                    deleteBtn.innerHTML = `<i class="bx bx-trash me-1"></i> Hapus (${checkedBoxes.length}) Terpilih`;
+                } else {
+                    deleteBtn.disabled = true;
+                    deleteBtn.innerHTML = '<i class="bx bx-trash me-1"></i> Hapus Terpilih';
+                }
+            }
+        }
+        
+        function selectAll() {
+            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+            if(selectAllCheckbox) {
+                selectAllCheckbox.checked = !selectAllCheckbox.checked;
+                selectAllCheckbox.dispatchEvent(new Event('change'));
             }
         }
 
         function confirmDelete(id, name) {
-            showConfirmModal(
-                `Apakah Anda yakin ingin menghapus pengguna "${name}"? Tindakan ini tidak dapat dibatalkan.`,
-                function() {
-                    // Create form and submit
+            Swal.fire({
+                title: 'Anda Yakin?',
+                html: `Anda akan menghapus pengguna: <br><b>"${name}"</b>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                customClass: { confirmButton: 'btn btn-danger', cancelButton: 'btn btn-secondary ms-2' },
+                buttonsStyling: false
+            }).then((result) => {
+                if (result.isConfirmed) {
                     const form = document.createElement('form');
                     form.method = 'POST';
-                    form.action = `/users/${id}`;
-
-                    const methodInput = document.createElement('input');
-                    methodInput.type = 'hidden';
-                    methodInput.name = '_method';
-                    methodInput.value = 'DELETE';
-
-                    const tokenInput = document.createElement('input');
-                    tokenInput.type = 'hidden';
-                    tokenInput.name = '_token';
-                    tokenInput.value = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                    form.appendChild(methodInput);
-                    form.appendChild(tokenInput);
+                    form.action = `{{ url('users') }}/${id}`;
+                    form.innerHTML = `@method('DELETE') @csrf`;
                     document.body.appendChild(form);
-
-                    showLoading();
                     form.submit();
                 }
-            );
+            });
         }
 
         function deleteSelected() {
             const checkedBoxes = document.querySelectorAll('.user-checkbox:checked');
             const ids = Array.from(checkedBoxes).map(cb => cb.value);
 
-            if (ids.length === 0) {
-                console.warn('Tidak ada pengguna yang terpilih untuk dihapus.');
-                return;
-            }
+            if (ids.length === 0) return;
 
-            showConfirmModal(
-                `Apakah Anda yakin ingin menghapus ${ids.length} pengguna terpilih? Tindakan ini tidak dapat dibatalkan.`,
-                function() {
-                    showLoading();
-
-                    fetch('{{ route('users.multipleDelete') }}', {
-                            method: 'DELETE',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                    'content')
-                            },
-                            body: JSON.stringify({
-                                ids: ids
-                            })
-                        })
-                        .then(response => {
-                            hideLoading();
-                            if (!response.ok) {
-                                return response.json().then(errorData => {
-                                    throw new Error(errorData.message || 'Terjadi kesalahan pada server.');
-                                });
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            if (data.success) {
-                                Swal.fire({
-                                    title: 'Berhasil!',
-                                    text: data.message || 'Pengguna berhasil dihapus.',
-                                    icon: 'success',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                }).then(() => {
-                                    location.reload();
-                                });
-                            } else {
-                                Swal.fire('Error!', data.message || 'Gagal menghapus pengguna.', 'error');
-                            }
-                        })
-                        .catch(error => {
-                            hideLoading();
-                            Swal.fire('Error!', error.message || 'Terjadi kesalahan saat memproses permintaan.',
-                                'error');
-                            console.error('AJAX Error:', error);
-                        });
+            Swal.fire({
+                title: 'Anda Yakin?',
+                text: `Anda akan menghapus ${ids.length} pengguna terpilih. Tindakan ini tidak dapat dibatalkan.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus Semua!',
+                cancelButtonText: 'Batal',
+                customClass: { confirmButton: 'btn btn-danger', cancelButton: 'btn btn-secondary ms-2' },
+                buttonsStyling: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('{{ route("users.multipleDelete") }}', {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({ ids: ids })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({ icon: 'success', title: 'Berhasil!', text: data.message, timer: 2000, showConfirmButton: false })
+                                .then(() => location.reload());
+                        } else {
+                            Swal.fire('Gagal!', data.message || 'Terjadi kesalahan.', 'error');
+                        }
+                    })
+                    .catch(error => Swal.fire('Error!', 'Tidak dapat terhubung ke server.', 'error'));
                 }
-            );
-        }
-
-        // Initialize tooltips
-        document.addEventListener('DOMContentLoaded', function() {
-            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            const tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl);
             });
-        });
+        }
     </script>
 @endpush

@@ -1,1311 +1,495 @@
 <!DOCTYPE html>
-<html lang="id">
-
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="scroll-behavior: smooth;">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="index,follow">
-    <meta name="author" content="{{ $seoData['author'] }}">
-    <meta name="theme-color" content="{{ $seoData['theme_color'] ?? '#dc3545' }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- SEO Meta Tags -->
     <title>{{ $seoData['title'] }}</title>
     <meta name="description" content="{{ $seoData['description'] ?? '' }}">
     <meta name="keywords" content="{{ $seoData['keywords'] ?? '' }}">
     <link rel="canonical" href="{{ $seoData['canonical_url'] ?? url('/') }}">
-
-    <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="{{ $seoData['og_title'] ?? ($seoData['title'] ?? '') }}">
     <meta property="og:description" content="{{ $seoData['og_description'] ?? ($seoData['description'] ?? '') }}">
-    <meta property="og:type" content="{{ $seoData['og_type'] ?? 'website' }}">
-    <meta property="og:url" content="{{ $seoData['og_url'] ?? url('/') }}">
     <meta property="og:image" content="{{ $seoData['og_image'] ?? asset('assets/img/logo-desa.png') }}">
-    <meta property="og:site_name" content="">
-    <meta property="og:locale" content="id_ID">
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="{{ $seoData['twitter_card'] ?? 'summary_large_image' }}">
-    <meta name="twitter:title" content="{{ $seoData['twitter_title'] ?? ($seoData['title'] ?? '') }}">
-    <meta name="twitter:description"
-        content="{{ $seoData['twitter_description'] ?? ($seoData['description'] ?? '') }}">
-    <meta name="twitter:image" content="{{ $seoData['twitter_image'] ?? asset('assets/img/logo-desa.png') }}">
-
-    <!-- Favicon -->
+    
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-    <link rel="apple-touch-icon" href="{{ asset('assets/img/logo-desa.png') }}">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- BoxIcons -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- My Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/mystyle.css') }}">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Organization Chart Styles -->
     <style>
-        .structure-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        :root {
+            --primary-color: #0d9488; /* Teal-600 */
+            --primary-hover: #0f766e; /* Teal-700 */
+            --secondary-color: #f0fdfa; /* Teal-50 */
+            --text-dark: #1f2937; /* Gray-800 */
+            --text-light: #6b7280; /* Gray-500 */
+            --border-color: #e5e7eb; /* Gray-200 */
+            --card-bg: #ffffff;
+            --body-bg: #f9fafb; /* Gray-50 */
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--body-bg);
+            color: var(--text-dark);
         }
 
-        .org-chart-container {
-            position: relative;
-            margin: 50px 0;
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
         }
 
-        .org-level {
-            margin: 30px 0;
-            position: relative;
-        }
-
-        .org-card {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(220, 53, 69, 0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            position: relative;
-            margin: 15px;
-            min-height: 320px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .org-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(45deg, #35dc43c1 0%, #31b02a 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .org-card:hover::before {
-            opacity: 1;
-        }
-
-        .org-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 16px 48px rgba(220, 53, 69, 0.2);
-            border-color: rgba(220, 53, 69, 0.3);
-        }
-
-        .org-card.kepala-kemenag {
-            background: linear-gradient(135deg, #35dc43c1 0%, #31b02a 100%);
-            color: white;
-            max-width: 320px;
-            margin: 0 auto;
-        }
-
-        .org-card.kesubagg_tu {
-            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
-            color: white;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-
-        /* Photo Section - Full Width at Top */
-        .org-card-photo {
-            width: 100%;
-            height: 220px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .org-card.kepala-kemenag .org-card-photo,
-        .org-card.kesubagg_tu .org-card-photo {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
-        }
-
-        .org-card-photo::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(255, 107, 122, 0.1) 100%);
-        }
-
-        .org-card.kepala-kemenag .org-card-photo::before,
-        .org-card.kesubagg_tu .org-card-photo::before {
-            background: none;
-        }
-
-        .org-avatar {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border: 4px solid white;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-            position: relative;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.2);
-            font-size: 80px;
-        }
-
-        .avatar-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .org-card:not(.kepala-kemenag):not(.kesubagg_tu) .org-avatar {
-            background: linear-gradient(135deg, #dc3545, #ff6b7a);
-            color: white;
-        }
-
-        /* Ensure all avatars have consistent styling when they have photos */
-        .org-card.kepala-kemenag .org-avatar,
-        .org-card.kesubagg_tu .org-avatar {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Content Section */
-        .org-card-content {
-            padding: 20px;
-            text-align: center;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .org-card.kepala-kemenag .org-card-content,
-        .org-card.kesubagg_tu .org-card-content {
-            padding: 25px 30px;
-        }
-
-        .org-info h5,
-        .org-info h6 {
-            margin-bottom: 10px;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-
-        .org-name {
-            font-size: 15px;
-            margin-bottom: 15px;
-            opacity: 0.9;
-            font-weight: 500;
-            line-height: 1.4;
-        }
-
-        .org-card.kepala-kemenag .org-name,
-        .org-card.kesubagg_tu .org-name {
-            font-size: 16px;
-            margin-bottom: 18px;
-        }
-
-        .org-badge {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            text-transform: uppercase;
-        }
-
-        .org-badge.secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .org-badge.info {
-            background: #0dcaf0;
-            color: white;
-        }
-
-        .org-badge.warning {
-            background: #ffc107;
-            color: #000;
-        }
-
-        .org-badge.success {
-            background: #198754;
-            color: white;
-        }
-
-        .org-badge.primary {
-            background: #0d6efd;
-            color: white;
-        }
-
-        .org-badge.danger {
-            background: #dc3545;
-            color: white;
-        }
-
-        .org-badge.dark {
-            background: #212529;
-            color: white;
-        }
-
-        .org-connector {
-            position: absolute;
-            background: #dee2e6;
-        }
-
-        .org-connector.vertical {
-            width: 2px;
-            height: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .org-connector.horizontal {
-            height: 2px;
-            width: 60%;
-            left: 20%;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-
-
-        .position {
-            font-weight: 600;
-        }
-
-        .info-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 30px;
-            height: 100%;
-        }
-
-        .function-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .function-list li {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            padding: 8px 0;
-        }
-
-        .function-list i {
-            color: #28a745;
-            margin-right: 10px;
-            font-size: 18px;
-        }
-
-        @media (max-width: 768px) {
-
-            .about-divider,
-            .news-divider,
-            .complaint-divider {
-                margin-left: 0;
-                margin-right: auto;
-            }
-
-            .org-card {
-                margin: 10px 0;
-                min-height: 280px;
-            }
-
-            .org-card-photo {
-                height: 180px;
-            }
-
-            .org-avatar {
-                width: 160px;
-                height: 160px;
-                font-size: 64px;
-                border-width: 3px;
-            }
-
-            .org-card-content {
-                padding: 16px;
-            }
-
-            .org-card.kepala-kemenag .org-card-content,
-            .org-card.kesubagg_tu .org-card-content {
-                padding: 20px;
-            }
-
-            .org-connector.horizontal {
-                display: none;
-            }
-
-
-
-            .org-info h5,
-            .org-info h6 {
-                font-size: 14px;
-                margin-bottom: 5px;
-            }
-
-            .org-name {
-                font-size: 12px;
-            }
-        }
-
-
-
-        @media (max-width: 576px) {
-            .org-card {
-                min-height: 240px;
-            }
-
-            .org-card-photo {
-                height: 140px;
-            }
-
-            .org-avatar {
-                width: 120px;
-                height: 120px;
-                font-size: 48px;
-            }
-
-            .org-info h5 {
-                font-size: 13px;
-            }
-
-            .org-info h6 {
-                font-size: 12px;
-            }
-
-            .org-name {
-                font-size: 11px;
-            }
-
-            .org-badge {
-                font-size: 9px;
-                padding: 2px 6px;
-            }
-        }
-
-        /* Enhanced Navbar Styles */
+        /* --- Navbar --- */
         .navbar {
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
-
-        .navbar-brand {
+        .navbar-brand span {
             font-weight: 600;
         }
-
-        .navbar-nav .nav-link {
+        .nav-link {
             font-weight: 500;
-            padding: 8px 16px !important;
-            margin: 0 2px;
-            border-radius: 8px;
+            color: var(--text-light);
+            transition: color 0.3s ease;
+        }
+        .navbar.scrolled .nav-link { color: var(--text-dark); }
+        .navbar .nav-link:hover, .navbar .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+
+        /* --- Hero Section --- */
+        #home {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+        #hero-video {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -2;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 30, 40, 0.6);
+            z-index: -1;
+        }
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .hero-content .highlight { color: #6ee7b7; /* Emerald-300 */ }
+        .hero-content p {
+            max-width: 600px;
+            margin: 20px auto 30px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .btn-hero {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .btn-hero.primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .btn-hero.primary:hover { background-color: var(--primary-hover); transform: translateY(-3px); }
+        .btn-hero.secondary { border-color: white; color: white; }
+        .btn-hero.secondary:hover { background-color: white; color: var(--text-dark); transform: translateY(-3px); }
+
+        /* --- General Section Styling --- */
+        .section { padding: 80px 0; }
+        .section-title { margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.5rem; }
+        .section-title p { color: var(--text-light); }
+        .divider {
+            width: 80px; height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+            margin: 20px auto;
+        }
+
+        /* --- Card Styling --- */
+        .unified-card {
+            background: var(--card-bg);
+            border: 1px solid transparent;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
             transition: all 0.3s ease;
         }
-
-        .navbar-nav .nav-link:hover,
-        .navbar-nav .nav-link.active {
-            background: rgba(220, 53, 69, 0.1);
-            color: #35dc5f !important;
+        .unified-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: inherit;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
         }
-
-        .navbar-toggler {
-            border: none;
-            padding: 4px 8px;
+        .unified-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.07);
         }
-
-        .navbar-toggler:focus {
-            box-shadow: none;
+        .unified-card:hover::before {
+            border-image: linear-gradient(135deg, var(--primary-color), #2dd4bf) 1;
         }
-
-        /* Enhanced Divider Styles */
-        .about-divider,
-        .news-divider,
-        .complaint-divider {
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(45deg, #35dc43c1 0%, #31b02a 100%);
-            margin: 20px 0;
-            border-radius: 2px;
+        
+        /* Stats Card */
+        .stat-card { text-align: center; }
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
         }
+        .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--text-dark); }
+        .stat-label { font-size: 1rem; color: var(--text-light); }
 
-        /* Mobile Divider Positioning */
-        @media (max-width: 768px) {
-
-            .about-divider,
-            .news-divider,
-            .complaint-divider {
-                margin-left: 0;
-                margin-right: auto;
-            }
+        /* News & Complaint Card */
+        .post-card {
+            display: flex; flex-direction: column;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            overflow: hidden;
+            height: 100%;
+            transition: all 0.3s ease;
         }
-
-
-
-        .section-subtitle {
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            padding: 8px 16px;
-            border-radius: 25px;
-            display: inline-block;
-            margin-bottom: 20px;
+        .post-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.07); }
+        .post-card img {
+            width: 100%; height: 200px; object-fit: cover;
         }
-
-        /* Responsive Navbar */
-        @media (max-width: 991px) {
-            .navbar-collapse {
-                background: rgba(255, 255, 255, 0.95);
-                backdrop-filter: blur(10px);
-                margin-top: 15px;
-                padding: 20px;
-                border-radius: 15px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(0, 0, 0, 0.1);
-            }
-
-            .navbar-nav .nav-link {
-                margin: 2px 0;
-                padding: 12px 16px !important;
-            }
-
-            .navbar-brand small {
-                font-size: 0.6rem !important;
-            }
+        .post-card-body { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .post-card-body h5 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .post-card-body p { color: var(--text-light); flex-grow: 1; }
+        .post-card-body .news-meta { font-size: 0.8rem; color: #9ca3af; }
+        .post-card-body .btn-read-more {
+            color: var(--primary-color); font-weight: 600; text-decoration: none;
         }
+        
+        /* --- Struktur Organisasi --- */
+        .org-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            text-align: center;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .org-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .org-avatar {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            margin: -50px auto 1rem;
+            border: 4px solid var(--card-bg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .org-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .org-avatar .initial { font-size: 2.5rem; background-color: var(--primary-color); color: white; }
+        .org-card h6 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .org-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 1rem; }
+        .org-badge { font-size: 0.75rem; font-weight: 500; }
 
-        @media (max-width: 768px) {
-            .navbar-brand span:not(.badge) {
-                font-size: 1rem;
-            }
-
-            .navbar-brand small {
-                font-size: 0.55rem !important;
-            }
-
-            .section-subtitle {
-                font-size: 12px;
-                padding: 6px 12px;
-            }
-
-            .about-divider,
-            .news-divider,
-            .complaint-divider {
-                width: 40px;
-                height: 3px;
-                margin: 15px 0;
-            }
+        /* --- Footer --- */
+        .footer { background: var(--text-dark); color: #d1d5db; padding-top: 60px; }
+        .footer h5 { color: white; font-weight: 600; margin-bottom: 1.5rem; }
+        .footer p, .footer ul li a { color: #9ca3af; text-decoration: none; transition: color 0.3s ease; }
+        .footer ul li a:hover { color: white; }
+        .footer-bottom {
+            padding: 20px 0;
+            margin-top: 40px;
+            background: rgba(0,0,0,0.2);
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top py-3">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="{{ asset('kemeneg.jpg') }}" alt="Logo" class="logo"
-                    style="width: 30px; height: 30px; aspect-ratio: 1/1; object-fit: contain;">
-
-                <span>{{ $seoData['og_title'] }}</span>
-                <small class="d-block"
-                    style="font-size: 0.7rem; color: #6c757d;">{{ $seoData['og_description'] }}</small>
+            <a class="navbar-brand d-flex align-items-center" href="#home">
+                <img src="{{ asset('kemeneg.jpg') }}" alt="Logo" style="height: 40px;" class="me-2">
+                <div>
+                    <span class="fs-5 text-dark">{{ $seoData['og_title'] }}</span>
+                    <small class="d-block text-muted" style="font-size: 0.7rem; line-height: 1;">{{ $seoData['og_description'] }}</small>
+                </div>
             </a>
-
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+                <i class='bx bx-menu fs-3'></i>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#home" data-section="home">Beranda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#tentang" data-section="tentang">Tentang</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#struktur" data-section="struktur">Struktur</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#berita" data-section="berita">Berita</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#layanan" data-section="layanan">Layanan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#pengaduan" data-section="pengaduan">Pengaduan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">Login</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#home" data-section="home">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tentang" data-section="tentang">Tentang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#struktur" data-section="struktur">Struktur</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#berita" data-section="berita">Berita</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#layanan" data-section="layanan">Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pengaduan" data-section="pengaduan">Pengaduan</a></li>
+                    <li class="nav-item ms-lg-3"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-section" id="home">
-        <div class="hero-website-info">
-            Website Resmi {{ $seoData['title'] }}
-        </div>
-
-        <div class="container">
+    <section id="home">
+        <video id="hero-video" poster="{{ asset('assets/img/backgrounds/banner2.jpg') }}" playsinline autoplay muted loop>
+             <source src="https://kua-kec-bathin-xxiv.com/assets/videos/background.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="container" data-aos="fade-in">
             <div class="hero-content">
-                <h1>
-                    Selamat Datang di
-                    <span class="highlight">{{ $seoData['title'] }}</span>
-                </h1>
-                <p>
-                    {{ $seoData['description'] }}
-                </p>
-
+                <h1>Selamat Datang di <span class="highlight">{{ $seoData['title'] }}</span></h1>
+                <p>{{ $seoData['description'] }}</p>
                 <div class="mt-4">
-                    <a href="#tentang" class="btn-hero primary">
-                        <i class='bx bx-info-circle'></i>
-                        Tentang
-                    </a>
-                    <a href="#pengaduan" class="btn-hero secondary">
-                        <i class='bx bx-phone'></i>
-                        Hubungi Kami
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Play Button -->
-        {{-- <div class="play-button" data-bs-toggle="modal" data-bs-target="#videoModal">
-            <i class='bx bx-play'></i>
-        </div> --}}
-
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator">
-            <i class='bx bx-chevron-down'></i>
-        </div>
-    </section>
-
-    <!-- Statistics Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="row g-4" data-aos="fade-up" data-aos-duration="800">
-                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="100">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class='bx bx-group'></i>
-                        </div>
-                        <div class="stat-number">{{ $totalPeople }}</div>
-                        <div class="stat-label">Jiwa Penduduk</div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="200">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class='bx bx-home'></i>
-                        </div>
-                        <div class="stat-number">{{ $totalFamilies }}</div>
-                        <div class="stat-label">Rumah Tangga</div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="300">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class='bx bx-map-pin'></i>
-                        </div>
-                        <div class="stat-number">{{ $totalBloks }}</div>
-                        <div class="stat-label">Dusun</div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="400">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class='bx bx-trophy'></i>
-                        </div>
-                        <div class="stat-number">{{ $totalPrograms }}-+</div>
-                        <div class="stat-label">Program Unggulan</div>
-                    </div>
+                    <a href="#tentang" class="btn-hero primary mx-2">Tentang Kami</a>
+                    <a href="#pengaduan" class="btn-hero secondary mx-2">Lapor Pengaduan</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about-section" id="tentang">
+    <section class="section">
         <div class="container">
-            <div class="row text-center mb-5 mt-5" data-aos="fade-up" data-aos-duration="800">
-                <div class="col-lg-8 mx-auto">
-                    <div class="section-subtitle badge bg-success">Tentang Kami</div>
-                    <h2 class="display-5 fw-bold">Kantor Agama Kecamatan BATHIN XXIV</h2>
-                    <div class="about-divider mx-auto"></div>
-                    <p class="lead text-muted">{{ $seoData['description'] }}</p>
-                </div>
+            <div class="row g-4" data-aos="fade-up">
+                <div class="col-md-3 col-6"><div class="stat-card"><div class="stat-icon"><i class='bx bx-group'></i></div><div class="stat-number">{{ $totalPeople }}</div><div class="stat-label">Pasangan Menikah</div></div></div>
+                <div class="col-md-3 col-6"><div class="stat-card"><div class="stat-icon"><i class='bx bxs-book-bookmark'></i></div><div class="stat-number">{{ $totalFamilies }}</div><div class="stat-label">Pernikahan Tercatat</div></div></div>
+                <div class="col-md-3 col-6"><div class="stat-card"><div class="stat-icon"><i class='bx bxs-briefcase-alt-2'></i></div><div class="stat-number">{{ $totalBloks }}</div><div class="stat-label">Jumlah Layanan</div></div></div>
+                <div class="col-md-3 col-6"><div class="stat-card"><div class="stat-icon"><i class='bx bxs-star'></i></div><div class="stat-number">{{ $totalPrograms }}</div><div class="stat-label">Program Unggulan</div></div></div>
             </div>
+        </div>
+    </section>
 
-            <div class="about-content" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
-                <div class="about-image" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="400">
-                    <img src="{{ asset('assets/img/backgrounds/banner2.jpg') }}" alt="KUA Bathin XXIV">
+    <section class="section bg-white" id="tentang">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <img src="{{ asset('assets/img/backgrounds/banner2.jpg') }}" alt="Tentang KUA" class="img-fluid rounded-4 shadow-lg">
                 </div>
-
-                <div class="about-text" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="600">
-                    <h3></h3>
-                    <div class="about-divider"></div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <h2 class="display-5">Tentang Kantor Urusan Agama Bathin XXIV</h2>
+                    <div class="divider" style="margin: 20px 0;"></div>
+                    <p class="text-muted lead">{{ $seoData['description'] }}</p>
+                    <p class="text-muted">Kami berkomitmen untuk memberikan pelayanan terbaik bagi masyarakat dalam urusan keagamaan, pencatatan nikah, serta bimbingan keluarga sakinah. Kunjungi kami untuk informasi dan layanan yang transparan dan akuntabel.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Village Government Structure Section -->
-    <section class="structure-section" id="struktur">
+    <section class="section" id="struktur">
         <div class="container">
-            <div class="row text-center mb-5 mt-5" data-aos="fade-up" data-aos-duration="800">
-                <div class="col-lg-8 mx-auto">
-                    <div class="section-subtitle badge bg-success">Struktur Organisasi</div>
-                    <h2 class="display-5 fw-bold">Struktur Perangkat KUA</h2>
-                    <div class="about-divider mx-auto"></div>
-                    <p class="lead text-muted">KUA Kecamatan bathin melayani masyarakat dengan dedikasi
-                        tinggi
-                    </p>
-                </div>
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2 class="display-5">Struktur Perangkat KUA</h2>
+                <div class="divider"></div>
+                <p class="lead text-muted">Aparat yang berdedikasi untuk melayani masyarakat Kecamatan Bathin XXIV.</p>
             </div>
-
-            <!-- Organization Chart -->
-            <div class="org-chart-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                <!-- Level 1 - Kepala Kemenag -->
+            
+            <div class="row justify-content-center gy-5" data-aos="fade-up" data-aos-delay="200">
                 @if ($kuaStructures['kepala_kemenag']->isNotEmpty())
-                    <div class="org-level level-1" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="400">
-                        @foreach ($kuaStructures['kepala_kemenag'] as $kepala_kemenag)
-                            <div class="org-card kepala-kemenag">
-                                <div class="org-card-photo">
-                                    <div class="org-avatar">
-                                        @if ($kepala_kemenag->photo_url)
-                                            <img src="{{ $kepala_kemenag->photo_url }}"
-                                                alt="{{ $kepala_kemenag->name }}" class="avatar-img">
-                                        @else
-                                            <i class='bx {{ $kepala_kemenag->icon }}'></i>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="org-card-content">
-                                    <div class="org-info">
-                                        <h6>{{ $kepala_kemenag->position }}</h6>
-                                        <p class="org-name">{{ $kepala_kemenag->name }}</p>
-                                        <span
-                                            class="org-badge {{ $kepala_kemenag->badge_class }}">{{ $kepala_kemenag->department }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+                    @foreach ($kuaStructures['kepala_kemenag'] as $person)
+                    <div class="col-lg-4 col-md-6"><div class="org-card"><div class="org-avatar"><div class="initial">{{ strtoupper(substr($person->name, 0, 1)) }}</div></div><h6>{{ $person->position }}</h6><p>{{ $person->name }}</p><span class="badge rounded-pill bg-label-success">{{ $person->department }}</span></div></div>
+                    @endforeach
                 @endif
-
-                <!-- Connector Line -->
-                {{-- @if ($villageStructures['kepala_kemenag']->isNotEmpty() && $villageStructures['kesubagg_tu']->isNotEmpty())
-                <div class="org-connector vertical"></div>
-                @endif --}}
-
-                <!-- Level 2 - Kesubagg TU -->
                 @if ($kuaStructures['kesubagg_tu']->isNotEmpty())
-                    <div class="org-level level-2" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
-                        @foreach ($kuaStructures['kesubagg_tu'] as $kesubagg_tu)
-                            <div class="org-card kesubagg_tu">
-                                <div class="org-card-photo">
-                                    <div class="org-avatar">
-                                        @if ($kesubagg_tu->photo_url)
-                                            <img src="{{ $kesubagg_tu->photo_url }}" alt="{{ $kesubagg_tu->name }}"
-                                                class="avatar-img">
-                                        @else
-                                            <i class='bx {{ $kesubagg_tu->icon }}'></i>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="org-card-content">
-                                    <div class="org-info">
-                                        <h6>{{ $kesubagg_tu->position }}</h6>
-                                        <p class="org-name">{{ $kesubagg_tu->name }}</p>
-                                        <span
-                                            class="org-badge {{ $kesubagg_tu->badge_class }}">{{ $kesubagg_tu->department }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+                    @foreach ($kuaStructures['kesubagg_tu'] as $person)
+                    <div class="col-lg-4 col-md-6"><div class="org-card"><div class="org-avatar"><div class="initial">{{ strtoupper(substr($person->name, 0, 1)) }}</div></div><h6>{{ $person->position }}</h6><p>{{ $person->name }}</p><span class="badge rounded-pill bg-label-primary">{{ $person->department }}</span></div></div>
+                    @endforeach
                 @endif
-
-                <!-- Connector Lines -->
-                {{-- @if ($villageStructures['kesubagg_tu']->isNotEmpty() && $villageStructures['kasi_bimas_islam']->isNotEmpty())
-                <div class="org-connector vertical"></div>
-                <div class="org-connector horizontal"></div>
-                @endif --}}
-
-                <!-- Level 3 - Kasi Bimas Islam -->
+                
                 @if ($kuaStructures['kasi_bimas_islam']->isNotEmpty())
-                    <div class="org-level level-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="800">
-                        <div class="row g-3 justify-content-center">
-                            @foreach ($kuaStructures['kasi_bimas_islam'] as $kasi_bimas_islam)
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="org-card kasi_bimas_islam">
-                                        <div class="org-card-photo">
-                                            <div class="org-avatar">
-                                                @if ($kasi_bimas_islam->photo_url)
-                                                    <img src="{{ $kasi_bimas_islam->photo_url }}"
-                                                        alt="{{ $kasi_bimas_islam->name }}" class="avatar-img">
-                                                @else
-                                                    <i class='bx {{ $kasi_bimas_islam->icon }}'></i>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="org-card-content">
-                                            <div class="org-info">
-                                                <h6>{{ $kasi_bimas_islam->position }}</h6>
-                                                <p class="org-name">{{ $kasi_bimas_islam->name }}</p>
-                                                <span
-                                                    class="org-badge {{ $kasi_bimas_islam->badge_class }}">{{ $kasi_bimas_islam->department }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+                    @foreach ($kuaStructures['kasi_bimas_islam'] as $person)
+                    <div class="col-lg-4 col-md-6"><div class="org-card"><div class="org-avatar"><div class="initial">{{ strtoupper(substr($person->name, 0, 1)) }}</div></div><h6>{{ $person->position }}</h6><p>{{ $person->name }}</p><span class="badge rounded-pill bg-label-info">{{ $person->department }}</span></div></div>
+                    @endforeach
                 @endif
+            </div>
 
-                <!-- Connector Lines -->
-                {{-- @if ($villageStructures['kasi_bimas_islam']->isNotEmpty() && $villageStructures['kepala_kua']->isNotEmpty())
-                <div class="org-connector vertical mt-4"></div>
-                <div class="org-connector horizontal"></div>
-                @endif --}}
-
-                <!-- Level 4 - Kepala KUA -->
+             <div class="row justify-content-center gy-5 mt-4" data-aos="fade-up" data-aos-delay="400">
                 @if ($kuaStructures['kepala_kua']->isNotEmpty())
-                    <div class="org-level level-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1000">
-                        <div class="row g-3 justify-content-center">
-                            @foreach ($kuaStructures['kepala_kua'] as $kepala_kua)
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="org-card kepala_kua">
-                                        <div class="org-card-photo">
-                                            <div class="org-avatar">
-                                                @if ($kepala_kua->photo_url)
-                                                    <img src="{{ $kepala_kua->photo_url }}"
-                                                        alt="{{ $kepala_kua->name }}" class="avatar-img">
-                                                @else
-                                                    <i class='bx {{ $kepala_kua->icon }}'></i>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="org-card-content">
-                                            <div class="org-info">
-                                                <h6>{{ $kepala_kua->position }}</h6>
-                                                <p class="org-name">{{ $kepala_kua->name }}</p>
-                                                <span
-                                                    class="org-badge {{ $kepala_kua->badge_class }}">{{ $kepala_kua->department }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+                    @foreach ($kuaStructures['kepala_kua'] as $person)
+                    <div class="col-lg-3 col-md-4 col-6"><div class="org-card"><div class="org-avatar"><div class="initial">{{ strtoupper(substr($person->name, 0, 1)) }}</div></div><h6>{{ $person->position }}</h6><p>{{ $person->name }}</p><span class="badge rounded-pill bg-label-dark">{{ $person->department }}</span></div></div>
+                    @endforeach
                 @endif
-
-                <!-- Connector Lines -->
-                {{-- @if ($villageStructures['kepala_kua']->isNotEmpty() && $villageStructures['pengadministrasi']->isNotEmpty())
-                <div class="org-connector vertical mt-4"></div>
-                <div class="org-connector horizontal"></div>
-                @endif --}}
-
-                <!-- Level 5 - Pengadministrasi -->
-                @if ($kuaStructures['pengadministrasi']->isNotEmpty())
-                    <div class="org-level level-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1200">
-                        <div class="row g-3 justify-content-center">
-                            @foreach ($kuaStructures['pengadministrasi'] as $pengadministrasi)
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                                    <div class="org-card pengadministrasi">
-                                        <div class="org-card-photo">
-                                            <div class="org-avatar">
-                                                @if ($pengadministrasi->photo_url)
-                                                    <img src="{{ $pengadministrasi->photo_url }}"
-                                                        alt="{{ $pengadministrasi->name }}" class="avatar-img">
-                                                @else
-                                                    <i class='bx {{ $pengadministrasi->icon }}'></i>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="org-card-content">
-                                            <div class="org-info">
-                                                <h6>{{ $pengadministrasi->position }}</h6>
-                                                <p class="org-name">{{ $pengadministrasi->name }}</p>
-                                                <span
-                                                    class="org-badge {{ $pengadministrasi->badge_class }}">{{ $pengadministrasi->department }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+                 @if ($kuaStructures['pengadministrasi']->isNotEmpty())
+                    @foreach ($kuaStructures['pengadministrasi'] as $person)
+                    <div class="col-lg-3 col-md-4 col-6"><div class="org-card"><div class="org-avatar"><div class="initial">{{ strtoupper(substr($person->name, 0, 1)) }}</div></div><h6>{{ $person->position }}</h6><p>{{ $person->name }}</p><span class="badge rounded-pill bg-label-secondary">{{ $person->department }}</span></div></div>
+                    @endforeach
                 @endif
-
-                <!-- Level 6 - Operator Simkah -->
-                @if ($kuaStructures['operator_simkah']->isNotEmpty())
-                    <div class="org-level level-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1400">
-                        <div class="row g-3 justify-content-center">
-                            @foreach ($kuaStructures['operator_simkah'] as $operator_simkah)
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                                    <div class="org-card operator_simkah">
-                                        <div class="org-card-photo">
-                                            <div class="org-avatar">
-                                                @if ($operator_simkah->photo_url)
-                                                    <img src="{{ $operator_simkah->photo_url }}"
-                                                        alt="{{ $operator_simkah->name }}" class="avatar-img">
-                                                @else
-                                                    <i class='bx {{ $operator_simkah->icon }}'></i>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="org-card-content">
-                                            <div class="org-info">
-                                                <h6>{{ $operator_simkah->position }}</h6>
-                                                <p class="org-name">{{ $operator_simkah->name }}</p>
-                                                <span
-                                                    class="org-badge {{ $operator_simkah->badge_class }}">{{ $operator_simkah->department }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+                 @if ($kuaStructures['operator_simkah']->isNotEmpty())
+                    @foreach ($kuaStructures['operator_simkah'] as $person)
+                    <div class="col-lg-3 col-md-4 col-6"><div class="org-card"><div class="org-avatar"><div class="initial">{{ strtoupper(substr($person->name, 0, 1)) }}</div></div><h6>{{ $person->position }}</h6><p>{{ $person->name }}</p><span class="badge rounded-pill bg-label-secondary">{{ $person->department }}</span></div></div>
+                    @endforeach
                 @endif
-
-                <!-- Level 7 - Pramu Kantor -->
-                @if ($kuaStructures['pramu_kantor']->isNotEmpty())
-                    <div class="org-level level-7" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1600">
-                        <div class="row g-3 justify-content-center">
-                            @foreach ($kuaStructures['pramu_kantor'] as $pramu_kantor)
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                                    <div class="org-card pramu_kantor">
-                                        <div class="org-card-photo">
-                                            <div class="org-avatar">
-                                                @if ($pramu_kantor->photo_url)
-                                                    <img src="{{ $pramu_kantor->photo_url }}"
-                                                        alt="{{ $pramu_kantor->name }}" class="avatar-img">
-                                                @else
-                                                    <i class='bx {{ $pramu_kantor->icon }}'></i>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="org-card-content">
-                                            <div class="org-info">
-                                                <h6>{{ $pramu_kantor->position }}</h6>
-                                                <p class="org-name">{{ $pramu_kantor->name }}</p>
-                                                <span
-                                                    class="org-badge {{ $pramu_kantor->badge_class }}">{{ $pramu_kantor->department }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+                 @if ($kuaStructures['pramu_kantor']->isNotEmpty())
+                    @foreach ($kuaStructures['pramu_kantor'] as $person)
+                    <div class="col-lg-3 col-md-4 col-6"><div class="org-card"><div class="org-avatar"><div class="initial">{{ strtoupper(substr($person->name, 0, 1)) }}</div></div><h6>{{ $person->position }}</h6><p>{{ $person->name }}</p><span class="badge rounded-pill bg-label-secondary">{{ $person->department }}</span></div></div>
+                    @endforeach
                 @endif
             </div>
-
-
-            <!-- News Section -->
-            <section class="news-section" id="berita">
-                <div class="container">
-                    <div class="row mb-5 justify-align-center mt-5" data-aos="fade-up" data-aos-duration="800">
-                        <div class="col-lg-8">
-                            <div class="section-subtitle badge bg-success">Berita Terkini</div>
-                            <h5 class="display-5 fw-bold fs-2 my-3">Berita dan Informasi Desa Terbaru</h5>
-                            <div class="news-divider"></div>
-                        </div>
-                        <div class="col-lg-4 text-end">
-                            <a href="{{ route('frontend.news.index') }}" class="btn btn-success rounded-5">Lihat
-                                Semua Berita
-                                <i class='bx bx-chevrons-right'></i></a>
-                        </div>
-                    </div>
-
-                    <!-- News Cards -->
-                    @if (@isset($news) && $news->count() > 0)
-                        <div class="row g-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                            @foreach ($news as $index => $new)
-                                <div class="col-md-4" data-aos="zoom-in" data-aos-duration="600"
-                                    data-aos-delay="{{ 400 + $index * 100 }}">
-                                    <div class="news-card">
-                                        <img src="{{ $new->image ? asset('storage/' . $new->image) : asset('assets/img/backgrounds/masjid.jpg') }}"
-                                            alt="{{ $new->title }}">
-                                        <div class="news-card-body">
-                                            <div class="news-meta mb-2">
-                                                <span class="text-muted"><i class='bx bx-time-five text-danger'></i>
-                                                    {{ $new->created_at->diffForHumans() }}</span>
-                                            </div>
-                                            <h5>{{ $new->title }}</h5>
-                                            <p>{{ Str::limit($new->content, 100) }}</p>
-                                            <a href="{{ route('frontend.news.show', $new->id) }}"
-                                                class="btn btn-outline-success btn-sm rounded-3">Baca Selengkapnya</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endisset
-                    @if ($news->count() == 0)
-                        <div class="alert alert-info mt-4" role="alert">
-                            Tidak ada berita terbaru saat ini.
-                        </div>
-                    @endif
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section class="features-section" id="layanan">
-            <div class="container">
-                <div class="row text-center mb-5 mt-5" data-aos="fade-up" data-aos-duration="800">
-                    <div class="col-lg-8 mx-auto">
-                        <h5 class="display-5 fw-bold">Layanan Kami</h5>
-                        <p class="lead text-muted">Berbagai layanan digital KUA Bathin XXIV</p>
-                    </div>
-                </div>
-
-                <div class="row g-4">
-                    <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class='bx bx-news'></i>
-                            </div>
-                            <h4>Portal Berita</h4>
-                            <p>Informasi terkini tentang kegiatan dan pengumuman resmi dari pemerintah desa</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class='bx bx-message-square-detail'></i>
-                            </div>
-                            <h4>Pengaduan Online</h4>
-                            <p>Sampaikan aspirasi dan keluhan Anda secara online dengan mudah dan cepat</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class='bx bx-file-blank'></i>
-                            </div>
-                            <h4>Layanan Administrasi</h4>
-                            <p>Akses mudah untuk berbagai keperluan administrasi desa dan dokumen penting</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pengaduan Section -->
-        <section class="news-section" id="pengaduan">
-            <div class="container">
-                <div class="row mb-5 justify-align-center mt-5" data-aos="fade-up" data-aos-duration="800">
-                    <div class="col-lg-4 text-start">
-                        <a href="{{ route('frontend.complaints.index') }}"
-                            class="btn btn-success rounded-5">Lihat Semua
-                            Pengaduan <i class='bx bx-chevrons-right'></i></a>
-                    </div>
-                    <div class="col-lg-8 text-end">
-                        <div class="section-subtitle badge bg-success">Pengaduan Terkini</div>
-                        <h5 class="display-5 fw-bold fs-2 my-3">Pengaduan Masyarakat Mengenai Keluhan</h5>
-                        <div class="complaint-divider ms-auto"></div>
-                    </div>
-                </div>
-
-                <!-- Complaint Cards -->
-                @if (@isset($complaints) && $complaints->count() > 0)
-                    <div class="row g-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                        @foreach ($complaints as $index => $complaint)
-                            <div class="col-md-4" data-aos="zoom-in" data-aos-duration="600"
-                                data-aos-delay="{{ 400 + $index * 100 }}">
-                                <div class="news-card">
-                                    <img src="{{ $complaint->image ? asset('storage/' . $complaint->image) : asset('assets/img/backgrounds/masjid.jpg') }}"
-                                        alt="{{ $complaint->title }}">
-                                    <div class="news-card-body">
-                                        <div class="news-meta mb-2">
-                                            <span class="text-muted"><i class='bx bx-time-five text-danger'></i>
-                                                {{ $complaint->created_at->diffForHumans() }}</span>
-                                        </div>
-                                        <h5>{{ $complaint->title }}</h5>
-                                        <p>{!! Str::limit($complaint->description, 100) !!}</p>
-                                        <a href="{{ route('frontend.complaints.show', $complaint->id) }}"
-                                            class="btn btn-outline-success btn-sm rounded-3">Baca Selengkapnya</a>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @endisset
-                @if ($news->count() == 0)
-                    <div class="alert alert-info mt-4" role="alert">
-                        Tidak ada berita terbaru saat ini.
-                    </div>
-                @endif
         </div>
     </section>
 
-    <!-- Footer -->
+    <section class="section bg-white" id="berita">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2 class="display-5">Berita & Informasi</h2>
+                <div class="divider"></div>
+                <p class="lead text-muted">Ikuti perkembangan dan kegiatan terbaru dari KUA Bathin XXIV.</p>
+            </div>
+            @if (isset($news) && $news->count() > 0)
+                <div class="row g-4">
+                    @foreach ($news as $new)
+                        <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ 100 * $loop->iteration }}">
+                            <div class="post-card"><img src="{{ $new->image ? asset('storage/' . $new->image) : asset('assets/img/backgrounds/masjid.jpg') }}" alt="{{ $new->title }}"><div class="post-card-body"><div class="news-meta mb-2"><span class="text-muted"><i class='bx bx-time-five me-1'></i>{{ $new->created_at->diffForHumans() }}</span></div><h5>{{ $new->title }}</h5><p>{{ Str::limit(strip_tags($new->content), 100) }}</p><a href="{{ route('frontend.news.show', $new->id) }}" class="btn-read-more mt-auto">Baca Selengkapnya <i class='bx bx-right-arrow-alt'></i></a></div></div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="alert alert-light text-center">Tidak ada berita terbaru saat ini.</div>
+            @endif
+        </div>
+    </section>
+
+    <section class="section" id="layanan">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2 class="display-5">Layanan Digital</h2>
+                <div class="divider"></div>
+                <p class="lead text-muted">Akses berbagai layanan kami secara online untuk kemudahan Anda.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100"><div class="unified-card text-center"><div class="stat-icon"><i class='bx bx-news'></i></div><h4>Portal Berita</h4><p>Informasi terkini tentang kegiatan dan pengumuman resmi dari pemerintah desa.</p></div></div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200"><div class="unified-card text-center"><div class="stat-icon"><i class='bx bx-message-square-detail'></i></div><h4>Pengaduan Online</h4><p>Sampaikan aspirasi dan keluhan Anda secara online dengan mudah dan cepat.</p></div></div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300"><div class="unified-card text-center"><div class="stat-icon"><i class='bx bx-file-blank'></i></div><h4>Layanan Administrasi</h4><p>Akses mudah untuk berbagai keperluan administrasi desa dan dokumen penting.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-white" id="pengaduan">
+        <div class="container">
+             <div class="section-title text-center" data-aos="fade-up">
+                <h2 class="display-5">Pengaduan Masyarakat</h2>
+                <div class="divider"></div>
+                <p class="lead text-muted">Ruang bagi masyarakat untuk menyampaikan keluhan dan masukan.</p>
+            </div>
+            @if (isset($complaints) && $complaints->count() > 0)
+                <div class="row g-4">
+                    @foreach ($complaints as $complaint)
+                        <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ 100 * $loop->iteration }}">
+                            <div class="post-card"><img src="{{ $complaint->image ? asset('storage/' . $complaint->image) : asset('assets/img/backgrounds/masjid.jpg') }}" alt="{{ $complaint->title }}"><div class="post-card-body"><div class="news-meta mb-2"><span class="text-muted"><i class='bx bx-time-five me-1'></i>{{ $complaint->created_at->diffForHumans() }}</span></div><h5>{{ $complaint->title }}</h5><p>{!! Str::limit(strip_tags($complaint->description), 100) !!}</p><a href="{{ route('frontend.complaints.show', $complaint->id) }}" class="btn-read-more mt-auto">Lihat Detail <i class='bx bx-right-arrow-alt'></i></a></div></div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="alert alert-light text-center">Belum ada pengaduan yang ditampilkan.</div>
+            @endif
+        </div>
+    </section>
+    
     <footer class="footer">
-        <div class="footer-top" data-aos="fade-up" data-aos-duration="800">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <h2>Mari Bersama</h2>
-                        <p>Membangun Kota Ini Bersama Kami</p>
-                        <div class="footer-cta-buttons">
-                            <a href="#tentang" class="footer-cta-btn">
-                                <i class='bx bx-phone'></i>
-                                Hubungi Kami
-                            </a>
-                            <a href="{{ route('login') }}" class="footer-cta-btn secondary">
-                                <i class='bx bx-user'></i>
-                                Pusat Layanan
-                            </a>
-                        </div>
-                    </div>
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-4 col-md-12">
+                    <h5>Tentang Kami</h5>
+                    <p>{{ $seoData['description'] }}</p>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h5>Navigasi</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#home">Beranda</a></li>
+                        <li><a href="#tentang">Tentang</a></li>
+                        <li><a href="#struktur">Struktur</a></li>
+                        <li><a href="#berita">Berita</a></li>
+                    </ul>
+                </div>
+                 <div class="col-lg-2 col-md-4 col-6">
+                    <h5>Layanan</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#layanan">Layanan Digital</a></li>
+                        <li><a href="#pengaduan">Pengaduan</a></li>
+                        <li><a href="{{ route('login') }}">Login Admin</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                     <h5>Kontak</h5>
+                     <ul class="list-unstyled">
+                        <li class="d-flex mb-2"><i class='bx bx-map me-2 mt-1'></i><span>{{ $location }}</span></li>
+                        <li class="d-flex mb-2"><i class='bx bx-envelope me-2 mt-1'></i><span>{{ $email }}</span></li>
+                        <li class="d-flex mb-2"><i class='bx bx-phone me-2 mt-1'></i><span>{{ $telp }}</span></li>
+                    </ul>
                 </div>
             </div>
         </div>
-
-        <div class="footer-main" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="footer-column">
-                            <h5>Kontak</h5>
-                            <div class="contact-item">
-                                <i class='bx bx-map'></i>
-                                <p>{{ $location }}</p>
-                            </div>
-                            <div class="contact-item">
-                                <i class='bx bx-envelope'></i>
-                                <p>{{ $email }}</p>
-                            </div>
-                            <div class="contact-item">
-                                <i class='bx bx-phone'></i>
-                                <p>{{ $telp }}</p>
-                            </div>
-                            <div class="contact-item">
-                                <i class='bx bx-time'></i>
-                                <p>Senin - Jumat: 08:00 - 16:00 WIB</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="footer-column">
-                            <h5>Link Terkait</h5>
-                            <ul>
-                                <li><a href="#home">Beranda</a></li>
-                                <li><a href="#tentang">Tentang Desa</a></li>
-                                <li><a href="#struktur">Struktur Pemerintahan</a></li>
-                                <li><a href="#berita">Berita</a></li>
-                                <li><a href="#layanan">Layanan</a></li>
-                                <li><a href="#pengaduan">Pengaduan</a></li>
-                                <li><a href="{{ route('login') }}">Portal Administrasi</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-12 mb-4">
-                        <div class="footer-column">
-                            <h5>KUA Bathin XXIV</h5>
-                            <p>Website resmi KUA Bathin XXIV, Kecamatan Maleber, Kabupaten Kuningan, Jawa Barat.
-                                Menyediakan informasi terkini tentang kegiatan dan perkembangan desa.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="footer-bottom">
-            <div class="container">
-                <p class="footer-copyright">&copy; 2025 KUA Bathin XXIV - <br> Hak Cipta
-                    Dilindungi Undang-Undang.</p>
-            </div>
+            <p class="mb-0">&copy; {{ date('Y') }} {{ $seoData['title'] }}. Hak Cipta Dilindungi.</p>
         </div>
     </footer>
 
-    <!-- Video Modal -->
-    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="videoModalLabel">Profil KUA Bathin XXIV</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="ratio ratio-16x9">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Profil KUA Bathin XXIV"
-                            allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <!-- Custom JS -->
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            delay: 100,
-            once: true,
-            offset: 50
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inisialisasi AOS
+            AOS.init({ duration: 800, once: true, offset: 50 });
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
+            // Efek Navbar saat scroll
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
                 }
             });
-        });
 
-        // Navbar scroll effect and active state
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-            } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-            }
-
-            // Update active nav links
+            // Navigasi aktif saat scroll
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.navbar-nav .nav-link[data-section]');
-
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (window.scrollY >= (sectionTop - 100)) {
-                    current = section.getAttribute('id');
-                }
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === current) {
+                        link.classList.add('active');
+                    }
+                });
             });
-
-            // Default to home if no section is active
-            if (!current) {
-                current = 'home';
-            }
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('data-section') === current) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // Initialize active state on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.navbar-nav .nav-link[data-section]');
-            navLinks.forEach(link => {
-                if (link.getAttribute('data-section') === 'home') {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // Animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all cards
-        document.querySelectorAll('.feature-card, .news-card, .stat-card, .org-card, .info-card').forEach(
-            card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'all 0.6s ease';
-                observer.observe(card);
-            });
-
-        // Counter animation for stats
-        const counters = document.querySelectorAll('.stat-number');
-
-        function animateCounter(counter) {
-            const target = parseInt(counter.getAttribute('data-target'));
-            const duration = 2000; // 2 seconds
-            const increment = target / (duration / 16); // 60fps
-            let current = 0;
-
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    counter.textContent = target.toLocaleString();
-                    clearInterval(timer);
-                } else {
-                    counter.textContent = Math.floor(current).toLocaleString();
-                }
-            }, 16);
-        }
-
-        // Initialize counter animation on scroll
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counter = entry.target;
-                    // Set initial value to 0
-                    counter.textContent = '0';
-                    // Start animation
-                    setTimeout(() => animateCounter(counter), 200);
-                    counterObserver.unobserve(counter);
-                }
-            });
-        }, {
-            threshold: 0.5
-        });
-
-        // Set data-target and observe counters
-        counters.forEach(counter => {
-            const originalText = counter.textContent;
-            const targetValue = originalText.replace(/[^\d]/g, '');
-            counter.setAttribute('data-target', targetValue);
-            counter.textContent = '0';
-            counterObserver.observe(counter);
         });
     </script>
 </body>
-
 </html>

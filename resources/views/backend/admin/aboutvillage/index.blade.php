@@ -8,7 +8,7 @@
             <span class="text-muted fw-light">Manajemen KUA /</span> Tentang KUA
         </h4>
         @if (Auth::user()->role == 'admin')
-            <a href="{{ route('aboutvillage.edit', $aboutVillage->id) }}" class="btn btn-warning">
+            <a href="{{ route('aboutvillage.edit', $aboutVillage->id) }}" class="btn btn-primary">
                 <i class="bx bx-pencil me-1"></i> Edit Informasi KUA
             </a>
         @endif
@@ -17,178 +17,163 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('aboutvillage.index') }}">Tentang KUA</a></li>
+    <li class="breadcrumb-item active">Tentang KUA</li>
 @endsection
 
 @push('styles')
     <style>
-        .news-card {
-            transition: transform 0.2s, box-shadow 0.2s;
+        .card {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: none;
         }
-
-        .news-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        .fw-semibold {
+            font-weight: 600 !important;
+        }
+        /* Styling untuk konten Visi, Misi, Profil */
+        .tab-content .card-text {
+            line-height: 1.8;
+            color: #566a7f;
+        }
+        .tab-content .card-text ul,
+        .tab-content .card-text ol {
+            padding-left: 1.2rem;
+        }
+        .tab-content .card-text p:last-child {
+            margin-bottom: 0;
+        }
+        .list-group-item {
+            border-color: rgba(0, 0, 0, 0.05);
         }
     </style>
 @endpush
 
 @section('content')
-    <div class="row mb-4">
-        <div class="col-lg-3 col-md-6 mb-3">
+    <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-lg-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bxs-heart-circle bx-md text-primary"></i>
-                        </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">Pasangan Menikah</span>
-                            <h3 class="card-title mb-0">{{ $totalPeople ?? 0 }}</h3>
-                        </div>
+                <div class="card-body text-center">
+                    <div class="avatar avatar-md mx-auto mb-2">
+                        <span class="avatar-initial rounded-circle bg-label-primary">
+                            <i class="bx bxs-heart-circle fs-3"></i>
+                        </span>
                     </div>
+                    <h4 class="mb-1">{{ $totalPeople ?? 0 }}</h4>
+                    <span class="fw-semibold">Pasangan Menikah</span>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 mb-3">
+        <div class="col-sm-6 col-lg-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bxs-book-bookmark bx-md text-success"></i>
-                        </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">Pernikahan Tercatat</span>
-                            <h3 class="card-title mb-0">{{ $totalFamilies ?? 0 }}</h3>
-                        </div>
+                <div class="card-body text-center">
+                     <div class="avatar avatar-md mx-auto mb-2">
+                        <span class="avatar-initial rounded-circle bg-label-success">
+                            <i class="bx bxs-book-bookmark fs-3"></i>
+                        </span>
                     </div>
+                    <h4 class="mb-1">{{ $totalFamilies ?? 0 }}</h4>
+                    <span class="fw-semibold">Pernikahan Tercatat</span>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 mb-3">
+        <div class="col-sm-6 col-lg-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bxs-briefcase-alt-2 bx-md text-warning"></i>
-                        </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">Jumlah Layanan</span>
-                            <h3 class="card-title mb-0">{{ $totalBloks ?? 0 }}</h3>
-                        </div>
+                <div class="card-body text-center">
+                     <div class="avatar avatar-md mx-auto mb-2">
+                        <span class="avatar-initial rounded-circle bg-label-warning">
+                            <i class="bx bxs-briefcase-alt-2 fs-3"></i>
+                        </span>
                     </div>
+                    <h4 class="mb-1">{{ $totalBloks ?? 0 }}</h4>
+                    <span class="fw-semibold">Jumlah Layanan</span>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 mb-3">
+        <div class="col-sm-6 col-lg-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bxs-star bx-md text-info"></i>
-                        </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">Program Unggulan</span>
-                            <h3 class="card-title mb-0">{{ $totalPrograms ?? 0 }}</h3>
-                        </div>
+                <div class="card-body text-center">
+                     <div class="avatar avatar-md mx-auto mb-2">
+                        <span class="avatar-initial rounded-circle bg-label-info">
+                            <i class="bx bxs-star fs-3"></i>
+                        </span>
                     </div>
+                    <h4 class="mb-1">{{ $totalPrograms ?? 0 }}</h4>
+                    <span class="fw-semibold">Program Unggulan</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row mb-4">
-        <div class="col-lg-4 col-md-6 mb-3">
+    <div class="row g-4">
+        <div class="col-lg-8">
             <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-pills card-header-pills" role="tablist">
+                        <li class="nav-item">
+                            <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#nav-profil" aria-controls="nav-profil" aria-selected="true">
+                                <i class="bx bx-building-house me-1"></i> Profil Umum
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#nav-visi" aria-controls="nav-visi" aria-selected="false">
+                                <i class="bx bx-show me-1"></i> Visi
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#nav-misi" aria-controls="nav-misi" aria-selected="false">
+                                <i class="bx bx-list-ul me-1"></i> Misi
+                            </button>
+                        </li>
+                    </ul>
+                </div>
                 <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bx-map bx-md text-success"></i>
+                    <div class="tab-content p-0">
+                        <div class="tab-pane fade show active" id="nav-profil" role="tabpanel">
+                             <div class="card-text">
+                                {!! $description ?? '<p class="text-muted"><em>Informasi profil KUA belum ditambahkan.</em></p>' !!}
+                            </div>
                         </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">Alamat Kantor</span>
-                            <p class="card-title mb-0">{{ $location ?? '' }}</p>
+                        <div class="tab-pane fade" id="nav-visi" role="tabpanel">
+                             <div class="card-text">
+                                {!! $visi ?? '<p class="text-muted"><em>Informasi visi KUA belum ditambahkan.</em></p>' !!}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-misi" role="tabpanel">
+                            <div class="card-text">
+                                {!! $misi ?? '<p class="text-muted"><em>Informasi misi KUA belum ditambahkan.</em></p>' !!}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-6 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bx-envelope bx-md text-success"></i>
-                        </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">Email</span>
-                            <p class="card-title mb-0">{{ $email ?? '' }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bx-phone bx-md text-success"></i>
-                        </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">No Telepon</span>
-                            <p class="card-title mb-0">{{ $telp ?? '' }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="row mb-4">
-        <div class="col-lg-6 col-md-12 mb-3">
+        <div class="col-lg-4">
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bx-show bx-md text-warning"></i>
-                        </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">Visi KUA</span>
-                            <div class="card-title mb-0">{!! $visi ?? '' !!}</div>
-                        </div>
-                    </div>
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0"><i class="bx bx-phone-call me-1"></i> Informasi Kontak</h5>
                 </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-12 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bx-list-ul bx-md text-info"></i>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item d-flex align-items-center">
+                            <i class="bx bx-map fs-4 me-3 text-primary"></i>
+                            <div>
+                                <span class="fw-semibold">Alamat Kantor</span>
+                                <p class="mb-0 text-muted">{{ $location ?? '-' }}</p>
+                            </div>
                         </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">Misi KUA</span>
-                            <div class="card-title mb-0">{!! $misi ?? '' !!}</div>
+                        <div class="list-group-item d-flex align-items-center">
+                           <i class="bx bx-envelope fs-4 me-3 text-primary"></i>
+                            <div>
+                                <span class="fw-semibold">Email</span>
+                                <p class="mb-0 text-muted">{{ $email ?? '-' }}</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mb-4">
-        <div class="col-lg-12 col-md-12 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar flex-shrink-0 me-3">
-                            <i class="bx bx-building-house bx-md text-primary"></i>
-                        </div>
-                        <div>
-                            <span class="fw-semibold d-block mb-1">Profil KUA</span>
-                            <div class="card-title mb-0">{!! $description ?? '' !!}</div>
+                        <div class="list-group-item d-flex align-items-center">
+                            <i class="bx bx-phone fs-4 me-3 text-primary"></i>
+                            <div>
+                                <span class="fw-semibold">No. Telepon</span>
+                                <p class="mb-0 text-muted">{{ $telp ?? '-' }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
