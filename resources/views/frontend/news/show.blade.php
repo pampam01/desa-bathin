@@ -211,7 +211,7 @@
                         </div>
 
                         @if ($news->image)
-                            <img src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->title }}"
+                            <img src="{{ $news->image ?? asset('storage/' . $news->image) }}" alt="{{ $news->title }}"
                                 class="news-featured-image">
                         @endif
 
@@ -261,7 +261,7 @@
 
                             @foreach ($relatedNews as $related)
                                 <div class="related-news-card mb-3">
-                                    <img src="{{ $related->image ? asset('storage/' . $related->image) : asset('assets/img/backgrounds/masjid.jpg') }}"
+                                    <img src="{{ $related->image ?? asset('storage/' . $related->image) }}"
                                         alt="{{ $related->title }}">
                                     <div class="card-body">
                                         <h6>

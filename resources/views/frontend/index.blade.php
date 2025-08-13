@@ -624,8 +624,8 @@
                 <div class="row g-4">
                     @foreach ($news as $new)
                         <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ 100 * $loop->iteration }}">
-                            <div class="post-card"><img
-                                    src="{{ $new->image ? asset('storage/' . $new->image) : asset('assets/img/backgrounds/masjid.jpg') }}"
+                            <div class="post-card">
+                                <img src="{{ $new->image ?? asset('storage/' . $new->image) }}"
                                     alt="{{ $new->title }}">
                                 <div class="post-card-body">
                                     <div class="news-meta mb-2"><span class="text-muted"><i
