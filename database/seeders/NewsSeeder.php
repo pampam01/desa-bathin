@@ -16,11 +16,12 @@ class NewsSeeder extends Seeder
     public function run(): void
     {
         $user = User::where('role', 'masyarakat')->first();
+        $admin = User::where('role', 'admin')->first();
 
         $newsList = [
             [
                 'title' => 'pemberangkatan haji tahun 2025',
-                'user_id' => $user->id,
+                'user_id' => $admin->id,
                 'slug' => Str::slug('Pemberangkatan Haji Tahun 2025'),
                 'image' => "news_images/jalan.jpg",
                 'category' => 'haji',
@@ -31,7 +32,7 @@ class NewsSeeder extends Seeder
             ],
             [
                 'title' => 'penyelesaian kasus perceraian di KUA Bathin',
-                'user_id' => $user->id,
+                'user_id' => $admin->id,
                 'slug' => Str::slug('Penyelesaian Kasus Perceraian di KUA Bathin'),
                 'image' => "news_images/perceraian.jpg",
                 'category' => 'perceraian',
@@ -42,7 +43,7 @@ class NewsSeeder extends Seeder
             ],
             [
                 'title' => 'data pernikahan di KUA bathin tahun 2024',
-                'user_id' => $user->id,
+                'user_id' => $admin->id,
                 'slug' => Str::slug('Data Pernikahan di KUA Bathin Tahun 2024'),
                 'image' => "news_images/pernikahan.jpg",
                 'category' => 'pernikahan',
