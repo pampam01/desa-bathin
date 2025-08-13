@@ -209,3 +209,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
     Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
 });
+
+
+// offline route
+// routes/web.php
+Route::get('/offline', function () {
+    return view('offline');
+})->name('offline');

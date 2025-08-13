@@ -40,6 +40,10 @@
             }, 5000);
         });
     });
+
+    window.addEventListener('offline', function() {
+        window.location.href = "{{ route('offline') }}";
+    });
 </script>
 
 <!-- Additional Scripts -->

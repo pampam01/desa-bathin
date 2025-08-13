@@ -14,10 +14,17 @@
 <!-- Main JS -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
+<script>
+    window.addEventListener('offline', function() {
+        window.location.href = "{{ route('offline') }}";
+    });
+</script>
+
 <!-- Additional Scripts -->
 @stack('scripts')
 
 <!-- Page specific scripts -->
 @yield('scripts')
 </body>
+
 </html>

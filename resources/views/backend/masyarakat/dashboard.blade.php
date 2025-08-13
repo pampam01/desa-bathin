@@ -279,5 +279,9 @@
                 // You can add AJAX call to refresh notifications here
             }, 300000);
         });
+
+        window.addEventListener('offline', function() {
+            window.location.href = "{{ route('offline') }}";
+        });
     </script>
 @endpush

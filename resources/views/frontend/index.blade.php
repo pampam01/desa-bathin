@@ -796,6 +796,11 @@
                 });
             });
         });
+
+        // Deteksi koneksi hilang
+        window.addEventListener('offline', function() {
+            window.location.href = "{{ route('offline') }}";
+        });
     </script>
 </body>
 
