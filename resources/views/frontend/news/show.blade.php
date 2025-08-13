@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', $news->title . ' - Portal Parakan')
+@section('title', $news->title . '')
 
 @push('styles')
     <style>
@@ -200,7 +200,7 @@
                     <article class="news-content">
                         <div class="news-header">
                             <div class="news-meta">
-                                <span class="badge me-2">Berita Desa</span>
+                                <span class="badge me-2">Berita</span>
                                 <i class='bx bx-time-five me-1'></i>
                                 {{ $news->created_at->format('d F Y, H:i') }} WIB
                                 <span class="mx-2">•</span>

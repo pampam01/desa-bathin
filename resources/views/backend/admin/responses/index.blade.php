@@ -25,22 +25,29 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             border: none;
         }
+
         .table-hover tbody tr {
             transition: background-color 0.2s ease-in-out;
         }
+
         .table-hover tbody tr:hover {
             background-color: rgba(105, 108, 255, 0.07);
         }
-        .form-label, .fw-semibold {
+
+        .form-label,
+        .fw-semibold {
             font-weight: 600 !important;
         }
+
         .avatar-initial {
             font-weight: 600;
         }
+
         .badge {
             font-weight: 600;
             font-size: 0.8rem;
         }
+
         .btn-icon i {
             font-size: 1.1rem;
         }
@@ -70,7 +77,8 @@
                             <option value="">Semua Status</option>
                             <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
                             <option value="process" {{ request('status') == 'process' ? 'selected' : '' }}>Proses</option>
-                            <option value="resolved" {{ request('status') == 'resolved' ? 'selected' : '' }}>Selesai</option>
+                            <option value="resolved" {{ request('status') == 'resolved' ? 'selected' : '' }}>Selesai
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -176,8 +184,10 @@
                         @foreach ($responses as $response)
                             <tr>
                                 <td>
-                                    <span class="fw-semibold">{{ Str::limit($response->complaint->title ?? 'N/A', 40) }}</span><br>
-                                    <small class="text-muted">ID Pengaduan: #{{ $response->complaint->id ?? 'N/A' }}</small>
+                                    <span
+                                        class="fw-semibold">{{ Str::limit($response->complaint->title ?? 'N/A', 40) }}</span><br>
+                                    <small class="text-muted">ID Pengaduan:
+                                        #{{ $response->complaint->id ?? 'N/A' }}</small>
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
@@ -195,12 +205,25 @@
                                         $statusText = 'N/A';
                                         $statusIcon = 'bx-question-mark';
                                         switch ($response->status) {
-                                            case 'pending': $statusClass = 'bg-label-warning'; $statusText = 'Pending'; $statusIcon = 'bx-time-five'; break;
-                                            case 'process': $statusClass = 'bg-label-info'; $statusText = 'Diproses'; $statusIcon = 'bx-loader-alt'; break;
-                                            case 'resolved': $statusClass = 'bg-label-success'; $statusText = 'Selesai'; $statusIcon = 'bx-check-circle'; break;
+                                            case 'pending':
+                                                $statusClass = 'bg-label-warning';
+                                                $statusText = 'Pending';
+                                                $statusIcon = 'bx-time-five';
+                                                break;
+                                            case 'process':
+                                                $statusClass = 'bg-label-info';
+                                                $statusText = 'Diproses';
+                                                $statusIcon = 'bx-loader-alt';
+                                                break;
+                                            case 'resolved':
+                                                $statusClass = 'bg-label-success';
+                                                $statusText = 'Selesai';
+                                                $statusIcon = 'bx-check-circle';
+                                                break;
                                         }
                                     @endphp
-                                    <span class="badge {{ $statusClass }}"><i class="bx {{ $statusIcon }} me-1"></i>{{ $statusText }}</span>
+                                    <span class="badge {{ $statusClass }}"><i
+                                            class="bx {{ $statusIcon }} me-1"></i>{{ $statusText }}</span>
                                 </td>
                                 <td>
                                     <span class="d-block">{{ $response->created_at->format('d M Y') }}</span>
@@ -208,15 +231,25 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex gap-1 justify-content-center">
-                                        <a href="{{ route('complaint-response.show', $response->id) }}" class="btn btn-sm btn-icon btn-outline-info" data-bs-toggle="tooltip" title="Lihat Detail">
+                                        <a href="{{ route('complaint-response.show', $response->id) }}"
+                                            class="btn btn-sm btn-icon btn-outline-info" data-bs-toggle="tooltip"
+                                            title="Lihat Detail">
                                             <i class="bx bx-show"></i>
                                         </a>
-                                        <a href="{{ route('complaint-response.edit', $response->id) }}" class="btn btn-sm btn-icon btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
-                                            <i class="bx bx-edit"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-sm btn-icon btn-outline-danger" onclick="confirmDelete({{ $response->id }}, '#{{ $response->complaint->id ?? 'N/A' }}')" data-bs-toggle="tooltip" title="Hapus">
-                                            <i class="bx bx-trash"></i>
-                                        </button>
+
+                                        @if (Auth::user()->role == 'admin')
+                                            <a href="{{ route('complaint-response.edit', $response->id) }}"
+                                                class="btn btn-sm btn-icon btn-outline-warning" data-bs-toggle="tooltip"
+                                                title="Edit">
+                                                <i class="bx bx-edit"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-icon btn-outline-danger"
+                                                onclick="confirmDelete({{ $response->id }}, '#{{ $response->complaint->id ?? 'N/A' }}')"
+                                                data-bs-toggle="tooltip" title="Hapus">
+                                                <i class="bx bx-trash"></i>
+                                            </button>
+                                        @endif
+
                                     </div>
                                 </td>
                             </tr>
@@ -237,7 +270,8 @@
         @if (isset($responses) && $responses->total() > 0 && method_exists($responses, 'links'))
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <small class="text-muted">
-                    Menampilkan {{ $responses->firstItem() }} - {{ $responses->lastItem() }} dari {{ $responses->total() }} data
+                    Menampilkan {{ $responses->firstItem() }} - {{ $responses->lastItem() }} dari
+                    {{ $responses->total() }} data
                 </small>
                 <div>{{ $responses->appends(request()->query())->links() }}</div>
             </div>

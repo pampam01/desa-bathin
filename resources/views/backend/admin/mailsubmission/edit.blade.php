@@ -95,14 +95,11 @@
                         <option value="">Pilih Jenis Surat</option>
                         @php
                             $jenisSuratOptions = [
-                                'Surat Keterangan Domisili',
-                                'Surat Keterangan Usaha',
-                                'Surat Keterangan Tidak Mampu',
-                                'Surat Keterangan Kematian',
-                                'Surat Keterangan Lahir',
-                                'Surat Keterangan Pindah',
-                                'Surat Keterangan Belum Menikah',
-                                'Surat Keterangan Cerai',
+                                'surat pelayanan haji',
+                                'surat rujuk',
+                                'surat rekomendasi nikah',
+                                'surat pengaduan gugat cerai',
+                                'surat rekomendasi tanah wakaf',
                             ];
                         @endphp
                         @foreach ($jenisSuratOptions as $option)

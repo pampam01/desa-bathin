@@ -18,14 +18,11 @@ return new class extends Migration
             $table->bigInteger('no_kk');
             $table->string('name');
             $table->enum('jenis_surat', [
-                'Surat Keterangan Domisili',
-                'Surat Keterangan Usaha',
-                'Surat Keterangan Tidak Mampu',
-                'Surat Keterangan Kematian',
-                'Surat Keterangan Lahir',
-                'Surat Keterangan Pindah',
-                'Surat Keterangan Belum Menikah',
-                'Surat Keterangan Cerai',
+                'surat pelayanan haji',
+                'surat rujuk',
+                'surat rekomendasi nikah',
+                'surat pengaduan gugat cerai',
+                'surat rekomendasi tanah wakaf',
             ]);
             $table->text('description')->nullable();
             $table->string('no_hp')->nullable();

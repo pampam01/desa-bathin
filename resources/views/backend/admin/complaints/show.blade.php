@@ -1,6 +1,6 @@
 @extends('backend.admin.layouts.app')
 
-@section('title', 'Detail Pengaduan - Portal Parakan')
+@section('title', 'Detail Pengaduan - Portal KUA bathin')
 
 @section('page-header')
     <div class="d-flex justify-content-between align-items-center">
@@ -263,7 +263,7 @@
                                 <i class="bx bx-plus me-2"></i>Tambah Tanggapan
                             </a>
 
-                            @if ($complaint->responses->count() > 0)
+                            @if ($complaint->responses->count() > 0 && Auth::user()->role == 'admin')
                                 <a href="{{ route('complaint-response.index', ['complaint_id' => $complaint->id]) }}"
                                     class="btn btn-outline-secondary">
                                     <i class="bx bx-list-ul me-2"></i>Lihat Semua Tanggapan

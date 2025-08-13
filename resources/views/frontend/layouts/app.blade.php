@@ -139,7 +139,7 @@
 
         <div class="footer-bottom">
             <div class="container">
-                <p class="footer-copyright">&copy; 2025 Portal Parakan - KKN Kelompok 7 UNIKU 2025. <br> Hak Cipta
+                <p class="footer-copyright">&copy; 2025. <br> Hak Cipta
                     Dilindungi Undang-Undang.</p>
             </div>
         </div>

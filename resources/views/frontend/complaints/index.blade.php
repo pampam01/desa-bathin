@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Pengaduan Masyarakat - Portal Parakan')
+@section('title', 'Pengaduan Masyarakat - Portal KUA bathin')
 
 @push('styles')
     <style>

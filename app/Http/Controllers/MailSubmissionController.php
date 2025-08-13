@@ -219,42 +219,36 @@ class MailSubmissionController extends Controller
         
         $header = '
         <div style="text-align: center; margin-bottom: 30px;">
-            <h2 style="margin: 0; font-size: 16px; font-weight: bold;">PEMERINTAH DESA PARAKAN</h2>
-            <h3 style="margin: 5px 0; font-size: 14px;">KECAMATAN MALEBER</h3>
-            <h3 style="margin: 5px 0; font-size: 14px;">KABUPATEN KUNINGAN</h3>
+            <h2 style="margin: 0; font-size: 16px; font-weight: bold;">KUA BATHIN</h2>
+            <h3 style="margin: 5px 0; font-size: 14px;">KECAMATAN BATHIN</h3>
+            <h3 style="margin: 5px 0; font-size: 14px;">JAMBI</h3>
             <hr style="border: 1px solid black; margin: 20px 0;">
         </div>';
 
         switch ($mailSubmission->jenis_surat) {
-            case 'Surat Keterangan Domisili':
-                return $this->generateDomisiliPdf($mailSubmission, $header, $date);
-            case 'Surat Keterangan Usaha':
-                return $this->generateUsahaPdf($mailSubmission, $header, $date);
-            case 'Surat Keterangan Tidak Mampu':
-                return $this->generateTidakMampuPdf($mailSubmission, $header, $date);
-            case 'Surat Keterangan Kematian':
-                return $this->generateKematianPdf($mailSubmission, $header, $date);
-            case 'Surat Keterangan Lahir':
-                return $this->generateLahirPdf($mailSubmission, $header, $date);
-            case 'Surat Keterangan Pindah':
-                return $this->generatePindahPdf($mailSubmission, $header, $date);
-            case 'Surat Keterangan Belum Menikah':
-                return $this->generateBelumMenikahPdf($mailSubmission, $header, $date);
-            case 'Surat Keterangan Cerai':
-                return $this->generateCeraiPdf($mailSubmission, $header, $date);
-            default:
-                return $this->generateDefaultPdf($mailSubmission, $header, $date);
+            case 'surat rujuk':
+                return $this->generateRujukPdf($mailSubmission, $header, $date);
+            case 'surat pelayanan haji':
+                return $this->generatePelayananHajiPdf($mailSubmission, $header, $date);
+            case 'surat rekomendasi nikah':
+                return $this->generateRekomendasiNikahPdf($mailSubmission, $header, $date);
+            case 'surat pengaduan gugat cerai':
+                return $this->generatePengaduanGugatCeraiPdf($mailSubmission, $header, $date);
+            case 'surat rekomendasi tanah wakaf':
+                return $this->generateRekomendasiTanahWakafPdf($mailSubmission, $header, $date);
+                default:
+                return $this->generateRujukPdf($mailSubmission, $header, $date);
         }
     }
 
-    private function generateDomisiliPdf($mailSubmission, $header, $date)
+    private function generateRujukPdf($mailSubmission, $header, $date)
     {
         return '
         <!DOCTYPE html>
         <html>
         <head>
             <meta charset="utf-8">
-            <title>Surat Keterangan Domisili</title>
+            <title>Surat Rujuk</title>
             <style>
                 body { font-family: Arial, sans-serif; font-size: 12px; line-height: 1.5; margin: 40px; }
                 .center { text-align: center; }
@@ -269,11 +263,11 @@ class MailSubmissionController extends Controller
             ' . $header . '
             
             <div class="center mb-20">
-                <h3 class="bold underline">SURAT KETERANGAN DOMISILI</h3>
+                <h3 class="bold underline">SURAT RUJUK</h3>
                 <p>Nomor: [NOMOR_SURAT]</p>
             </div>
             
-            <p class="mb-10">Yang bertanda tangan di bawah ini, Kepala Desa Parakan, menerangkan bahwa:</p>
+            <p class="mb-10">Yang bertanda tangan di bawah ini, Kepala KUA Bathin, menerangkan dengan sebenarnya bahwa:</p>
             
             <div class="indent mb-20">
                 <table style="width: 100%;">
@@ -300,15 +294,15 @@ class MailSubmissionController extends Controller
                 </table>
             </div>
             
-            <p class="mb-10">Adalah benar-benar penduduk Desa Parakan dan berdomisili di alamat tersebut di atas.</p>
+            <p class="mb-10">Adalah benar-benar penduduk Desa Bathin dan memiliki usaha sebagaimana keterangan: <strong>' . $mailSubmission->description . '</strong></p>
             
             <p class="mb-10">Surat keterangan ini dibuat untuk keperluan: <strong>' . $mailSubmission->description . '</strong></p>
             
             <p class="mb-20">Demikian surat keterangan ini dibuat dengan sebenar-benarnya dan dapat dipergunakan sebagaimana mestinya.</p>
             
             <div style="float: right; width: 200px; text-align: center; margin-top: 30px;">
-                <p>Parakan, ' . $date . '</p>
-                <p class="bold">Kepala Desa Parakan</p>
+                <p>Bathin, ' . $date . '</p>
+                <p class="bold">Kepala KUA Bathin</p>
                 <br><br><br>
                 <p class="bold underline">Muhammad Tohir</p>
             </div>
@@ -316,14 +310,14 @@ class MailSubmissionController extends Controller
         </html>';
     }
 
-    private function generateUsahaPdf($mailSubmission, $header, $date)
+    private function generatePelayananHajiPdf($mailSubmission, $header, $date)
     {
         return '
         <!DOCTYPE html>
         <html>
         <head>
             <meta charset="utf-8">
-            <title>Surat Keterangan Usaha</title>
+            <title>Surat Rekomendasi Tanah Wakaf</title>
             <style>
                 body { font-family: Arial, sans-serif; font-size: 12px; line-height: 1.5; margin: 40px; }
                 .center { text-align: center; }
@@ -338,11 +332,11 @@ class MailSubmissionController extends Controller
             ' . $header . '
             
             <div class="center mb-20">
-                <h3 class="bold underline">SURAT KETERANGAN USAHA</h3>
+                <h3 class="bold underline">SURAT REKOMENDASI TANAH WAKAF</h3>
                 <p>Nomor: [NOMOR_SURAT]</p>
             </div>
             
-            <p class="mb-10">Yang bertanda tangan di bawah ini, Kepala Desa Parakan, menerangkan bahwa:</p>
+            <p class="mb-10">Yang bertanda tangan di bawah ini, Kepala KUA Bathin, menerangkan bahwa:</p>
             
             <div class="indent mb-20">
                 <table style="width: 100%;">
@@ -369,13 +363,13 @@ class MailSubmissionController extends Controller
                 </table>
             </div>
             
-            <p class="mb-10">Adalah benar-benar penduduk Desa Parakan dan memiliki usaha sebagaimana keterangan: <strong>' . $mailSubmission->description . '</strong></p>
+            <p class="mb-10">Adalah benar-benar penduduk Desa Bathin dan memiliki usaha sebagaimana keterangan: <strong>' . $mailSubmission->description . '</strong></p>
             
             <p class="mb-20">Demikian surat keterangan ini dibuat dengan sebenar-benarnya dan dapat dipergunakan sebagaimana mestinya.</p>
             
             <div style="float: right; width: 200px; text-align: center; margin-top: 30px;">
-                <p>Parakan, ' . $date . '</p>
-                <p class="bold">Kepala Desa Parakan</p>
+                <p>Bathin, ' . $date . '</p>
+                <p class="bold">Kepala KUA Bathin</p>
                 <br><br><br>
                 <p class="bold underline">Muhammad Tohir</p>
             </div>
@@ -383,14 +377,14 @@ class MailSubmissionController extends Controller
         </html>';
     }
 
-    private function generateDefaultPdf($mailSubmission, $header, $date)
+    private function generatePengaduanGugatCeraiPdf($mailSubmission, $header, $date)
     {
         return '
         <!DOCTYPE html>
         <html>
         <head>
             <meta charset="utf-8">
-            <title>' . $mailSubmission->jenis_surat . '</title>
+            <title>Surat Pengaduan Gugat Cerai</title>
             <style>
                 body { font-family: Arial, sans-serif; font-size: 12px; line-height: 1.5; margin: 40px; }
                 .center { text-align: center; }
@@ -405,11 +399,11 @@ class MailSubmissionController extends Controller
             ' . $header . '
             
             <div class="center mb-20">
-                <h3 class="bold underline">' . strtoupper($mailSubmission->jenis_surat) . '</h3>
+                <h3 class="bold underline">SURAT PENGADUAN GUGAT CERAI</h3>
                 <p>Nomor: [NOMOR_SURAT]</p>
             </div>
             
-            <p class="mb-10">Yang bertanda tangan di bawah ini, Kepala Desa Parakan, menerangkan bahwa:</p>
+            <p class="mb-10">Yang bertanda tangan di bawah ini, Kepala KUA Bathin, menerangkan bahwa:</p>
             
             <div class="indent mb-20">
                 <table style="width: 100%;">
@@ -441,8 +435,8 @@ class MailSubmissionController extends Controller
             <p class="mb-20">Demikian surat keterangan ini dibuat dengan sebenar-benarnya dan dapat dipergunakan sebagaimana mestinya.</p>
             
             <div style="float: right; width: 200px; text-align: center; margin-top: 30px;">
-                <p>Parakan, ' . $date . '</p>
-                <p class="bold">Kepala Desa Parakan</p>
+                <p>Bathin, ' . $date . '</p>
+                <p class="bold">Kepala KUA Bathin</p>
                 <br><br><br>
                 <p class="bold underline">Muhammad Tohir</p>
             </div>
@@ -451,14 +445,14 @@ class MailSubmissionController extends Controller
     }
 
     // Tambahkan method untuk jenis surat lainnya jika diperlukan
-    private function generateTidakMampuPdf($mailSubmission, $header, $date) 
+    private function generateRekomendasiTanahWakafPdf($mailSubmission, $header, $date) 
     { 
         return '
         <!DOCTYPE html>
         <html>
         <head>
             <meta charset="utf-8">
-            <title>Surat Keterangan Tidak Mampu</title>
+            <title>Surat Rekomendasi Tanah Wakaf</title>
             <style>
                 body { font-family: Arial, sans-serif; font-size: 12px; line-height: 1.5; margin: 40px; }
                 .center { text-align: center; }
@@ -473,11 +467,11 @@ class MailSubmissionController extends Controller
             ' . $header . '
             
             <div class="center mb-20">
-                <h3 class="bold underline">SURAT KETERANGAN TIDAK MAMPU</h3>
+                <h3 class="bold underline">SURAT REKOMENDASI TANAH WAKAF</h3>
                 <p>Nomor: [NOMOR_SURAT]</p>
             </div>
             
-            <p class="mb-10">Yang bertanda tangan di bawah ini, Kepala Desa Parakan, menerangkan dengan sebenarnya bahwa:</p>
+            <p class="mb-10">Yang bertanda tangan di bawah ini, Kepala KUA Bathin, menerangkan dengan sebenarnya bahwa:</p>
             
             <div class="indent mb-20">
                 <table style="width: 100%;">
@@ -504,15 +498,15 @@ class MailSubmissionController extends Controller
                 </table>
             </div>
             
-            <p class="mb-10">Adalah benar-benar penduduk Desa Parakan yang tergolong keluarga <strong>TIDAK MAMPU</strong> secara ekonomi.</p>
+            <p class="mb-10">Adalah benar-benar penduduk Desa Bathin yang tergolong keluarga <strong>TIDAK MAMPU</strong> secara ekonomi.</p>
             
             <p class="mb-10">Keterangan ini dibuat untuk keperluan: <strong>' . $mailSubmission->description . '</strong></p>
             
             <p class="mb-20">Demikian surat keterangan ini dibuat dengan sebenar-benarnya dan dapat dipergunakan sebagaimana mestinya.</p>
             
             <div style="float: right; width: 200px; text-align: center; margin-top: 30px;">
-                <p>Parakan, ' . $date . '</p>
-                <p class="bold">Kepala Desa Parakan</p>
+                <p>Bathin, ' . $date . '</p>
+                <p class="bold">Kepala KUA Bathin</p>
                 <br><br><br>
                 <p class="bold underline">MUHAMMAD_TOHIR</p>
             </div>
@@ -520,14 +514,14 @@ class MailSubmissionController extends Controller
         </html>';
     }
     
-    private function generateKematianPdf($mailSubmission, $header, $date) 
+    private function generateRekomendasiNikahPdf($mailSubmission, $header, $date) 
     { 
         return '
         <!DOCTYPE html>
         <html>
         <head>
             <meta charset="utf-8">
-            <title>Surat Keterangan Kematian</title>
+            <title>Surat Rekomendasi Nikah</title>
             <style>
                 body { font-family: Arial, sans-serif; font-size: 12px; line-height: 1.5; margin: 40px; }
                 .center { text-align: center; }
@@ -542,11 +536,11 @@ class MailSubmissionController extends Controller
             ' . $header . '
             
             <div class="center mb-20">
-                <h3 class="bold underline">SURAT KETERANGAN KEMATIAN</h3>
+                <h3 class="bold underline">SURAT REKOMENDASI NIKAH</h3>
                 <p>Nomor: [NOMOR_SURAT]</p>
             </div>
             
-            <p class="mb-10">Yang bertanda tangan di bawah ini, Kepala Desa Parakan, menerangkan bahwa:</p>
+            <p class="mb-10">Yang bertanda tangan di bawah ini, Kepala KUA Bathin, menerangkan bahwa:</p>
             
             <div class="indent mb-20">
                 <table style="width: 100%;">
@@ -573,22 +567,24 @@ class MailSubmissionController extends Controller
                 </table>
             </div>
             
-            <p class="mb-10">Adalah benar-benar penduduk Desa Parakan yang telah <strong>MENINGGAL DUNIA</strong>.</p>
+            <p class="mb-10">Adalah benar-benar penduduk Desa Bathin yang telah <strong>MENINGGAL DUNIA</strong>.</p>
             
             <p class="mb-20">Demikian surat keterangan ini dibuat dengan sebenar-benarnya dan dapat dipergunakan sebagaimana mestinya.</p>
             
             <div style="float: right; width: 200px; text-align: center; margin-top: 30px;">
-                <p>Parakan, ' . $date . '</p>
-                <p class="bold">Kepala Desa Parakan</p>
-                <br><br><br>
+                <p>Bathin, ' . $date . '</p>
+                <p class="bold">Kepala KUA Bathin</p>
+                <br><br><br>    
                 <p class="bold underline">Muhammad Tohir</p>
             </div>
         </body>
         </html>';
-    }
+    }   
+
     
-    private function generateLahirPdf($mailSubmission, $header, $date) { return $this->generateDefaultPdf($mailSubmission, $header, $date); }
-    private function generatePindahPdf($mailSubmission, $header, $date) { return $this->generateDefaultPdf($mailSubmission, $header, $date); }
-    private function generateBelumMenikahPdf($mailSubmission, $header, $date) { return $this->generateDefaultPdf($mailSubmission, $header, $date); }
-    private function generateCeraiPdf($mailSubmission, $header, $date) { return $this->generateDefaultPdf($mailSubmission, $header, $date); }
+    
+    private function generateBimbinganKeluargaPdf($mailSubmission, $header, $date) { return $this->generateBimbinganKeluargaPdf($mailSubmission, $header, $date); }
+    private function generateBimbinganPerkawinanPdf($mailSubmission, $header, $date) { return $this->generateBimbinganPerkawinanPdf($mailSubmission, $header, $date); }
+    private function generateLayananKeagamaanPdf($mailSubmission, $header, $date) { return $this->generateLayananKeagamaanPdf($mailSubmission, $header, $date); }
+    private function generateLayananBimbinganHajiPdf($mailSubmission, $header, $date) { return $this->generateLayananBimbinganHajiPdf($mailSubmission, $header, $date); }
 }

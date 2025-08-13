@@ -109,30 +109,22 @@
                             <select name="jenis_surat" id="jenis_surat"
                                 class="form-select @error('jenis_surat') is-invalid @enderror">
                                 <option disabled selected>Pilih jenis surat...</option>
-                                <option value="surat keterangan domisili"
-                                    {{ old('jenis_surat') == 'surat keterangan domisili' ? 'selected' : '' }}>Surat
-                                    Ketarangan Domisili</option>
-                                <option value="surat keterangan usaha"
-                                    {{ old('jenis_surat') == 'surat keterangan usaha' ? 'selected' : '' }}>Surat Keterangan
-                                    Usaha</option>
-                                <option value="surat keterangan tidak mampu"
-                                    {{ old('jenis_surat') == 'surat keterangan tidak mampu' ? 'selected' : '' }}>Surat
-                                    Keterangan Tidak Mampu</option>
-                                <option value="surat keterangan kematian"
-                                    {{ old('jenis_surat') == 'surat keterangan kematian' ? 'selected' : '' }}>Surat
-                                    Keterangan Kematian</option>
-                                <option value="surat keterangan lahir"
-                                    {{ old('jenis_surat') == 'surat keterangan lahir' ? 'selected' : '' }}>Surat Keterangan
-                                    Lahir</option>
-                                <option value="surat keterangan pindah"
-                                    {{ old('jenis_surat') == 'surat keterangan pindah' ? 'selected' : '' }}>Surat
-                                    Keterangan Pindah</option>
-                                <option value="surat keterangan belum menikah"
-                                    {{ old('jenis_surat') == 'surat keterangan belum menikah' ? 'selected' : '' }}>Surat
-                                    Keterangan Belum Menikah</option>
-                                <option value="surat keterangan cerai"
-                                    {{ old('jenis_surat') == 'surat keterangan cerai' ? 'selected' : '' }}>Surat
-                                    Keterangan Cerai</option>
+                                <option value="surat pelayanan haji"
+                                    {{ old('jenis_surat') == 'surat pelayanan haji' ? 'selected' : '' }}>Surat
+                                    Pelayanan Haji</option>
+                                <option value="surat rujuk" {{ old('jenis_surat') == 'surat rujuk' ? 'selected' : '' }}>
+                                    Surat
+                                    Rujuk</option>
+                                <option value="surat rekomendasi nikah"
+                                    {{ old('jenis_surat') == 'surat rekomendasi nikah' ? 'selected' : '' }}>Surat
+                                    Rekomendasi Nikah</option>
+                                <option value="surat pengaduan gugat cerai"
+                                    {{ old('jenis_surat') == 'surat pengaduan gugat cerai' ? 'selected' : '' }}>
+                                    Surat
+                                    Pengaduan Gugat Cerai</option>
+                                <option value="surat rekomendasi tanah wakaf"
+                                    {{ old('jenis_surat') == 'surat rekomendasi tanah wakaf' ? 'selected' : '' }}>Surat
+                                    Rekomendasi Tanah Wakaf</option>
                             </select>
                             @error('jenis_surat')
                                 <div class="invalid-feedback">{{ $message }}</div>

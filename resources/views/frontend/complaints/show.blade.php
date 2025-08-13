@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', $complaints->title . ' - Portal Parakan')
+@section('title', $complaints->title . ' - Portal KUA bathin')
 
 @push('styles')
     <style>

@@ -97,9 +97,9 @@ class AuthController extends Controller
 
         // Redirect based on user role
         if ($user->role === 'admin') {
-            return redirect('/dashboard')->with('success', 'Akun berhasil dibuat! Selamat datang di Portal Parakan.');
+            return redirect('/dashboard')->with('success', 'Akun berhasil dibuat! Selamat datang di portal KUA Bathin.');
         } else {
-            return redirect('/dashboard-masyarakat')->with('success', 'Akun berhasil dibuat! Selamat datang di Portal Parakan.');
+            return redirect('/dashboard-masyarakat')->with('success', 'Akun berhasil dibuat! Selamat datang di Portal KUA Bathin.');
         }
     }
 

@@ -14,7 +14,7 @@ class AboutVillageController extends Controller
     {
         $aboutVillage = AboutVillage::first();
         // if (!$aboutVillage) {
-        //     return redirect()->route('aboutvillage.create')->with('info', 'Silakan buat informasi tentang desa terlebih dahulu.');
+        //     return redirect()->route('aboutvillage.create')->with('info', 'Silakan buat informasi tentang  terlebih dahulu.');
         // }
         $totalPeople = $aboutVillage->people_total ?? 0;
         $totalFamilies = $aboutVillage->family_total ?? 0;
@@ -59,7 +59,7 @@ class AboutVillageController extends Controller
         AboutVillage::create($validatedData);
 
         return redirect()->route('aboutvillage.index')
-            ->with('success', 'Informasi desa berhasil dibuat');
+            ->with('success', 'Informasi berhasil dibuat');
     }
 
     /**
@@ -102,7 +102,7 @@ class AboutVillageController extends Controller
         $aboutVillage->update($validatedData);
 
         return redirect()->route('aboutvillage.index')
-            ->with('success', 'Informasi desa berhasil diperbarui');
+            ->with('success', 'Informasi berhasil diperbarui');
     }
 
     /**

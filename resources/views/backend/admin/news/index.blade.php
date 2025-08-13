@@ -26,24 +26,31 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             border: none;
         }
+
         .table-hover tbody tr {
             transition: background-color 0.2s ease-in-out;
         }
+
         .table-hover tbody tr:hover {
             background-color: rgba(105, 108, 255, 0.07);
         }
+
         .news-status {
             font-size: 0.8rem;
             padding: 0.3em 0.6em;
             font-weight: 600;
         }
+
         .avatar-initial {
             font-weight: 600;
         }
+
         .btn-icon i {
             font-size: 1.1rem;
         }
-        .form-label, .fw-semibold {
+
+        .form-label,
+        .fw-semibold {
             font-weight: 600 !important;
         }
     </style>
@@ -105,7 +112,8 @@
             <div class="card">
                 <div class="card-body text-center">
                     <div class="avatar avatar-md mx-auto mb-2">
-                        <span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-check-circle fs-3"></i></span>
+                        <span class="avatar-initial rounded-circle bg-label-success"><i
+                                class="bx bx-check-circle fs-3"></i></span>
                     </div>
                     <h4 class="mb-1">{{ $publishedNewsCount ?? 0 }}</h4>
                     <span class="fw-semibold">Dipublikasikan</span>
@@ -172,16 +180,20 @@
                             @foreach ($news as $item)
                                 <tr>
                                     <td class="text-center">
-                                        <input type="checkbox" class="form-check-input news-checkbox" value="{{ $item->id }}">
+                                        <input type="checkbox" class="form-check-input news-checkbox"
+                                            value="{{ $item->id }}">
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-start align-items-center">
                                             <div class="avatar-wrapper">
                                                 <div class="avatar avatar-lg me-3">
                                                     @if ($item->image)
-                                                        <img src="{{ asset('storage/' . $item->image) }}" alt="Gambar Berita" class="rounded" style="object-fit: cover;">
+                                                        <img src="{{ asset('storage/' . $item->image) }}"
+                                                            alt="Gambar Berita" class="rounded"
+                                                            style="object-fit: cover;">
                                                     @else
-                                                        <span class="avatar-initial rounded bg-label-secondary"><i class="bx bx-news fs-3"></i></span>
+                                                        <span class="avatar-initial rounded bg-label-secondary"><i
+                                                                class="bx bx-news fs-3"></i></span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -210,13 +222,18 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="d-flex gap-1 justify-content-center">
-                                            <a href="{{ route('news.show', $item->id) }}" class="btn btn-sm btn-icon btn-outline-info" data-bs-toggle="tooltip" title="Lihat Detail">
+                                            <a href="{{ route('news.show', $item->id) }}"
+                                                class="btn btn-sm btn-icon btn-outline-info" data-bs-toggle="tooltip"
+                                                title="Lihat Detail">
                                                 <i class="bx bx-show"></i>
                                             </a>
-                                            <a href="{{ route('news.edit', $item->id) }}" class="btn btn-sm btn-icon btn-outline-warning" data-bs-toggle="tooltip" title="Edit Berita">
+                                            <a href="{{ route('news.edit', $item->id) }}"
+                                                class="btn btn-sm btn-icon btn-outline-warning" data-bs-toggle="tooltip"
+                                                title="Edit Berita">
                                                 <i class="bx bx-edit"></i>
                                             </a>
-                                            <button type="button" class="btn btn-sm btn-icon btn-outline-danger" data-bs-toggle="tooltip" title="Hapus Berita"
+                                            <button type="button" class="btn btn-sm btn-icon btn-outline-danger"
+                                                data-bs-toggle="tooltip" title="Hapus Berita"
                                                 onclick="confirmDelete({{ $item->id }}, '{{ addslashes($item->title) }}')">
                                                 <i class="bx bx-trash"></i>
                                             </button>
@@ -246,12 +263,12 @@
                     <div>{{ $news->appends(request()->query())->links() }}</div>
                 </div>
             @endif
-        
-        {{-- Logika View untuk non-Admin --}}
+
+            {{-- Logika View untuk non-Admin --}}
         @else
             <div class="table-responsive text-nowrap">
-                @if (isset($publishedNews) && $publishedNews->count() > 0)
-                     <table class="table table-hover">
+                @if (isset($publishedNews) && $publishedNewsCount > 0)
+                    <table class="table table-hover">
                         <thead class="table-light">
                             <tr>
                                 <th>Penulis</th>
@@ -268,15 +285,19 @@
                                             <div class="avatar-wrapper">
                                                 <div class="avatar avatar-lg me-3">
                                                     @if ($item->image)
-                                                        <img src="{{ asset('storage/' . $item->image) }}" alt="Gambar Berita" class="rounded" style="object-fit: cover;">
+                                                        <img src="{{ asset('storage/' . $item->image) }}"
+                                                            alt="Gambar Berita" class="rounded"
+                                                            style="object-fit: cover;">
                                                     @else
-                                                        <span class="avatar-initial rounded bg-label-secondary"><i class="bx bx-news fs-3"></i></span>
+                                                        <span class="avatar-initial rounded bg-label-secondary"><i
+                                                                class="bx bx-news fs-3"></i></span>
                                                     @endif
                                                 </div>
                                             </div>
                                             <div class="d-flex flex-column">
                                                 <span class="fw-semibold">{{ $item->user->name ?? 'Anonymous' }}</span>
-                                                <span class="badge bg-label-secondary mt-1" style="width: fit-content;">{{ $item->category->name ?? 'Umum' }}</span>
+                                                <span class="badge bg-label-secondary mt-1"
+                                                    style="width: fit-content;">{{ $item->category->name ?? 'Umum' }}</span>
                                             </div>
                                         </div>
                                     </td>
@@ -284,12 +305,14 @@
                                         <span class="fw-semibold">{{ Str::limit($item->title, 60) }}</span><br>
                                         <small class="text-muted">{{ Str::limit(strip_tags($item->content), 90) }}</small>
                                     </td>
-                                     <td>
+                                    <td>
                                         <span class="d-block">{{ $item->created_at->format('d M Y') }}</span>
                                         <small class="text-muted">{{ $item->created_at->diffForHumans() }}</small>
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('news.show', $item->id) }}" class="btn btn-sm btn-icon btn-outline-info" data-bs-toggle="tooltip" title="Lihat Detail">
+                                        <a href="{{ route('news.show', $item->id) }}"
+                                            class="btn btn-sm btn-icon btn-outline-info" data-bs-toggle="tooltip"
+                                            title="Lihat Detail">
                                             <i class="bx bx-show"></i>
                                         </a>
                                     </td>
@@ -305,10 +328,11 @@
                     </div>
                 @endif
             </div>
-             @if (isset($publishedNews) && $publishedNews->total() > 0 && method_exists($publishedNews, 'links'))
+            @if (isset($publishedNews) && $publishedNewsCount > 0 && method_exists($publishedNews, 'links'))
                 <div class="card-footer d-flex justify-content-between align-items-center">
                     <small class="text-muted">
-                        Menampilkan {{ $publishedNews->firstItem() }} - {{ $publishedNews->lastItem() }} dari {{ $publishedNews->total() }} berita
+                        Menampilkan {{ $publishedNews->firstItem() }} - {{ $publishedNews->lastItem() }} dari
+                        {{ $publishedNews->total() }} berita
                     </small>
                     <div>{{ $publishedNews->appends(request()->query())->links() }}</div>
                 </div>
@@ -318,121 +342,145 @@
 @endsection
 
 @push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        tooltipTriggerList.map(function(tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl);
-        });
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+                    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                    tooltipTriggerList.map(function(tooltipTriggerEl) {
+                        return new bootstrap.Tooltip(tooltipTriggerEl);
+                    });
 
-        const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-        const newsCheckboxes = document.querySelectorAll('.news-checkbox');
-        const deleteSelectedBtn = document.getElementById('deleteSelectedBtn');
+                    const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+                    const newsCheckboxes = document.querySelectorAll('.news-checkbox');
+                    const deleteSelectedBtn = document.getElementById('deleteSelectedBtn');
 
-        if (selectAllCheckbox && newsCheckboxes.length > 0 && deleteSelectedBtn) {
-            const updateDeleteButton = () => {
-                const checkedCount = document.querySelectorAll('.news-checkbox:checked').length;
-                if (checkedCount > 0) {
-                    deleteSelectedBtn.disabled = false;
-                    deleteSelectedBtn.innerHTML = `<i class="bx bx-trash me-1"></i> Hapus (${checkedCount}) Terpilih`;
-                } else {
-                    deleteSelectedBtn.disabled = true;
-                    deleteSelectedBtn.innerHTML = '<i class="bx bx-trash me-1"></i> Hapus Terpilih';
-                }
-                selectAllCheckbox.checked = checkedCount === newsCheckboxes.length;
-            };
+                    if (selectAllCheckbox && newsCheckboxes.length > 0 && deleteSelectedBtn) {
+                        const updateDeleteButton = () => {
+                            const checkedCount = document.querySelectorAll('.news-checkbox:checked').length;
+                            if (checkedCount > 0) {
+                                deleteSelectedBtn.disabled = false;
+                                deleteSelectedBtn.innerHTML =
+                                    `<i class="bx bx-trash me-1"></i> Hapus (${checkedCount}) Terpilih`;
+                            } else {
+                                deleteSelectedBtn.disabled = true;
+                                deleteSelectedBtn.innerHTML = '<i class="bx bx-trash me-1"></i> Hapus Terpilih';
+                            }
+                            selectAllCheckbox.checked = checkedCount === newsCheckboxes.length;
+                        };
 
-            selectAllCheckbox.addEventListener('change', () => {
-                newsCheckboxes.forEach(checkbox => checkbox.checked = selectAllCheckbox.checked);
-                updateDeleteButton();
-            });
+                        selectAllCheckbox.addEventListener('change', () => {
+                            newsCheckboxes.forEach(checkbox => checkbox.checked = selectAllCheckbox.checked);
+                            updateDeleteButton();
+                        });
 
-            newsCheckboxes.forEach(checkbox => checkbox.addEventListener('change', updateDeleteButton);
+                        newsCheckboxes.forEach(checkbox => checkbox.addEventListener('change', updateDeleteButton);
 
-            deleteSelectedBtn.addEventListener('click', () => deleteSelected());
-            updateDeleteButton();
-        }
-    });
+                            deleteSelectedBtn.addEventListener('click', () => deleteSelected()); updateDeleteButton();
+                        }
+                    });
 
-    function selectAll() {
-        const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-        if (selectAllCheckbox) {
-            selectAllCheckbox.checked = !selectAllCheckbox.checked;
-            selectAllCheckbox.dispatchEvent(new Event('change'));
-        }
-    }
-
-    function confirmDelete(id, title) {
-        Swal.fire({
-            title: 'Anda Yakin?',
-            html: `Anda akan menghapus berita:<br><b>"${title}"</b>`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus!',
-            cancelButtonText: 'Batal',
-            customClass: { confirmButton: 'btn btn-danger', cancelButton: 'btn btn-secondary ms-2' },
-            buttonsStyling: false
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = `{{ url('news') }}/${id}`;
-                form.innerHTML = `@method('DELETE') @csrf`;
-                document.body.appendChild(form);
-                showLoading('Menghapus berita...');
-                form.submit();
-            }
-        });
-    }
-
-    function deleteSelected() {
-        const checkedBoxes = document.querySelectorAll('.news-checkbox:checked');
-        const ids = Array.from(checkedBoxes).map(cb => cb.value);
-
-        if (ids.length === 0) {
-            showToast('error', 'Tidak ada berita yang terpilih untuk dihapus.');
-            return;
-        }
-
-        Swal.fire({
-            title: 'Anda Yakin?',
-            text: `Anda akan menghapus ${ids.length} berita terpilih. Tindakan ini tidak dapat dibatalkan.`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus Semua!',
-            cancelButtonText: 'Batal',
-            customClass: { confirmButton: 'btn btn-danger', cancelButton: 'btn btn-secondary ms-2' },
-            buttonsStyling: false
-        }).then((result) => {
-            if (result.isConfirmed) {
-                showLoading('Menghapus berita terpilih...');
-                fetch('{{ route("news.multipleDelete") }}', {
-                    method: 'DELETE',
-                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                    body: JSON.stringify({ ids: ids })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    hideLoading();
-                    if (data.success) {
-                        Swal.fire({ icon: 'success', title: 'Berhasil!', text: data.message, timer: 2000, showConfirmButton: false })
-                            .then(() => location.reload());
-                    } else {
-                        Swal.fire('Gagal!', data.message || 'Terjadi kesalahan.', 'error');
+                function selectAll() {
+                    const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+                    if (selectAllCheckbox) {
+                        selectAllCheckbox.checked = !selectAllCheckbox.checked;
+                        selectAllCheckbox.dispatchEvent(new Event('change'));
                     }
-                })
-                .catch(error => {
-                    hideLoading();
-                    Swal.fire('Error!', 'Tidak dapat terhubung ke server.', 'error');
-                });
-            }
-        });
-    }
+                }
 
-    // --- Helper Functions ---
-    function showLoading(message = 'Memproses...') {
-        Swal.fire({ title: message, allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-    }
-    function hideLoading() { Swal.close(); }
-</script>
+                function confirmDelete(id, title) {
+                    Swal.fire({
+                        title: 'Anda Yakin?',
+                        html: `Anda akan menghapus berita:<br><b>"${title}"</b>`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, Hapus!',
+                        cancelButtonText: 'Batal',
+                        customClass: {
+                            confirmButton: 'btn btn-danger',
+                            cancelButton: 'btn btn-secondary ms-2'
+                        },
+                        buttonsStyling: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const form = document.createElement('form');
+                            form.method = 'POST';
+                            form.action = `{{ url('news') }}/${id}`;
+                            form.innerHTML = `@method('DELETE') @csrf`;
+                            document.body.appendChild(form);
+                            showLoading('Menghapus berita...');
+                            form.submit();
+                        }
+                    });
+                }
+
+                function deleteSelected() {
+                    const checkedBoxes = document.querySelectorAll('.news-checkbox:checked');
+                    const ids = Array.from(checkedBoxes).map(cb => cb.value);
+
+                    if (ids.length === 0) {
+                        showToast('error', 'Tidak ada berita yang terpilih untuk dihapus.');
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: 'Anda Yakin?',
+                        text: `Anda akan menghapus ${ids.length} berita terpilih. Tindakan ini tidak dapat dibatalkan.`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, Hapus Semua!',
+                        cancelButtonText: 'Batal',
+                        customClass: {
+                            confirmButton: 'btn btn-danger',
+                            cancelButton: 'btn btn-secondary ms-2'
+                        },
+                        buttonsStyling: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            showLoading('Menghapus berita terpilih...');
+                            fetch('{{ route('news.multipleDelete') }}', {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                    },
+                                    body: JSON.stringify({
+                                        ids: ids
+                                    })
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    hideLoading();
+                                    if (data.success) {
+                                        Swal.fire({
+                                                icon: 'success',
+                                                title: 'Berhasil!',
+                                                text: data.message,
+                                                timer: 2000,
+                                                showConfirmButton: false
+                                            })
+                                            .then(() => location.reload());
+                                    } else {
+                                        Swal.fire('Gagal!', data.message || 'Terjadi kesalahan.', 'error');
+                                    }
+                                })
+                                .catch(error => {
+                                    hideLoading();
+                                    Swal.fire('Error!', 'Tidak dapat terhubung ke server.', 'error');
+                                });
+                        }
+                    });
+                }
+
+                // --- Helper Functions ---
+                function showLoading(message = 'Memproses...') {
+                    Swal.fire({
+                        title: message,
+                        allowOutsideClick: false,
+                        didOpen: () => Swal.showLoading()
+                    });
+                }
+
+                function hideLoading() {
+                    Swal.close();
+                }
+    </script>
 @endpush
