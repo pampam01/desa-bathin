@@ -28,7 +28,8 @@ class MailSubmissionController extends Controller
         $processmails = $mails->where('status', 'process')->count();
         $rejectedmails = $mails->where('status', 'rejected')->count();
         $mailsfiles = $mails->where('file', '!=', null)->count();
-        return view('backend.admin.mailsubmission.index', compact('mails','pendingmails', 'resolvedmails', 'processmails', 'totalmails', 'mailsfiles', 'rejectedmails'));
+        $submmissions = MailSubmission::latest()->get();
+        return view('backend.admin.mailsubmission.index', compact('mails','pendingmails', 'resolvedmails', 'processmails', 'totalmails', 'mailsfiles', 'rejectedmails', 'submmissions'));
     }
 
     /**
@@ -136,6 +137,20 @@ class MailSubmissionController extends Controller
 
         return redirect()->route('mail-submissions.index')->with('success', 'Mail submission deleted successfully.');
     }
+
+    public function multipleDelete(Request $request)
+    {
+        $ids = $request->input('selected_ids');
+    
+        if (!empty($ids)) {
+            MailSubmission::whereIn('id', $ids)->delete();
+            return redirect()->back()->with('success', 'Data terpilih berhasil dihapus.');
+        }
+        else{
+            return redirect()->back()->with('error', 'Tidak ada data yang dipilih.');
+        }
+    }
+    
 
     /**
      * Update status of mail submission

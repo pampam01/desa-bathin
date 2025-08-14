@@ -151,14 +151,23 @@
     </div>
 
     <div class="card">
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0"><i class="bx bx-list-ul me-1"></i>Daftar Pengajuan Surat</h5>
+            <form id="bulk-delete-form" action="{{ route('mail-submissions.multipleDelete') }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger">Hapus Terpilih</button>
+            </form>
         </div>
+
         <div class="table-responsive text-nowrap">
             @if (isset($mails) && $mails->count() > 0)
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th>
+                                <input type="checkbox" id="select-all">
+                            </th>
                             <th>Pemohon</th>
                             <th>Jenis Surat</th>
                             <th class="text-center">Status</th>
@@ -166,10 +175,13 @@
                             <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="table-border-bottom-0">
+                    <tbody>
                         @foreach ($mails as $mail)
                             <tr>
-                                {{-- Menggabungkan info pemohon jadi satu kolom agar rapi --}}
+                                <td>
+                                    <input type="checkbox" name="selected_ids[]" form="bulk-delete-form"
+                                        value="{{ $mail->id }}" class="row-checkbox">
+                                </td>
                                 <td>
                                     <span class="fw-semibold">{{ $mail->name }}</span><br>
                                     <small class="text-muted">NIK: {{ $mail->nik }}</small>
@@ -180,34 +192,23 @@
                                 </td>
                                 <td class="text-center">
                                     @php
-                                        $statusClass = '';
-                                        $statusText = 'N/A';
-                                        $statusIcon = 'bx-question-mark';
-                                        switch ($mail->status) {
-                                            case 'pending':
-                                                $statusClass = 'bg-label-warning';
-                                                $statusText = 'Pending';
-                                                $statusIcon = 'bx-time-five';
-                                                break;
-                                            case 'process':
-                                                $statusClass = 'bg-label-info';
-                                                $statusText = 'Diproses';
-                                                $statusIcon = 'bx-loader-alt';
-                                                break;
-                                            case 'completed':
-                                                $statusClass = 'bg-label-success';
-                                                $statusText = 'Selesai';
-                                                $statusIcon = 'bx-check-circle';
-                                                break;
-                                            case 'rejected':
-                                                $statusClass = 'bg-label-danger';
-                                                $statusText = 'Ditolak';
-                                                $statusIcon = 'bx-x-circle';
-                                                break;
-                                        }
+                                        $statusClass =
+                                            [
+                                                'pending' => 'bg-label-warning',
+                                                'process' => 'bg-label-info',
+                                                'completed' => 'bg-label-success',
+                                                'rejected' => 'bg-label-danger',
+                                            ][$mail->status] ?? 'bg-label-secondary';
+
+                                        $statusText =
+                                            [
+                                                'pending' => 'Pending',
+                                                'process' => 'Diproses',
+                                                'completed' => 'Selesai',
+                                                'rejected' => 'Ditolak',
+                                            ][$mail->status] ?? 'N/A';
                                     @endphp
-                                    <span class="badge {{ $statusClass }}"><i
-                                            class="bx {{ $statusIcon }} me-1"></i>{{ $statusText }}</span>
+                                    <span class="badge {{ $statusClass }}">{{ $statusText }}</span>
                                 </td>
                                 <td>
                                     <span class="d-block">{{ $mail->created_at->format('d M Y') }}</span>
@@ -216,19 +217,16 @@
                                 <td class="text-center">
                                     <div class="d-flex gap-1 justify-content-center">
                                         <a href="{{ route('mail-submissions.show', $mail->id) }}"
-                                            class="btn btn-sm btn-icon btn-outline-info" data-bs-toggle="tooltip"
-                                            title="Lihat Detail">
+                                            class="btn btn-sm btn-icon btn-outline-info" title="Lihat">
                                             <i class="bx bx-show"></i>
                                         </a>
                                         @if (Auth::user()->role == 'admin')
                                             <a href="{{ route('mail-submissions.edit', $mail->id) }}"
-                                                class="btn btn-sm btn-icon btn-outline-warning" data-bs-toggle="tooltip"
-                                                title="Edit">
+                                                class="btn btn-sm btn-icon btn-outline-warning" title="Edit">
                                                 <i class="bx bx-edit"></i>
                                             </a>
                                             <button type="button" class="btn btn-sm btn-icon btn-outline-danger"
-                                                onclick="confirmDelete({{ $mail->id }}, '{{ $mail->jenis_surat }} untuk {{ $mail->name }}')"
-                                                data-bs-toggle="tooltip" title="Hapus">
+                                                onclick="confirmDelete({{ $mail->id }}, '{{ $mail->jenis_surat }} untuk {{ $mail->name }}')">
                                                 <i class="bx bx-trash"></i>
                                             </button>
                                         @endif
@@ -242,20 +240,37 @@
                 <div class="text-center py-5">
                     <i class="bx bx-message-square-x" style="font-size: 4rem; color: #ddd;"></i>
                     <h5 class="mt-3 text-muted">Belum Ada Pengajuan Surat</h5>
-                    <p class="text-muted">Semua pengajuan surat dari warga akan muncul di sini.</p>
                 </div>
             @endif
         </div>
-        @if (isset($mails) && $mails->total() > 0 && method_exists($mails, 'links'))
-            <div class="card-footer d-flex justify-content-between align-items-center">
-                <small class="text-muted">
-                    Menampilkan {{ $mails->firstItem() }} - {{ $mails->lastItem() }} dari {{ $mails->total() }} data
-                </small>
-                <div>{{ $mails->appends(request()->query())->links() }}</div>
-            </div>
-        @endif
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        const selectAll = document.getElementById('select-all');
+        const checkboxes = document.querySelectorAll('.row-checkbox');
+        const deleteBtn = document.getElementById('delete-selected');
+
+        selectAll.addEventListener('change', function() {
+            checkboxes.forEach(cb => cb.checked = this.checked);
+            toggleDeleteBtn();
+        });
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', function() {
+                toggleDeleteBtn();
+                if (!this.checked) selectAll.checked = false;
+            });
+        });
+
+        function toggleDeleteBtn() {
+            const checkedCount = document.querySelectorAll('.row-checkbox:checked').length;
+            deleteBtn.disabled = checkedCount === 0;
+        }
+    </script>
+@endpush
+
 
 @push('scripts')
     <script>

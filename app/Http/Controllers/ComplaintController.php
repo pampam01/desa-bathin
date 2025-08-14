@@ -159,4 +159,20 @@ class ComplaintController extends Controller
 
         return redirect()->route('complaints.index')->with('success', 'Pengaduan berhasil dihapus.');
     }
+
+    public function multipleDelete(Request $request)
+{
+    $ids = $request->input('ids', []);
+    if (!empty($ids)) {
+        Complaint::whereIn('id', $ids)->delete();
+    }
+    if(empty($ids)){
+        return redirect()->back()->with('error', 'Tidak ada pengaduan yang dipilih.');
+    }else{
+    return redirect()->back()->with('success', 'Pengaduan terpilih berhasil dihapus.');
+    }
 }
+
+}
+
+

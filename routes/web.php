@@ -174,6 +174,8 @@ Route::group(['middleware' => ['auth']], function () {
             'update' => 'complaints.update',
             'destroy' => 'complaints.destroy',
         ]);
+    Route::post('complaints/multiple-delete', [ComplaintController::class, 'multipleDelete'])->name('complaints.multipleDelete');
+
     
     // Custom route must come before resource route
     Route::get('complaint-response/complaint/{id}', [ComplaintResponseController::class, 'getComplaintDetails'])
@@ -187,6 +189,8 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('mail-submissions.generate-pdf');
     Route::get('mail-submissions/{mailSubmission}/download-pdf', [MailSubmissionController::class, 'downloadPdf'])
         ->name('mail-submissions.download-pdf');
+    Route::delete('mail-submissions/multiple-delete', [MailSubmissionController::class, 'multipleDelete'])
+        ->name('mail-submissions.multipleDelete');
     
     Route::resource('mail-submissions', MailSubmissionController::class)
         ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
@@ -199,6 +203,7 @@ Route::group(['middleware' => ['auth']], function () {
             'update' => 'mail-submissions.update',
             'destroy' => 'mail-submissions.destroy',
         ]);
+ 
     
     Route::resource('users', UserController::class);
     Route::delete('/users/multiple-delete', [UserController::class, 'multipleDelete'])->name('users.multipleDelete');

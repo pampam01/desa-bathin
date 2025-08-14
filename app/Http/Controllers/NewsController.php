@@ -187,7 +187,10 @@ class NewsController extends Controller
             $deletedCount++;
         }
 
-        return redirect()->route('news.index')->with('success', 'Berita berhasil dihapus.');
-
+        if ($deletedCount > 0) {
+            return redirect()->back()>with('success', 'Data terpilih berhasil dihapus.');
+        } else {
+            return redirect()->back()->with('error', 'Tidak ada data yang dipilih.');
+        }
     }
 }

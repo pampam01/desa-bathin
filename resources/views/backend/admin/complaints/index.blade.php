@@ -329,6 +329,74 @@
 
 @push('scripts')
     <script>
+        // Handle checkbox "Pilih Semua"
+        document.getElementById('selectAllCheckbox')?.addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.complaint-checkbox');
+            checkboxes.forEach(cb => cb.checked = this.checked);
+            toggleDeleteButton();
+        });
+
+        // Jika user klik tombol "Pilih Semua" di header card
+        function selectAll() {
+            const checkboxes = document.querySelectorAll('.complaint-checkbox');
+            let allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            checkboxes.forEach(cb => cb.checked = !allChecked);
+            document.getElementById('selectAllCheckbox').checked = !allChecked;
+            toggleDeleteButton();
+        }
+
+        // Handle enable/disable tombol hapus
+        document.querySelectorAll('.complaint-checkbox').forEach(cb => {
+            cb.addEventListener('change', toggleDeleteButton);
+        });
+
+        function toggleDeleteButton() {
+            const selected = document.querySelectorAll('.complaint-checkbox:checked').length;
+            document.getElementById('deleteSelectedBtn').disabled = selected === 0;
+        }
+
+        // Handle Multiple Delete
+        document.getElementById('deleteSelectedBtn')?.addEventListener('click', function() {
+            const selectedIds = Array.from(document.querySelectorAll('.complaint-checkbox:checked')).map(cb => cb
+                .value);
+
+            if (selectedIds.length === 0) return;
+
+            showConfirmModal(
+                `Apakah Anda yakin ingin menghapus ${selectedIds.length} pengaduan terpilih?`,
+                function() {
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = `{{ route('complaints.multipleDelete') }}`;
+
+                    const tokenInput = document.createElement('input');
+                    tokenInput.type = 'hidden';
+                    tokenInput.name = '_token';
+                    tokenInput.value = document.querySelector('meta[name="csrf-token"]').getAttribute(
+                    'content');
+                    form.appendChild(tokenInput);
+
+                    // kirim array IDs
+                    selectedIds.forEach(id => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'ids[]';
+                        input.value = id;
+                        form.appendChild(input);
+                    });
+
+                    document.body.appendChild(form);
+                    showLoading();
+                    form.submit();
+                }
+            );
+        });
+    </script>
+@endpush
+
+
+@push('scripts')
+    <script>
         function confirmDelete(id, title) {
             showConfirmModal(
                 `Apakah Anda yakin ingin menghapus berita "${title}"? Tindakan ini tidak dapat dibatalkan.`,
