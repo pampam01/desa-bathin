@@ -198,9 +198,7 @@
                 </button>
               </form>
             @endif --}}
-
                         <hr>
-
                         <button type="button" class="btn btn-outline-danger"
                             onclick="confirmDelete({{ $complaint->id }}, '{{ $complaint->title }}')">
                             <i class="bx bx-trash me-2"></i>Hapus Pengaduan

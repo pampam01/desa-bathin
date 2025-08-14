@@ -24,19 +24,25 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             border: none;
         }
+
         .table-hover tbody tr {
             transition: background-color 0.2s ease-in-out;
         }
+
         .table-hover tbody tr:hover {
             background-color: rgba(105, 108, 255, 0.07);
         }
-        .form-label, .fw-semibold {
+
+        .form-label,
+        .fw-semibold {
             font-weight: 600 !important;
         }
+
         .badge {
             font-weight: 600;
             font-size: 0.8rem;
         }
+
         .btn-icon i {
             font-size: 1.1rem;
         }
@@ -67,8 +73,10 @@
                             <option value="">Semua Status</option>
                             <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
                             <option value="process" {{ request('status') == 'process' ? 'selected' : '' }}>Proses</option>
-                            <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Selesai</option>
-                            <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Ditolak</option>
+                            <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Selesai
+                            </option>
+                            <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Ditolak
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -77,8 +85,8 @@
                     </div>
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-primary w-100">
-                             <i class="bx bx-search d-block d-sm-none"></i>
-                             <span class="d-none d-sm-block">Filter</span>
+                            <i class="bx bx-search d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Filter</span>
                         </button>
                     </div>
                 </div>
@@ -119,7 +127,7 @@
                     <div class="d-flex align-items-start justify-content-between">
                         <div class="content-left">
                             <span>Diproses</span>
-                             <h4 class="mb-0 mt-2">{{ $processmails ?? 0 }}</h4>
+                            <h4 class="mb-0 mt-2">{{ $processmails ?? 0 }}</h4>
                         </div>
                         <span class="avatar-initial rounded bg-label-info"><i class="bx bx-loader-alt fs-4"></i></span>
                     </div>
@@ -172,15 +180,34 @@
                                 </td>
                                 <td class="text-center">
                                     @php
-                                        $statusClass = ''; $statusText = 'N/A'; $statusIcon = 'bx-question-mark';
+                                        $statusClass = '';
+                                        $statusText = 'N/A';
+                                        $statusIcon = 'bx-question-mark';
                                         switch ($mail->status) {
-                                            case 'pending': $statusClass = 'bg-label-warning'; $statusText = 'Pending'; $statusIcon = 'bx-time-five'; break;
-                                            case 'process': $statusClass = 'bg-label-info'; $statusText = 'Diproses'; $statusIcon = 'bx-loader-alt'; break;
-                                            case 'completed': $statusClass = 'bg-label-success'; $statusText = 'Selesai'; $statusIcon = 'bx-check-circle'; break;
-                                            case 'rejected': $statusClass = 'bg-label-danger'; $statusText = 'Ditolak'; $statusIcon = 'bx-x-circle'; break;
+                                            case 'pending':
+                                                $statusClass = 'bg-label-warning';
+                                                $statusText = 'Pending';
+                                                $statusIcon = 'bx-time-five';
+                                                break;
+                                            case 'process':
+                                                $statusClass = 'bg-label-info';
+                                                $statusText = 'Diproses';
+                                                $statusIcon = 'bx-loader-alt';
+                                                break;
+                                            case 'completed':
+                                                $statusClass = 'bg-label-success';
+                                                $statusText = 'Selesai';
+                                                $statusIcon = 'bx-check-circle';
+                                                break;
+                                            case 'rejected':
+                                                $statusClass = 'bg-label-danger';
+                                                $statusText = 'Ditolak';
+                                                $statusIcon = 'bx-x-circle';
+                                                break;
                                         }
                                     @endphp
-                                    <span class="badge {{ $statusClass }}"><i class="bx {{ $statusIcon }} me-1"></i>{{ $statusText }}</span>
+                                    <span class="badge {{ $statusClass }}"><i
+                                            class="bx {{ $statusIcon }} me-1"></i>{{ $statusText }}</span>
                                 </td>
                                 <td>
                                     <span class="d-block">{{ $mail->created_at->format('d M Y') }}</span>
@@ -188,14 +215,20 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex gap-1 justify-content-center">
-                                        <a href="{{ route('mail-submissions.show', $mail->id) }}" class="btn btn-sm btn-icon btn-outline-info" data-bs-toggle="tooltip" title="Lihat Detail">
+                                        <a href="{{ route('mail-submissions.show', $mail->id) }}"
+                                            class="btn btn-sm btn-icon btn-outline-info" data-bs-toggle="tooltip"
+                                            title="Lihat Detail">
                                             <i class="bx bx-show"></i>
                                         </a>
                                         @if (Auth::user()->role == 'admin')
-                                            <a href="{{ route('mail-submissions.edit', $mail->id) }}" class="btn btn-sm btn-icon btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
+                                            <a href="{{ route('mail-submissions.edit', $mail->id) }}"
+                                                class="btn btn-sm btn-icon btn-outline-warning" data-bs-toggle="tooltip"
+                                                title="Edit">
                                                 <i class="bx bx-edit"></i>
                                             </a>
-                                            <button type="button" class="btn btn-sm btn-icon btn-outline-danger" onclick="confirmDelete({{ $mail->id }}, '{{ $mail->jenis_surat }} untuk {{ $mail->name }}')" data-bs-toggle="tooltip" title="Hapus">
+                                            <button type="button" class="btn btn-sm btn-icon btn-outline-danger"
+                                                onclick="confirmDelete({{ $mail->id }}, '{{ $mail->jenis_surat }} untuk {{ $mail->name }}')"
+                                                data-bs-toggle="tooltip" title="Hapus">
                                                 <i class="bx bx-trash"></i>
                                             </button>
                                         @endif
@@ -215,7 +248,7 @@
         </div>
         @if (isset($mails) && $mails->total() > 0 && method_exists($mails, 'links'))
             <div class="card-footer d-flex justify-content-between align-items-center">
-                 <small class="text-muted">
+                <small class="text-muted">
                     Menampilkan {{ $mails->firstItem() }} - {{ $mails->lastItem() }} dari {{ $mails->total() }} data
                 </small>
                 <div>{{ $mails->appends(request()->query())->links() }}</div>
@@ -226,43 +259,33 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Inisialisasi semua tooltip Bootstrap
-            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            tooltipTriggerList.map(function(tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl);
-            });
-        });
-
-        /**
-         * Menampilkan modal konfirmasi sebelum menghapus pengajuan.
-         * @param {number} id - ID pengajuan surat.
-         * @param {string} submissionInfo - Info pengajuan untuk ditampilkan.
-         */
-        function confirmDelete(id, submissionInfo) {
-            Swal.fire({
-                title: 'Anda Yakin?',
-                html: `Anda akan menghapus pengajuan:<br><b>${submissionInfo}</b>`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal',
-                customClass: {
-                    confirmButton: 'btn btn-danger',
-                    cancelButton: 'btn btn-secondary ms-2'
-                },
-                buttonsStyling: false
-            }).then((result) => {
-                if (result.isConfirmed) {
+        function confirmDelete(id, title) {
+            showConfirmModal(
+                `Apakah Anda yakin ingin menghapus berita "${title}"? Tindakan ini tidak dapat dibatalkan.`,
+                function() {
+                    // Create form and submit
                     const form = document.createElement('form');
                     form.method = 'POST';
-                    // Menggunakan url() helper agar lebih aman
-                    form.action = `{{ url('mail-submission') }}/${id}`; 
-                    form.innerHTML = `@method('DELETE') @csrf`;
+                    form.action = `/mail-submissions/${id}`;
+
+                    const methodInput = document.createElement('input');
+                    methodInput.type = 'hidden';
+                    methodInput.name = '_method';
+                    methodInput.value = 'DELETE';
+
+                    const tokenInput = document.createElement('input');
+                    tokenInput.type = 'hidden';
+                    tokenInput.name = '_token';
+                    tokenInput.value = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                    form.appendChild(methodInput);
+                    form.appendChild(tokenInput);
                     document.body.appendChild(form);
+
+                    showLoading();
                     form.submit();
                 }
-            });
+            );
         }
     </script>
 @endpush

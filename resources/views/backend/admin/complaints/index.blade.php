@@ -7,7 +7,7 @@
         <h4 class="fw-bold py-3 mb-4">
             <span class="text-muted fw-light">Manajemen /</span> Semua Pengaduan
         </h4>
-        @if(Auth::user()->role == 'admin')
+        @if (Auth::user()->role == 'admin')
             <a href="{{ route('complaints.create') }}" class="btn btn-primary">
                 <i class="bx bx-plus me-1"></i> Buat Pengaduan
             </a>
@@ -80,9 +80,12 @@
                         <select class="form-select" name="status">
                             <option value="">Semua Status</option>
                             <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
-                            <option value="in_progress" {{ request('status') == 'in_progress' ? 'selected' : '' }}>Diproses</option>
-                            <option value="resolved" {{ request('status') == 'resolved' ? 'selected' : '' }}>Selesai</option>
-                            <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Ditolak</option>
+                            <option value="in_progress" {{ request('status') == 'in_progress' ? 'selected' : '' }}>Diproses
+                            </option>
+                            <option value="resolved" {{ request('status') == 'resolved' ? 'selected' : '' }}>Selesai
+                            </option>
+                            <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Ditolak
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -145,7 +148,7 @@
                                 <h4 class="mb-0 me-2">{{ $draftComplaints ?? 0 }}</h4>
                             </div>
                         </div>
-                         <span class="avatar-initial rounded bg-label-warning">
+                        <span class="avatar-initial rounded bg-label-warning">
                             <i class="bx bx-edit fs-4"></i>
                         </span>
                     </div>
@@ -185,7 +188,7 @@
                 </div>
             @endif
         </div>
-        
+
         <div class="table-responsive text-nowrap">
             @if (isset($complaints) && $complaints->count() > 0)
                 <table class="table table-hover">
@@ -205,7 +208,8 @@
                         @foreach ($complaints as $item)
                             <tr>
                                 <td class="text-center">
-                                    <input type="checkbox" class="form-check-input complaint-checkbox" value="{{ $item->id }}">
+                                    <input type="checkbox" class="form-check-input complaint-checkbox"
+                                        value="{{ $item->id }}">
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-start align-items-center">
@@ -224,7 +228,8 @@
                                 </td>
                                 <td>
                                     @if ($item->image)
-                                        <a href="{{ asset('storage/' . $item->image) }}" data-bs-toggle="tooltip" title="Lihat Lampiran" target="_blank">
+                                        <a href="{{ asset('storage/' . $item->image) }}" data-bs-toggle="tooltip"
+                                            title="Lihat Lampiran" target="_blank">
                                             <i class="bx bx-paperclip me-1"></i>
                                         </a>
                                     @endif
@@ -234,13 +239,27 @@
                                             $statusClass = '';
                                             $statusText = 'Draft';
                                             switch ($item->status) {
-                                                case 'in_progress': $statusClass = 'bg-label-info'; $statusText = 'Diproses'; break;
-                                                case 'resolved': $statusClass = 'bg-label-success'; $statusText = 'Selesai'; break;
-                                                case 'rejected': $statusClass = 'bg-label-danger'; $statusText = 'Ditolak'; break;
-                                                case 'draft': default: $statusClass = 'bg-label-warning'; $statusText = 'Draft'; break;
+                                                case 'in_progress':
+                                                    $statusClass = 'bg-label-info';
+                                                    $statusText = 'Diproses';
+                                                    break;
+                                                case 'resolved':
+                                                    $statusClass = 'bg-label-success';
+                                                    $statusText = 'Selesai';
+                                                    break;
+                                                case 'rejected':
+                                                    $statusClass = 'bg-label-danger';
+                                                    $statusText = 'Ditolak';
+                                                    break;
+                                                case 'draft':
+                                                default:
+                                                    $statusClass = 'bg-label-warning';
+                                                    $statusText = 'Draft';
+                                                    break;
                                             }
                                         @endphp
-                                        <span class="badge {{ $statusClass }} complaint-status">{{ $statusText }}</span>
+                                        <span
+                                            class="badge {{ $statusClass }} complaint-status">{{ $statusText }}</span>
                                     </div>
                                 </td>
                                 <td class="text-center">
@@ -252,22 +271,29 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex gap-1 justify-content-center">
-                                        <a href="{{ route('complaints.show', $item->id) }}" class="btn btn-sm btn-icon btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Detail">
+                                        <a href="{{ route('complaints.show', $item->id) }}"
+                                            class="btn btn-sm btn-icon btn-outline-info" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" title="Lihat Detail">
                                             <i class="bx bx-show"></i>
                                         </a>
                                         @if ($item->status != 'resolved' && $item->status != 'rejected')
                                             @if (Auth::user()->role == 'admin')
-                                                <a href="{{ route('complaint-response.create', ['complaint_id' => $item->id]) }}" class="btn btn-sm btn-icon btn-outline-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Tanggapi">
+                                                <a href="{{ route('complaint-response.create', ['complaint_id' => $item->id]) }}"
+                                                    class="btn btn-sm btn-icon btn-outline-success"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Tanggapi">
                                                     <i class="bx bx-reply"></i>
                                                 </a>
                                             @endif
-                                            <a href="{{ route('complaints.edit', $item->id) }}" class="btn btn-sm btn-icon btn-outline-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+                                            <a href="{{ route('complaints.edit', $item->id) }}"
+                                                class="btn btn-sm btn-icon btn-outline-warning" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" title="Edit">
                                                 <i class="bx bx-edit"></i>
                                             </a>
                                         @endif
                                         @if (Auth::user()->role == 'admin')
-                                            <button type="button" class="btn btn-sm btn-icon btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"
-                                                onclick="confirmDelete({{ $item->id }}, '{{ addslashes($item->title) }}')">
+                                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pengaduan"
+                                                onclick="confirmDelete({{ $item->id }}, '{{ $item->title }}')">
                                                 <i class="bx bx-trash"></i>
                                             </button>
                                         @endif
@@ -282,17 +308,18 @@
                     <i class="bx bx-message-square-x bx-lg text-muted mb-3"></i>
                     <h5 class="text-muted">Belum Ada Pengaduan</h5>
                     <p class="text-muted">Tidak ada data untuk ditampilkan saat ini.</p>
-                     <a href="{{ route('complaints.create') }}" class="btn btn-primary mt-2">
+                    <a href="{{ route('complaints.create') }}" class="btn btn-primary mt-2">
                         <i class="bx bx-plus me-1"></i> Buat Pengaduan
                     </a>
                 </div>
             @endif
         </div>
-        
+
         @if (isset($complaints) && $complaints->total() > 0 && method_exists($complaints, 'links'))
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <small class="text-muted">
-                    Menampilkan {{ $complaints->firstItem() }} - {{ $complaints->lastItem() }} dari {{ $complaints->total() }} data
+                    Menampilkan {{ $complaints->firstItem() }} - {{ $complaints->lastItem() }} dari
+                    {{ $complaints->total() }} data
                 </small>
                 <div>{{ $complaints->appends(request()->query())->links() }}</div>
             </div>
@@ -301,97 +328,34 @@
 @endsection
 
 @push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Inisialisasi semua tooltip
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        tooltipTriggerList.map(function(tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl);
-        });
+    <script>
+        function confirmDelete(id, title) {
+            showConfirmModal(
+                `Apakah Anda yakin ingin menghapus berita "${title}"? Tindakan ini tidak dapat dibatalkan.`,
+                function() {
+                    // Create form and submit
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = `/complaints/${id}`;
 
-        // Logika untuk checkbox dan tombol hapus massal
-        const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-        const itemCheckboxes = document.querySelectorAll('.complaint-checkbox');
-        const deleteSelectedBtn = document.getElementById('deleteSelectedBtn');
+                    const methodInput = document.createElement('input');
+                    methodInput.type = 'hidden';
+                    methodInput.name = '_method';
+                    methodInput.value = 'DELETE';
 
-        if (selectAllCheckbox && deleteSelectedBtn) {
-            const updateDeleteButton = () => {
-                const checkedCount = document.querySelectorAll('.complaint-checkbox:checked').length;
-                if (checkedCount > 0) {
-                    deleteSelectedBtn.disabled = false;
-                    deleteSelectedBtn.innerHTML = `<i class="bx bx-trash me-1"></i> Hapus (${checkedCount})`;
-                } else {
-                    deleteSelectedBtn.disabled = true;
-                    deleteSelectedBtn.innerHTML = '<i class="bx bx-trash me-1"></i> Hapus Terpilih';
+                    const tokenInput = document.createElement('input');
+                    tokenInput.type = 'hidden';
+                    tokenInput.name = '_token';
+                    tokenInput.value = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                    form.appendChild(methodInput);
+                    form.appendChild(tokenInput);
+                    document.body.appendChild(form);
+
+                    showLoading();
+                    form.submit();
                 }
-                if (itemCheckboxes.length > 0) {
-                    selectAllCheckbox.checked = checkedCount === itemCheckboxes.length;
-                }
-            };
-
-            selectAllCheckbox.addEventListener('change', () => {
-                itemCheckboxes.forEach(checkbox => {
-                    checkbox.checked = selectAllCheckbox.checked;
-                });
-                updateDeleteButton();
-            });
-
-            itemCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', updateDeleteButton);
-            });
-            
-            // Panggil sekali saat load
-            updateDeleteButton();
+            );
         }
-    });
-    
-    // Fungsi untuk tombol "Pilih Semua"
-    function selectAll() {
-        const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-        if (selectAllCheckbox) {
-            selectAllCheckbox.checked = !selectAllCheckbox.checked;
-            selectAllCheckbox.dispatchEvent(new Event('change'));
-        }
-    }
-
-    // Fungsi konfirmasi hapus satu item
-    function confirmDelete(id, title) {
-        Swal.fire({
-            title: 'Anda Yakin?',
-            html: `Anda akan menghapus pengaduan:<br><b>"${title}"</b>`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Ya, Hapus!',
-            cancelButtonText: 'Batal',
-            customClass: { confirmButton: 'btn btn-danger', cancelButton: 'btn btn-secondary ms-2' },
-            buttonsStyling: false
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = `{{ url('complaints') }}/${id}`;
-                form.innerHTML = `@method('DELETE') @csrf`;
-                document.body.appendChild(form);
-                form.submit();
-            }
-        });
-    }
-
-    // Implementasi dummy untuk hapus massal karena route belum ada
-    function deleteSelected() {
-        const checkedBoxes = document.querySelectorAll('.complaint-checkbox:checked');
-        const ids = Array.from(checkedBoxes).map(cb => cb.value);
-
-        if (ids.length === 0) return;
-
-        Swal.fire({
-            title: 'Fungsi Belum Tersedia',
-            text: `Fitur untuk menghapus ${ids.length} item sekaligus sedang dalam pengembangan.`,
-            icon: 'info'
-        });
-    }
-
-</script>
+    </script>
 @endpush

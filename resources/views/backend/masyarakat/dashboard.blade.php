@@ -155,7 +155,7 @@
                                 <div class="row g-0">
                                     <div class="col-md-3">
                                         @if ($news->image)
-                                            <img src="{{ asset('storage/' . $news->image) }}"
+                                            <img src="{{ $news->image ?? asset('storage/' . $news->image) }}"
                                                 class="img-fluid rounded-start h-100"
                                                 style="object-fit: cover; min-height: 80px;" alt="{{ $news->title }}">
                                         @else
